@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Archiew的个人博客</title>
+  <icon>https://www.gravatar.com/avatar/51d9bfd6e3a8e42ee493acb38f2ec057</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog365.top/"/>
+  <updated>2018-04-08T06:26:12.572Z</updated>
+  <id>http://blog365.top/</id>
+  
+  <author>
+    <name>archiew</name>
+    <email>archiew.top@qq.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享一个kindle电子书免费下载网站</title>
+    <link href="http://blog365.top/2018/04/01/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AAkindle%E7%94%B5%E5%AD%90%E4%B9%A6%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%AB%99/"/>
+    <id>http://blog365.top/2018/04/01/分享一个kindle电子书免费下载网站/</id>
+    <published>2018-04-01T14:57:34.000Z</published>
+    <updated>2018-04-08T06:26:12.572Z</updated>
+    
+    <content type="html"><![CDATA[<p>自从买了kindle之后，看的书的确多了起来，现在基本养成了每天睡前看半小时书的习惯，古人云：腹有诗书气自华。多读书毕竟是有好处的！Amazon电子书商店有好多书籍可供下载，包括一些免费的电子书还有定期推出的特价电子书。但是里面的书籍毕竟有限，特别是中文书。<br>为了解决找书不便的问题，本人建了一个图书搜索网站：<a href="http://kindle.archiew.top" target="_blank" rel="noopener">书舟网</a>，这是一个很简洁高效的电子书检索下载网站，界面如下：</p><a id="more"></a><hr><p><img src="http://upload-images.jianshu.io/upload_images/2321566-678d87ddf39a7747.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网站首页"><br>里面现有书籍四万余册，而且每天都有更新！<br>如果觉得好用，请点击页面分享按钮，分享给朋友们吧。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自从买了kindle之后，看的书的确多了起来，现在基本养成了每天睡前看半小时书的习惯，古人云：腹有诗书气自华。多读书毕竟是有好处的！Amazon电子书商店有好多书籍可供下载，包括一些免费的电子书还有定期推出的特价电子书。但是里面的书籍毕竟有限，特别是中文书。&lt;br&gt;为了解决找书不便的问题，本人建了一个图书搜索网站：&lt;a href=&quot;http://kindle.archiew.top&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;书舟网&lt;/a&gt;，这是一个很简洁高效的电子书检索下载网站，界面如下：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="分享" scheme="http://blog365.top/tags/%E5%88%86%E4%BA%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Test</title>
+    <link href="http://blog365.top/2018/04/01/Test/"/>
+    <id>http://blog365.top/2018/04/01/Test/</id>
+    <published>2018-04-01T13:13:22.000Z</published>
+    <updated>2018-04-01T14:47:31.400Z</updated>
+    
+    <content type="html"><![CDATA[<p>#Test123</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=0&height=66"></iframe>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;#Test123&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/p
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://blog365.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
