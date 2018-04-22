@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="CentOS默认安装的是python2.7.x，对于需要python3的场合，需要自行安装，这里给出在CentOS7.6上安装python3的步骤。由于系统对默认的python2.7.x有依赖，所以我们尽量不改变原有版本。 环境：CentOS7.6，默认python2.7.5">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-22T09:37:54.906Z">
+<meta property="og:updated_time" content="2018-04-22T09:48:12.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux安装python3(与python2共存)">
 <meta name="twitter:description" content="CentOS默认安装的是python2.7.x，对于需要python3的场合，需要自行安装，这里给出在CentOS7.6上安装python3的步骤。由于系统对默认的python2.7.x有依赖，所以我们尽量不改变原有版本。 环境：CentOS7.6，默认python2.7.5">
@@ -189,6 +189,15 @@ var _hmt = _hmt || [];
   	<time datetime="2018-04-15T14:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-15</time>
 </a>
         
+				<div class="post-count">
+				 <span id="word-count">
+				  共290字
+				 </span>
+				 <span id="busuanzi_container_page_pv">
+					阅读<span id="busuanzi_value_page_pv"></span>次
+				 </span>
+				</div>
+				
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -210,7 +219,7 @@ var _hmt = _hmt || [];
 <p>sudo tar -zxvf Python-3.6.2.tgz<br>sudo cd Python-3.6.2</p>
 </blockquote>
 <h2 id="5、配置并安装"><a href="#5、配置并安装" class="headerlink" title="5、配置并安装"></a>5、配置并安装</h2><blockquote>
-<p>sudo ./configure prefix=/usr/local/python3<br>sudo make &amp;&amp; make install</p>
+<p>sudo ./configure –prefix=/usr/local/python3<br>sudo make &amp;&amp; make install</p>
 </blockquote>
 <h2 id="6、创建python3、pip3软连接"><a href="#6、创建python3、pip3软连接" class="headerlink" title="6、创建python3、pip3软连接"></a>6、创建python3、pip3软连接</h2><blockquote>
 <p>sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3<br>sudo ln -s /usr/local/python3/bin/pip /usr/bin/pip3</p>
@@ -393,8 +402,8 @@ var _hmt = _hmt || [];
   
   <!-- 不蒜子 -->
   <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span id="busuanzi_container_site_pv" style='display:none'>
-	本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  <span id="busuanzi_container_site_uv" style='display:none'>
+	本站总访问量<span id="busuanzi_value_site_uv"></span>次
   </span>
 </footer>
     </div>
