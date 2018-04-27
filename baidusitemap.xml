@@ -4,27 +4,8 @@
 
     
   <url>
-    <loc>http://blog365.top/2018/04/15/linux%E5%AE%89%E8%A3%85python3-%E4%B8%8Epython2%E5%85%B1%E5%AD%98/</loc>
-    <lastmod>2018-04-22T09:48:12.535Z</lastmod>
-    <data>
-        <display>
-        <title>linux安装python3(与python2共存)</title>
-        <pubTime>2018-04-15T14:30:05.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-        <tag>python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog365.top/2018/04/22/%E5%88%B6%E4%BD%9Crss%E7%94%B5%E5%AD%90%E4%B9%A6%E5%B9%B6%E6%8E%A8%E9%80%81%E7%BB%99kindle/</loc>
-    <lastmod>2018-04-22T07:32:15.506Z</lastmod>
+    <lastmod>2018-04-27T14:15:44.597Z</lastmod>
     <data>
         <display>
         <title>制作rss电子书并推送给kindle</title>
@@ -35,6 +16,25 @@
         <tag>rss</tag>
          
         <tag>kindle</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/04/15/linux%E5%AE%89%E8%A3%85python3-%E4%B8%8Epython2%E5%85%B1%E5%AD%98/</loc>
+    <lastmod>2018-04-22T09:48:12.535Z</lastmod>
+    <data>
+        <display>
+        <title>linux安装python3(与python2共存)</title>
+        <pubTime>2018-04-15T14:30:05.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+        <tag>python</tag>
          
          
            
