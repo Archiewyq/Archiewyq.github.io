@@ -6,19 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Archiew的个人博客</title>
+  <title>同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/index.html">
+  <meta name="description" content="POSIX同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。  POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞">
+<meta name="keywords" content="IO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别">
+<meta property="og:url" content="http://blog365.top/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="POSIX同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。  POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://image.euphie.net/2017-09-24-23-18-01.png">
+<meta property="og:image" content="http://image.euphie.net/2017-09-24-23-19-53.png">
+<meta property="og:image" content="http://image.euphie.net/2017-09-24-23-21-54.png">
+<meta property="og:image" content="http://image.euphie.net/2017-09-24-23-22-38.png">
+<meta property="og:image" content="http://image.euphie.net/2017-09-24-23-23-36.png">
+<meta property="og:updated_time" content="2018-05-15T04:11:19.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别">
+<meta name="twitter:description" content="POSIX同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。  POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞">
+<meta name="twitter:image" content="http://image.euphie.net/2017-09-24-23-18-01.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -168,16 +175,14 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a>
+    <h1 class="article-title" itemprop="name">
+      同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别
     </h1>
   
 
@@ -203,9 +208,20 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO<br>按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞IO呢？先来说说几种常见的IO模型吧。</p>
 </blockquote>
-        
-          <a class="article-more-a" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/#more">more >></a>
-        
+<a id="more"></a>
+<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p>这里统一使用Linux下的系统调用recv作为例子，它用于从套接字上接收一个消息，因为是一个系统调用，所以调用时会从用户进程空间切换到内核空间运行一段时间再切换回来。默认情况下recv会等到网络数据到达并且复制到用户进程空间或者发生错误时返回，而第4个参数flags可以让它马上返回。</p>
+<h3 id="阻塞IO模型"><a href="#阻塞IO模型" class="headerlink" title="阻塞IO模型"></a>阻塞IO模型</h3><p>使用recv的默认参数一直等数据直到拷贝到用户空间，这段时间内进程始终阻塞。A同学用杯子装水，打开水龙头装满水然后离开。这一过程就可以看成是使用了阻塞IO模型，因为如果水龙头没有水，他也要等到有水并装满杯子才能离开去做别的事情。很显然，这种IO模型是同步的。<br><img src="http://image.euphie.net/2017-09-24-23-18-01.png" alt="阻塞式I/O模型"></p>
+<h3 id="非阻塞IO模型"><a href="#非阻塞IO模型" class="headerlink" title="非阻塞IO模型"></a>非阻塞IO模型</h3><p>改变flags，让recv不管有没有获取到数据都返回，如果没有数据那么一段时间后再调用recv看看，如此循环。B同学也用杯子装水，打开水龙头后发现没有水，它离开了，过一会他又拿着杯子来看看……在中间离开的这些时间里，B同学离开了装水现场(回到用户进程空间)，可以做他自己的事情。这就是非阻塞IO模型。但是它只有是检查无数据的时候是非阻塞的，在数据到达的时候依然要等待复制数据到用户空间(等着水将水杯装满)，因此它还是同步IO。<br><img src="http://image.euphie.net/2017-09-24-23-19-53.png" alt="非阻塞式I/O模型"></p>
+<h3 id="IO复用模型"><a href="#IO复用模型" class="headerlink" title="IO复用模型"></a>IO复用模型</h3><p>这里在调用recv前先调用select或者poll，这2个系统调用都可以在内核准备好数据(网络数据到达内核)时告知用户进程，这个时候再调用recv一定是有数据的。因此这一过程中它是阻塞于select或poll，而没有阻塞于recv，有人将非阻塞IO定义成在读写操作时没有阻塞于系统调用的IO操作(不包括数据从内核复制到用户空间时的阻塞，因为这相对于网络IO来说确实很短暂)，如果按这样理解，这种IO模型也能称之为非阻塞IO模型，但是按POSIX来看，它也是同步IO，那么也和楼上一样称之为同步非阻塞IO吧。<br>这种IO模型比较特别，分个段。因为它能同时监听多个文件描述符(fd)。这个时候C同学来装水，发现有一排水龙头，舍管阿姨告诉他这些水龙头都还没有水，等有水了告诉他。于是等啊等(select调用中)，过了一会阿姨告诉他有水了，但不知道是哪个水龙头有水，自己看吧。于是C同学一个个打开，往杯子里装水(recv)。这里再顺便说说鼎鼎大名的epoll(高性能的代名词啊)，epoll也属于IO复用模型，主要区别在于舍管阿姨会告诉C同学哪几个水龙头有水了，不需要一个个打开看(当然还有其它区别)。<br><img src="http://image.euphie.net/2017-09-24-23-21-54.png" alt="I/O复用模型"></p>
+<h3 id="信号驱动IO模型"><a href="#信号驱动IO模型" class="headerlink" title="信号驱动IO模型"></a>信号驱动IO模型</h3><p>通过调用sigaction注册信号函数，等内核数据准备好的时候系统中断当前程序，执行信号函数(在这里面调用recv)。D同学让舍管阿姨等有水的时候通知他(注册信号函数)，没多久D同学得知有水了，跑去装水。是不是很像异步IO？很遗憾，它还是同步IO(省不了装水的时间啊)。<br><img src="http://image.euphie.net/2017-09-24-23-22-38.png" alt="信号驱动I/O模型"></p>
+<h3 id="异步IO模型"><a href="#异步IO模型" class="headerlink" title="异步IO模型"></a>异步IO模型</h3><p>调用aio_read，让内核等数据准备好，并且复制到用户进程空间后执行事先指定好的函数。E同学让舍管阿姨将杯子装满水后通知他。整个过程E同学都可以做别的事情(没有recv)，这才是真正的异步IO。<br><img src="http://image.euphie.net/2017-09-24-23-23-36.png" alt="异步I/O模型"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>IO分两阶段：</p>
+<blockquote>
+<p>1.数据准备阶段<br>  2.内核空间复制回用户进程缓冲区阶段</p>
+</blockquote>
+<p>一般来讲：阻塞IO模型、非阻塞IO模型、IO复用模型(select/poll/epoll)、信号驱动IO模型都属于同步IO，因为阶段2是阻塞的(尽管时间很短)。只有异步IO模型是符合POSIX异步IO操作含义的，不管在阶段1还是阶段2都可以干别的事。</p>
+<h4 id="ps：以上图片均截自UNIX网络编程卷1。"><a href="#ps：以上图片均截自UNIX网络编程卷1。" class="headerlink" title="ps：以上图片均截自UNIX网络编程卷1。"></a>ps：以上图片均截自UNIX网络编程卷1。</h4><p>—转载自：<a href="http://www.cnblogs.com/euphie/p/6376508.html" target="_blank" rel="noopener">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a></p>
+
       
 
       
@@ -227,16 +243,75 @@ var _hmt = _hmt || [];
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/02/Python反射机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python反射机制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -258,456 +333,36 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-Python反射机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/02/Python反射机制/">Python反射机制</a>
-    </h1>
   
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
 
-        
-        <a href="/2018/05/02/Python反射机制/" class="archive-article-date">
-  	<time datetime="2018-05-02T12:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 2,615字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 10分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对编程语言比较熟悉的朋友，应该知道“反射”这个机制。Python作为一门动态语言，当然不会缺少这一重要功能。然而，在网络上却很少见到有详细或者深刻的剖析论文。下面结合一个web路由的实例来阐述python的反射机制的使用场景和核心本质。</p>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"f1是这个函数的名字！"</span>)</span><br><span class="line">	</span><br><span class="line">s = <span class="string">"f1"</span></span><br><span class="line">print(<span class="string">"%s是个字符串"</span> % s)</span><br></pre></td></tr></table></figure>
-<p>在上面的代码中，我们必须区分两个概念，f1和“f1”。前者是函数f1的函数名，后者只是一个叫”f1“的字符串，两者是不同的事物。我们可以用f1()的方式调用函数f1，但我们不能用”f1”()的方式调用函数。说白了就是，<strong>不能通过字符串来调用名字看起来相同的函数！</strong><br>
-        
-          <a class="article-more-a" href="/2018/05/02/Python反射机制/#more">more >></a>
-        
-      
+       if (typeof LivereTower === 'function') { return; }
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">反射机制</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
 
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/02/Python反射机制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-制作rss电子书并推送给kindle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/22/制作rss电子书并推送给kindle/">制作rss电子书并推送给kindle</a>
-    </h1>
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-        
-        <a href="/2018/04/22/制作rss电子书并推送给kindle/" class="archive-article-date">
-  	<time datetime="2018-04-22T03:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 2,250字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 10分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>简易信息聚合(Really Simple Syndication, RSS)是一种基于XML标准在互联网上被广泛采用的内容包装和投递协议。Rss允许用户以计算机可读的标准格式来获取（订阅）网站内容更新。相对于直接访问网站，使用Rss订阅能更快地<br>获取网站内容更新。Rss具有以下几个特点：</p>
-<ul>
-<li>来源多样的个性化“聚合”特性。</li>
-<li>信息发布的时效、低成本特性。</li>
-<li>无“垃圾”信息、便利的本地内容管理特性。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rss</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">kindle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux安装python3-与python2共存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/15/linux安装python3-与python2共存/">linux安装python3(与python2共存)</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/15/linux安装python3-与python2共存/" class="archive-article-date">
-  	<time datetime="2018-04-15T14:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-15</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 290字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 1分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS默认安装的是python2.7.x，对于需要python3的场合，需要自行安装，这里给出在CentOS7.6上安装python3的步骤。<br>由于系统对默认的python2.7.x有依赖，所以我们尽量不改变原有版本。</p>
-<p>环境：CentOS7.6，默认python2.7.5</p>
-        
-          <a class="article-more-a" href="/2018/04/15/linux安装python3-与python2共存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/15/linux安装python3-与python2共存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-分享一个kindle电子书免费下载网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/分享一个kindle电子书免费下载网站/">分享一个kindle电子书免费下载网站</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/01/分享一个kindle电子书免费下载网站/" class="archive-article-date">
-  	<time datetime="2018-04-01T14:57:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 198字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 1分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>自从买了kindle之后，看的书的确多了起来，现在基本养成了每天睡前看半小时书的习惯，古人云：腹有诗书气自华。多读书毕竟是有好处的！Amazon电子书商店有好多书籍可供下载，包括一些免费的电子书还有定期推出的特价电子书。但是里面的书籍毕竟有限，特别是中文书。<br>为了解决找书不便的问题，本人建了一个图书搜索网站：<a href="http://kindle.archiew.top" target="_blank" rel="noopener">书舟网</a>，这是一个很简洁高效的电子书检索下载网站，界面如下：</p>
-        
-          <a class="article-more-a" href="/2018/04/01/分享一个kindle电子书免费下载网站/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/01/分享一个kindle电子书免费下载网站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/Test/">Test</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/01/Test/" class="archive-article-date">
-  	<time datetime="2018-04-01T13:13:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 1字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 1分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Test123"><a href="#Test123" class="headerlink" title="Test123"></a>Test123</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=0&height=66"></iframe>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/01/Test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -736,8 +391,8 @@ var _hmt = _hmt || [];
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
