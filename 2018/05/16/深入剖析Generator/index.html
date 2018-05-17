@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="Generator是如何工作的？在剖析Generator之前，不妨先来回顾一下Python中普通函数是如何工作的。正常情况下，当Python主函数调用一个子函数时，子函数从主函数那里获得cpu控制权直到子函数结束或触发异常，然后主函数重新获得cpu控制权，继续执行后续任务。以上我们可以通过查看Python字节码来说明。首先我们创建如下两个函数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-17T02:54:17.937Z">
+<meta property="og:updated_time" content="2018-05-17T02:56:47.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入剖析Generator">
 <meta name="twitter:description" content="Generator是如何工作的？在剖析Generator之前，不妨先来回顾一下Python中普通函数是如何工作的。正常情况下，当Python主函数调用一个子函数时，子函数从主函数那里获得cpu控制权直到子函数结束或触发异常，然后主函数重新获得cpu控制权，继续执行后续任务。以上我们可以通过查看Python字节码来说明。首先我们创建如下两个函数">
@@ -187,7 +187,7 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 836字 | 
+				  字数统计 837字 | 
 				 </span>
 				 <span id="word-count">
 				  阅读时长 3分钟
@@ -198,7 +198,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Generator是如何工作的？"><a href="#Generator是如何工作的？" class="headerlink" title="Generator是如何工作的？"></a>Generator是如何工作的？</h2><p>在剖析Generator之前，不妨先来回顾一下Python中普通函数是如何工作的。正常情况下，当Python主函数调用一个子函数时，子函数从主函数那里获得cpu控制权直到子函数结束或触发异常，然后主函数重新获得cpu控制权，继续执行后续任务。<br>以上我们可以通过查看Python字节码来说明。首先我们创建如下两个函数<br><a id="more"></a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		bar()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">		pass</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">通过'反汇编'获得字节码:</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="Generator是如何工作的？"><a href="#Generator是如何工作的？" class="headerlink" title="Generator是如何工作的？"></a>Generator是如何工作的？</h2><p>在剖析Generator之前，不妨先来回顾一下Python中普通函数是如何工作的。正常情况下，当Python主函数调用一个子函数时，子函数从主函数那里获得cpu控制权直到子函数结束或触发异常，然后主函数重新获得cpu控制权，继续执行后续任务。<br>以上我们可以通过查看Python字节码来说明。首先我们创建如下两个函数<br><a id="more"></a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		bar()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">		pass</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">通过'反汇编'获得字节码:</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -233,7 +233,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <blockquote>
 <blockquote>
-<p>def gen_fn():<br>    result = yield 1<br>    print(‘result of yield: {}’.format(result))<br>    result2 = yield 2<br>    print(‘result of 2nd yield: {}’.format(result2))<br>    return ‘done’<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Python规定：当一个函数中含有<span class="keyword">yield</span>语句时，该函数会被当成是Generator函数，那么Python解释器是怎么实现这一点的呢？</span><br><span class="line">实际上，当gen_fn函数编译为字节码时，遇到<span class="keyword">yield</span>语句，解释器知道这是一个Generator函数，于是把对应的标志位(是的！Python是根据Generator标志位来表明该函数是一个Generator函数)。</span><br><span class="line">可以看一下gen_fn函数对应的Generator标志位如下</span><br></pre></td></tr></table></figure></p>
+<p>def gen_fn():<br>    result = yield 1<br>    print(‘result of yield: {}’.format(result))<br>    result2 = yield 2<br>    print(‘result of 2nd yield: {}’.format(result2))<br>    return ‘done’<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Python规定：当一个函数中含有<span class="built_in">yield</span>语句时，该函数会被当成是Generator函数，那么Python解释器是怎么实现这一点的呢？</span><br><span class="line">实际上，当gen_fn函数编译为字节码时，遇到<span class="built_in">yield</span>语句，解释器知道这是一个Generator函数，于是把对应的标志位(是的！Python是根据Generator标志位来表明该函数是一个Generator函数)。</span><br><span class="line">可以看一下gen_fn函数对应的Generator标志位如下</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 </blockquote>
 </blockquote>
