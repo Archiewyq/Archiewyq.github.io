@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Tag: Generator | Archiew的个人博客</title>
+  <title>中缀表达式Vs后缀表达式 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/tags/Generator/index.html">
+  <meta name="description" content="中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。后缀表达式存在的目的在于便于计算机通过栈操作计算">
+<meta name="keywords" content="学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中缀表达式Vs后缀表达式">
+<meta property="og:url" content="http://blog365.top/2018/05/21/中缀表达式Vs后缀表达式/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。后缀表达式存在的目的在于便于计算机通过栈操作计算">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-21T14:10:08.869Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="中缀表达式Vs后缀表达式">
+<meta name="twitter:description" content="中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。后缀表达式存在的目的在于便于计算机通过栈操作计算">
   
   
     <link rel="icon" href="/favicon.png">
@@ -168,64 +169,196 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-中缀表达式Vs后缀表达式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/16/深入剖析Generator/" class="archive-article-date">
-  	<time datetime="2018-05-16T13:57:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/16/深入剖析Generator/">深入剖析Generator</a>
+    <h1 class="article-title" itemprop="name">
+      中缀表达式Vs后缀表达式
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/05/21/中缀表达式Vs后缀表达式/" class="archive-article-date">
+  	<time datetime="2018-05-21T13:32:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 605字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 3分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。<br>后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。<br>后缀表达式存在的目的在于<strong>便于计算机通过栈操作计算</strong><br><a id="more"></a></p>
+<h2 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式:"></a>中缀表达式转后缀表达式:</h2><p>以表达式<code>1+(2-3)*4-5/67</code>为例<br>顺序读入表达式，遵循以下规则：</p>
+<ul>
+<li>遇到数字直接输出</li>
+<li>符号栈空或遇到左括号时，直接将符号入栈</li>
+<li>遇到右括号，符号出栈并输出直到遇到左括号（左括号不输出）</li>
+<li>遇到其他运算符（加减乘除），不断与栈顶符号对比，若优先级不高于栈顶符号，则输出栈顶符号，否则入栈</li>
+<li>最后，将栈中操作符依次输出</li>
+</ul>
+<p>代码实现：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"># 中缀转后缀</span><br><span class="line">s = <span class="built_in">input</span>()</span><br><span class="line">t = []</span><br><span class="line"><span class="keyword">res</span> = <span class="string">''</span></span><br><span class="line">operator = &#123;</span><br><span class="line">    <span class="string">'+'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'-'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'*'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'/'</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">last_isnum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i in <span class="variable">s:</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> i not in [<span class="string">'+'</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'/'</span>,<span class="string">'('</span>,<span class="string">')'</span>]: #数字直接输出</span><br><span class="line">        <span class="keyword">if</span> last_isnum:</span><br><span class="line">            <span class="keyword">res</span> += i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">res</span> += <span class="string">' '</span>+i</span><br><span class="line">        last_isnum = <span class="number">1</span></span><br><span class="line">    elif i == <span class="string">'('</span>:						   #处理左括号</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">        t.<span class="keyword">append</span>(i)</span><br><span class="line">    elif i == <span class="string">')'</span>:						   #处理右括号</span><br><span class="line">        temp = t.<span class="keyword">pop</span>()</span><br><span class="line">        <span class="keyword">while</span> temp <span class="keyword">is</span> not <span class="string">'('</span>:</span><br><span class="line">            <span class="keyword">if</span> last_isnum == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">res</span> += <span class="string">' '</span></span><br><span class="line">            <span class="keyword">res</span> += temp</span><br><span class="line">            temp = t.<span class="keyword">pop</span>()</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:								   #其他操作符处理</span><br><span class="line">        <span class="keyword">while</span> <span class="variable">t:</span></span><br><span class="line">            top = t.<span class="keyword">pop</span>()</span><br><span class="line">            <span class="keyword">if</span> top <span class="keyword">is</span> not <span class="string">'('</span> <span class="built_in">and</span> operator[i] &lt;= operator[top]:</span><br><span class="line">                <span class="keyword">if</span> last_isnum == <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">res</span> += <span class="string">' '</span></span><br><span class="line">                <span class="keyword">res</span> += top</span><br><span class="line">                pass</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                t.<span class="keyword">append</span>(top)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        t.<span class="keyword">append</span>(i)</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">while</span> <span class="variable">t:</span></span><br><span class="line">    <span class="keyword">res</span> += <span class="string">' '</span>+t.<span class="keyword">pop</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>(<span class="keyword">res</span>.strip())</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="number">1</span>+(<span class="number">2</span>-<span class="number">3</span>)/<span class="number">4</span>-<span class="number">5</span>/<span class="number">67</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> - <span class="number">4</span> / + <span class="number">5</span> <span class="number">67</span> / -</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 后缀表达式转中缀表达式</span><br><span class="line">以表达式`<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> - <span class="number">4</span> / + <span class="number">5</span> <span class="number">67</span> / -`为例</span><br><span class="line">顺序读入表达式，遵循以下规则：</span><br><span class="line">- 遇到非运算符，直接入栈</span><br><span class="line">- 遇到运算符，从栈中弹出最上层两个元素，并与运算符组合，将结果入栈</span><br><span class="line">代码实现：</span><br></pre></td></tr></table></figure></p>
+<h1 id="后缀转中缀"><a href="#后缀转中缀" class="headerlink" title="后缀转中缀"></a>后缀转中缀</h1><p>res = 0<br>s = input()<br>s = s.split(‘ ‘)<br>t = []<br>for i in s:<br>    if i not in [‘+’,’-‘,’<em>‘,’/‘]:<br>        t.append(i)<br>    else:<br>        temp1 = t.pop()<br>        temp2 = t.pop()<br>        if i == ‘+’:<br>            temp = ‘(‘+temp2+’+’+temp1+’)’<br>        elif i == ‘-‘:<br>            temp = ‘(‘+temp2+’-‘+temp1+’)’<br>        elif i == ‘</em>‘:<br>            temp = temp2+’*’+temp1<br>        elif i == ‘/‘:<br>            temp = temp2+’/‘+temp1<br>        t.append(temp)<br>    print(t)<br>print(t.pop())</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>1 2 3 - 4 / + 5 67 / -<br>((1+(2-3)/4)-5/67)<br><code>`</code></p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Generator</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/05/21/中缀表达式Vs后缀表达式/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/05/16/深入剖析Generator/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入剖析Generator</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+  
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -254,9 +387,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
