@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://blog365.top/2018/05/26/%E4%B9%A0%E9%A2%98/</loc>
+    <lastmod>2018-05-27T12:21:32.493Z</lastmod>
+    <data>
+        <display>
+        <title>习题</title>
+        <pubTime>2018-05-26T12:55:12.000Z</pubTime>
+        
+        <tag>学习笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog365.top/2018/05/22/%E6%90%9E%E5%AE%9APython%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B/</loc>
     <lastmod>2018-05-23T01:25:33.365Z</lastmod>
     <data>
@@ -106,11 +123,11 @@
         <title>Python反射机制</title>
         <pubTime>2018-05-02T12:55:32.000Z</pubTime>
         
-        <tag>学习笔记</tag>
-         
         <tag>Python</tag>
          
         <tag>反射机制</tag>
+         
+        <tag>学习笔记</tag>
          
          
            
@@ -127,9 +144,9 @@
         <title>Linux安装Python3(与Python2共存)</title>
         <pubTime>2018-04-15T14:30:05.000Z</pubTime>
         
-        <tag>Linux</tag>
-         
         <tag>Python</tag>
+         
+        <tag>Linux</tag>
          
          
            

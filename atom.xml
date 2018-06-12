@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog365.top/"/>
-  <updated>2018-05-23T01:25:33.365Z</updated>
+  <updated>2018-05-27T12:21:32.493Z</updated>
   <id>http://blog365.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>习题</title>
+    <link href="http://blog365.top/2018/05/26/%E4%B9%A0%E9%A2%98/"/>
+    <id>http://blog365.top/2018/05/26/习题/</id>
+    <published>2018-05-26T12:55:12.000Z</published>
+    <updated>2018-05-27T12:21:32.493Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="c-c"><a href="#c-c" class="headerlink" title="c/c++"></a>c/c++</h2><ol><li>找到单向链表中间的元素，如果有两个则取前面那个。<br>分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。<br>本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。<br>为什么要用”大体上”，因为需要考虑几个特殊情况：<blockquote><p>链表长度小于3，此时快指针移动2个节点出问题<br>链表长度为奇数，快指针恰好能够移动到尾节点，此时慢节点就是中间节点<br>链表长度为偶数，快节点无法移动到尾节点(只能移动到尾节点前一节点)，此时慢节点位于链表中间节点之一，且为前面那个</p></blockquote></li></ol><p>类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。</p><p>2.统计一个无符号整形数二进制形式中’1’的个数。<br>分析：最先想到的一种方法就是移位+计数，这种情况下最多需要循环次数取决于整形数的bit数。<br>一种较快的方法是依次移除该数二进制形式最右边的1(x&amp;=(x-1))，并计数，这种情况下，循环次数取决于’1’的个数。</p><p>3.What will be the output of the following C code?<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> *p = arr;</span><br><span class="line">*(p++) += <span class="number">1</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p, *(p++));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>分析：本题唯一需要注意的是C中的printf参数是<strong>从右到左压栈</strong>的。</p><p>4.关于编程中内存的常识</p><blockquote><p>栈(stack):存放局部变量、函数参数等，由编译器自动分配与释放<br>  堆(heap) :一般由程序员分配与释放，在c中用malloc申请，在c++中用new申请<br>  全局(静态区)(static):存放全局变量、静态变量。初始化的全局变量和静态变量在一块，未初始化的全局变量和静态变量在另一块，程序结束由系统释放<br>  常量区:存放常量，程序结束由系统释放<br>  代码区:存放代码</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;c-c&quot;&gt;&lt;a href=&quot;#c-c&quot; class=&quot;headerlink&quot; title=&quot;c/c++&quot;&gt;&lt;/a&gt;c/c++&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;找到单向链表中间的元素，如果有两个则取前面那个。&lt;br&gt;分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧
+      
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://blog365.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>搞定Python多线程和多进程</title>
@@ -124,11 +148,11 @@
     </summary>
     
     
-      <category term="学习笔记" scheme="http://blog365.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="Python" scheme="http://blog365.top/tags/Python/"/>
     
       <category term="反射机制" scheme="http://blog365.top/tags/%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"/>
+    
+      <category term="学习笔记" scheme="http://blog365.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -178,9 +202,9 @@
     </summary>
     
     
-      <category term="Linux" scheme="http://blog365.top/tags/Linux/"/>
-    
       <category term="Python" scheme="http://blog365.top/tags/Python/"/>
+    
+      <category term="Linux" scheme="http://blog365.top/tags/Linux/"/>
     
   </entry>
   

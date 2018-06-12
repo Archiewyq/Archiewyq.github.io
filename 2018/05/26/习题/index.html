@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Archives: 2018/5 | Archiew的个人博客</title>
+  <title>习题 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/archives/2018/05/index.html">
+  <meta name="description" content="c/c++ 找到单向链表中间的元素，如果有两个则取前面那个。分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。为什么要用”大体上”，因为需要考虑">
+<meta name="keywords" content="学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="习题">
+<meta property="og:url" content="http://blog365.top/2018/05/26/习题/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="c/c++ 找到单向链表中间的元素，如果有两个则取前面那个。分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。为什么要用”大体上”，因为需要考虑">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-27T12:21:32.493Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="习题">
+<meta name="twitter:description" content="c/c++ 找到单向链表中间的元素，如果有两个则取前面那个。分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。为什么要用”大体上”，因为需要考虑">
   
   
     <link rel="icon" href="/favicon.png">
@@ -168,36 +169,57 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-习题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      习题
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/26/习题/" class="archive-article-date">
+
+        
+        <a href="/2018/05/26/习题/" class="archive-article-date">
   	<time datetime="2018-05-26T12:55:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/26/习题/">习题</a>
-    </h1>
-  
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 702字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 3分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="c-c"><a href="#c-c" class="headerlink" title="c/c++"></a>c/c++</h2><ol>
+<li>找到单向链表中间的元素，如果有两个则取前面那个。<br>分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。<br>本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。<br>为什么要用”大体上”，因为需要考虑几个特殊情况：<blockquote>
+<p>链表长度小于3，此时快指针移动2个节点出问题<br>链表长度为奇数，快指针恰好能够移动到尾节点，此时慢节点就是中间节点<br>链表长度为偶数，快节点无法移动到尾节点(只能移动到尾节点前一节点)，此时慢节点位于链表中间节点之一，且为前面那个</p>
+</blockquote>
+</li>
+</ol>
+<p>类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。</p>
+<p>2.统计一个无符号整形数二进制形式中’1’的个数。<br>分析：最先想到的一种方法就是移位+计数，这种情况下最多需要循环次数取决于整形数的bit数。<br>一种较快的方法是依次移除该数二进制形式最右边的1(x&amp;=(x-1))，并计数，这种情况下，循环次数取决于’1’的个数。</p>
+<p>3.What will be the output of the following C code?<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> *p = arr;</span><br><span class="line">	*(p++) += <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p, *(p++));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>分析：本题唯一需要注意的是C中的printf参数是<strong>从右到左压栈</strong>的。</p>
+<p>4.关于编程中内存的常识</p>
+<blockquote>
+<p>栈(stack):存放局部变量、函数参数等，由编译器自动分配与释放<br>  堆(heap) :一般由程序员分配与释放，在c中用malloc申请，在c++中用new申请<br>  全局(静态区)(static):存放全局变量、静态变量。初始化的全局变量和静态变量在一块，未初始化的全局变量和静态变量在另一块，程序结束由系统释放<br>  常量区:存放常量，程序结束由系统释放<br>  代码区:存放代码</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,229 +231,130 @@ var _hmt = _hmt || [];
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/05/26/习题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/22/搞定Python多线程和多进程/" class="archive-article-date">
-  	<time datetime="2018-05-22T12:11:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/22/搞定Python多线程和多进程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">搞定Python多线程和多进程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/22/搞定Python多线程和多进程/">搞定Python多线程和多进程</a>
-    </h1>
+  
+  
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">线程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">进程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/21/中缀表达式Vs后缀表达式/" class="archive-article-date">
-  	<time datetime="2018-05-21T13:32:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/21/中缀表达式Vs后缀表达式/">中缀表达式Vs后缀表达式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/16/深入剖析Generator/" class="archive-article-date">
-  	<time datetime="2018-05-16T13:57:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/16/深入剖析Generator/">深入剖析Generator</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Generator</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/" class="archive-article-date">
-  	<time datetime="2018-05-15T03:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IO操作</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/02/Python反射机制/" class="archive-article-date">
-  	<time datetime="2018-05-02T12:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/02/Python反射机制/">Python反射机制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">反射机制</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -460,8 +383,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
