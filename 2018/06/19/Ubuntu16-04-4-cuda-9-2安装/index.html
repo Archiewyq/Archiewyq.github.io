@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Archives: 2018/4 | Archiew的个人博客</title>
+  <title>Ubuntu16.04.4 cuda-9.2安装 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/archives/2018/04/index.html">
+  <meta name="description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装  工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso   1.1 准备磁盘空间在win7下win+R运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右） 1.2 配置引导将ubuntu-1">
+<meta name="keywords" content="Ubuntu,cuda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu16.04.4 cuda-9.2安装">
+<meta property="og:url" content="http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装  工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso   1.1 准备磁盘空间在win7下win+R运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右） 1.2 配置引导将ubuntu-1">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-19T13:47:20.316Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="Ubuntu16.04.4 cuda-9.2安装">
+<meta name="twitter:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装  工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso   1.1 准备磁盘空间在win7下win+R运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右） 1.2 配置引导将ubuntu-1">
   
   
     <link rel="icon" href="/favicon.png">
@@ -168,186 +169,201 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Ubuntu16-04-4-cuda-9-2安装" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu16.04.4 cuda-9.2安装
+    </h1>
+  
+
+        
+        <a href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/" class="archive-article-date">
+  	<time datetime="2018-06-19T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-19</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 792字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 3分钟
+				 </span>
+				</div>
+				
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>系统：win7 64位<br>显卡：NVIDIA GT740</p>
+<h2 id="1-Ubuntu16-04-4双系统安装"><a href="#1-Ubuntu16-04-4双系统安装" class="headerlink" title="1 Ubuntu16.04.4双系统安装"></a>1 Ubuntu16.04.4双系统安装</h2><blockquote>
+<blockquote>
+<p>工具：<br>   EasyBCD 2.3<br>   <a href="http://cdimage.ubuntu.com/netboot/16.04/?_ga=2.212435411.69853237.1529413894-897926102.1529413894" target="_blank" rel="noopener">ubuntu-16.04.4-desktop-amd64.iso</a></p>
+</blockquote>
+</blockquote>
+<h3 id="1-1-准备磁盘空间"><a href="#1-1-准备磁盘空间" class="headerlink" title="1.1 准备磁盘空间"></a>1.1 准备磁盘空间</h3><p>在win7下<code>win+R</code>运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右）</p>
+<h3 id="1-2-配置引导"><a href="#1-2-配置引导" class="headerlink" title="1.2 配置引导"></a>1.2 配置引导</h3><p>将ubuntu-16.04.2-desktop-amd64.iso中的initrd.lz、vmlinuz.efi 解压出来与iso一同放在C盘或D盘根目录（必须根目录）下。打开EasyBCD，添加新条目-&gt;NeoGrub-&gt;安装-&gt;配置，配置文件内容如下：<br>注意：上面的文件放在C盘根目录则为 hd0,0 ，D盘则为hd0,4<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NeoSmart NeoGrub Bootloader Configuration File  </span></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"><span class="comment"># This is the NeoGrub configuration file, and should be located at C:\NST\menu.lst  </span></span><br><span class="line"><span class="comment"># Please see the EasyBCD Documentation for information on how to create/modify entries:  </span></span><br><span class="line"><span class="comment"># http://neosmart.net/wiki/display/EBCD/  </span></span><br><span class="line">  </span><br><span class="line">title Install Ubuntu   </span><br><span class="line">root (hd0,4)   </span><br><span class="line">kernel (hd0,4)/vmlinuz.efi <span class="attribute">boot</span>=casper iso-scan/<span class="attribute">filename</span>=/ubuntu-16.04.2-desktop-amd64.iso ro quiet splash <span class="attribute">locale</span>=zh_CN.UTF-8   </span><br><span class="line">initrd (hd0,4)/initrd.lz</span><br></pre></td></tr></table></figure></p>
+<p>然后，在EasyBCD中编辑引导菜单，可以看到NeoGrub引导加载器，勾选等待用户选择，保存。</p>
+<h3 id="1-3-进入引导"><a href="#1-3-进入引导" class="headerlink" title="1.3 进入引导"></a>1.3 进入引导</h3><p>配置完后重启，选择NeoGrub引导加载器，上述配置无误即可进入Ubuntu界面</p>
+<h3 id="1-4-开始安装"><a href="#1-4-开始安装" class="headerlink" title="1.4 开始安装"></a>1.4 开始安装</h3><p>在Ubuntu界面使用<code>ctrl+alt+T</code>打开终端，输入命令<code>sudo umount -l /isodevice</code>卸载分区，然后点击桌面的安装程序进行安装，依次进行如下设置：</p>
+<blockquote>
+<blockquote>
+<p>系统语言设为English(可选)<br>   勾选‘安装Ubuntu时下载更新’<br>   安装类型选择‘其他选项’<br>   系统分区：<br>      交换空间swap：逻辑分区、空间起始位置 16384MB(一般设为机器内存大小左右)<br>      /              ：逻辑分区、空间起始位置、用于Ext4 30720MB(存放安装程序)<br>      /home          : 逻辑分区、空间起始位置、用于Ext4 剩下空闲空间扣除250MB<br>      /boot          ：主分区、空间起始位置、用于Ext4 250MB<br>      注意最下面‘安装启动引导器的设备’选择刚才分配的/boot所在分区<br>   默认设置…</p>
+</blockquote>
+</blockquote>
+<h3 id="1-5-添加启动项"><a href="#1-5-添加启动项" class="headerlink" title="1.5 添加启动项"></a>1.5 添加启动项</h3><p>上述安装完成重启进入win7，打开EasyBCD，添加Ubuntu启动项，删除NeoGrub引导项<br>添加新条目-&gt;Linux/BSD-&gt;类型选’GRUB2’-&gt;驱动器选’Linux-2xx MiB’-&gt;添加条目<br>切换到编辑引导菜单，删除NeoGrub引导项。   </p>
+<h2 id="2-cuda-9-2安装"><a href="#2-cuda-9-2安装" class="headerlink" title="2 cuda-9.2安装"></a>2 cuda-9.2安装</h2><p>ubuntu 16.04默认安装了第三方开源的驱动程序nouveau，安装nvidia显卡驱动首先需要禁用nouveau，不然会碰到冲突的问题，导致无法安装nvidia显卡驱动。<br>编辑文件blacklist.conf<br>`sudo vim /etc/modprobe.d/blacklist.conf’<br>在文件最后部分插入以下两行内容<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau <span class="attribute">modeset</span>=0</span><br></pre></td></tr></table></figure></p>
+<p>更新系统<code>sudo update-initramfs -u</code><br>重启，验证nouveau是否禁用<br><code>lsmod | grep nouveau</code><br>没有信息显示说明nouveau已禁用<br>按<code>ctrl+alt+f1</code>进入tty1<br><code>sudo service lightdm stop</code>关闭X server<br><code>sudo ./cuda_xxx.run</code> 运行事先下载好的cuda安装包<br>全都按默认配置<br><code>sudo service lightdm start</code><br>设置环境变量文件.bashrc或profile<br><code>export PATH=/usr/local/cuda-9.2/bin:$PATH</code><br><code>export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:#LD_LIBRARY_PATH</code><br>更新环境变量<br><code>souce /etc/profile</code><br>安装完成。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/制作rss电子书并推送给kindle/" class="archive-article-date">
-  	<time datetime="2018-04-22T03:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/制作rss电子书并推送给kindle/">制作RSS电子书并推送给kindle</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RSS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">kindle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cuda</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/15/linux安装python3-与python2共存/" class="archive-article-date">
-  	<time datetime="2018-04-15T14:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/19/嵌入式基础知识汇总/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">嵌入式基础知识汇总</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/15/linux安装python3-与python2共存/">Linux安装Python3(与Python2共存)</a>
-    </h1>
+  
+  
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/01/分享一个kindle电子书免费下载网站/" class="archive-article-date">
-  	<time datetime="2018-04-01T14:57:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/01/分享一个kindle电子书免费下载网站/">分享一个kindle电子书免费下载网站</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/01/Test/" class="archive-article-date">
-  	<time datetime="2018-04-01T13:13:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/01/Test/">Test</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -376,8 +392,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

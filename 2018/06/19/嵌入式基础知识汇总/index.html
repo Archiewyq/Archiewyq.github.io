@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Archives: 2018/4 | Archiew的个人博客</title>
+  <title>嵌入式基础知识汇总 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/archives/2018/04/index.html">
+  <meta name="description" content="1.各数据类型所占字节大小对于不同的处理器，所占空间大小取决于编译器的类型   16位编译器char      : 1Bytechar*      : 2Byte        //也即指针变量short int : 2Byteint          : 2Bytefloat      : 4Bytedouble      : 8Bytelong      : 4Bytelong long :">
+<meta name="keywords" content="学习笔记,嵌入式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式基础知识汇总">
+<meta property="og:url" content="http://blog365.top/2018/06/19/嵌入式基础知识汇总/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="1.各数据类型所占字节大小对于不同的处理器，所占空间大小取决于编译器的类型   16位编译器char      : 1Bytechar*      : 2Byte        //也即指针变量short int : 2Byteint          : 2Bytefloat      : 4Bytedouble      : 8Bytelong      : 4Bytelong long :">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-19T03:28:12.629Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="嵌入式基础知识汇总">
+<meta name="twitter:description" content="1.各数据类型所占字节大小对于不同的处理器，所占空间大小取决于编译器的类型   16位编译器char      : 1Bytechar*      : 2Byte        //也即指针变量short int : 2Byteint          : 2Bytefloat      : 4Bytedouble      : 8Bytelong      : 4Bytelong long :">
   
   
     <link rel="icon" href="/favicon.png">
@@ -168,186 +169,225 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-嵌入式基础知识汇总" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      嵌入式基础知识汇总
+    </h1>
+  
+
+        
+        <a href="/2018/06/19/嵌入式基础知识汇总/" class="archive-article-date">
+  	<time datetime="2018-06-19T01:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-19</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 669字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 3分钟
+				 </span>
+				</div>
+				
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-各数据类型所占字节大小"><a href="#1-各数据类型所占字节大小" class="headerlink" title="1.各数据类型所占字节大小"></a>1.各数据类型所占字节大小</h3><p><em>对于不同的处理器，所占空间大小取决于编译器的类型</em></p>
+<blockquote>
+<blockquote>
+<p>16位编译器<br>char      : 1Byte<br>char*      : 2Byte        //也即指针变量<br>short int : 2Byte<br>int          : 2Byte<br>float      : 4Byte<br>double      : 8Byte<br>long      : 4Byte<br>long long : 8Byte</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>32位编译器<br>char       : 1Byte<br>char*      : 4Byte<br>int       : 4Byte<br>short int : 2Byte<br>float       : 4Byte<br>double      : 8Byte<br>long       : 4Byte<br>long long : 8Byte</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>64位编译器<br>char       : 1Byte<br>char*      : 8Byte<br>int          : 4Byte<br>short int : 2Byte<br>float      : 4Byte<br>double       : 8Byte<br>long       : 8Byte<br>long long : 8Byte</p>
+</blockquote>
+</blockquote>
+<h3 id="2-机器大小端问题"><a href="#2-机器大小端问题" class="headerlink" title="2.机器大小端问题"></a>2.机器大小端问题</h3><p>关于大小端：</p>
+<blockquote>
+<blockquote>
+<p>大端存储：高字节存低地址，即高位先存;(合乎阅读习惯)<br>   小端存储：低字节存低地址，即低位先存。</p>
+</blockquote>
+</blockquote>
+<p>例如：变量0x11223344,大小端存储如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">地址		大端	小端</span><br><span class="line"><span class="number">0x6ff710</span>	<span class="number">11</span>		<span class="number">44</span></span><br><span class="line"><span class="number">0x6ff711</span>	<span class="number">22</span>		<span class="number">33</span></span><br><span class="line"><span class="number">0x6ff712</span>	<span class="number">33</span>		<span class="number">22</span></span><br><span class="line"><span class="number">0x6ff713</span>	<span class="number">44</span>		<span class="number">11</span></span><br></pre></td></tr></table></figure></p>
+<p>判断机器大小端方法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line"><span class="comment">// 利用指针</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">0x11223344</span>;</span><br><span class="line">	<span class="keyword">char</span> *p=(<span class="keyword">char</span>*)&amp;a;	<span class="comment">//取变量a的低地址</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">0x11</span>==*p)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"大端\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"小端\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"><span class="comment">// 利用联合体</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">union</span> t&#123;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">char</span> c;</span><br><span class="line">	&#125;t1;</span><br><span class="line">	</span><br><span class="line">	t1.i=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">1</span>==t1.c)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"小端\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"大端\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-结构体"><a href="#3-结构体" class="headerlink" title="3.结构体"></a>3.结构体</h3><p>描述下面宏XXX的作用</p>
+<blockquote>
+<blockquote>
+<p>#define offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</p>
+</blockquote>
+</blockquote>
+<p>   #define XXX(ptr, type, member) ({ \<br>   const typeof( ((type <em>)0)-&gt;member ) </em><strong>mptr = (ptr); \<br>   (type <em>)( (char </em>)</strong>mptr - offsetof(type,member) );})</p>
+<p>假设存在结构体：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct s&#123;</span><br><span class="line">	type1 A<span class="comment">;</span></span><br><span class="line">	type2 <span class="keyword">B;</span></span><br><span class="line"><span class="keyword">	</span>type3 C<span class="comment">;</span></span><br><span class="line">&#125;<span class="built_in">s1</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>变量类型用typex代替是避免考虑内存中字节对齐的问题，现在s1在内存中的分布应该是这样的(假设的数据长度)：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">地址	变量</span><br><span class="line"><span class="number">0x80000</span>	<span class="keyword">A</span></span><br><span class="line"><span class="number">0x80004</span> B</span><br><span class="line"><span class="number">0</span>x8000a C</span><br></pre></td></tr></table></figure></p>
+<p>上面的宏运算涉及到的三个参数分别为：<br>ptr: 指向结构体成员的指针，比如type2<em> p=&amp;B<br>type: 结构体类型，比如struct s<br>member: 结构体成员名字，比如B<br>那么先看宏offsetof，((TYPE </em>)0)先将零类型转换为TYPE类型指针，((TYPE <em>)0)-&gt;MEMBER将访问TYPE结构体中的数据成员MEMBER，然后&amp;((TYPE </em>)0)-&gt;MEMBER取数据成员的地址，其实时取到了MEMBER成员相对于其所在结构体的偏移，最后(size_t)&amp;((TYPE <em>)0)-&gt;MEMBER实现结果类型转换<br>再看宏XXX，const typeof(((type </em>)0)-&gt;member)<em> <strong>mptr=(ptr);将结构体成员指针赋值指针变量</strong>mprt，(type</em>)((char*)__mptr-offsetof(type,member));是用结构体数据成员的指针减去该成员在结构体中的偏移量，得到结构体的基指针，最后强制转换成结构体指针类型<br>综上所述，该宏定义实现了根据结构体某成员变量获取该结构体基地址。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/制作rss电子书并推送给kindle/" class="archive-article-date">
-  	<time datetime="2018-04-22T03:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/制作rss电子书并推送给kindle/">制作RSS电子书并推送给kindle</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RSS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">kindle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">嵌入式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/06/19/嵌入式基础知识汇总/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/15/linux安装python3-与python2共存/" class="archive-article-date">
-  	<time datetime="2018-04-15T14:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-15</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Ubuntu16.04.4 cuda-9.2安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/15/Ubuntu16-04-4-安装OpenCV3-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ubuntu16.04.4 安装OpenCV3.2.0</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/15/linux安装python3-与python2共存/">Linux安装Python3(与Python2共存)</a>
-    </h1>
+  
+  
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/01/分享一个kindle电子书免费下载网站/" class="archive-article-date">
-  	<time datetime="2018-04-01T14:57:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/01/分享一个kindle电子书免费下载网站/">分享一个kindle电子书免费下载网站</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/01/Test/" class="archive-article-date">
-  	<time datetime="2018-04-01T13:13:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/01/Test/">Test</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -376,8 +416,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
