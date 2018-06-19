@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://blog365.top">
   <title>Ubuntu16.04.4 cuda-9.2安装 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装   工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
+  <meta name="description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装 工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
 <meta name="keywords" content="Ubuntu,cuda">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu16.04.4 cuda-9.2安装">
 <meta property="og:url" content="http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装   工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
+<meta property="og:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装 工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-19T13:56:03.807Z">
+<meta property="og:updated_time" content="2018-06-19T13:57:29.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu16.04.4 cuda-9.2安装">
-<meta name="twitter:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装   工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
+<meta name="twitter:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装 工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
   
   
     <link rel="icon" href="/favicon.png">
@@ -200,12 +200,9 @@ var _hmt = _hmt || [];
       
         <p>系统：win7 64位<br>显卡：NVIDIA GT740</p>
 <h2 id="1-Ubuntu16-04-4双系统安装"><a href="#1-Ubuntu16-04-4双系统安装" class="headerlink" title="1 Ubuntu16.04.4双系统安装"></a>1 Ubuntu16.04.4双系统安装</h2><blockquote>
-<blockquote>
-<blockquote>
-<p>工具：<br>   EasyBCD 2.3<br>   <a href="http://cdimage.ubuntu.com/netboot/16.04/?_ga=2.212435411.69853237.1529413894-897926102.1529413894" target="_blank" rel="noopener">ubuntu-16.04.4-desktop-amd64.iso</a><br><a id="more"></a></p>
+<p>工具：<br>   EasyBCD 2.3<br>   <a href="http://cdimage.ubuntu.com/netboot/16.04/?_ga=2.212435411.69853237.1529413894-897926102.1529413894" target="_blank" rel="noopener">ubuntu-16.04.4-desktop-amd64.iso</a></p>
 </blockquote>
-</blockquote>
-</blockquote>
+<a id="more"></a>
 <h3 id="1-1-准备磁盘空间"><a href="#1-1-准备磁盘空间" class="headerlink" title="1.1 准备磁盘空间"></a>1.1 准备磁盘空间</h3><p>在win7下<code>win+R</code>运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右）</p>
 <h3 id="1-2-配置引导"><a href="#1-2-配置引导" class="headerlink" title="1.2 配置引导"></a>1.2 配置引导</h3><p>将ubuntu-16.04.2-desktop-amd64.iso中的initrd.lz、vmlinuz.efi 解压出来与iso一同放在C盘或D盘根目录（必须根目录）下。打开EasyBCD，添加新条目-&gt;NeoGrub-&gt;安装-&gt;配置，配置文件内容如下：<br>注意：上面的文件放在C盘根目录则为 hd0,0 ，D盘则为hd0,4<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NeoSmart NeoGrub Bootloader Configuration File  </span></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"><span class="comment"># This is the NeoGrub configuration file, and should be located at C:\NST\menu.lst  </span></span><br><span class="line"><span class="comment"># Please see the EasyBCD Documentation for information on how to create/modify entries:  </span></span><br><span class="line"><span class="comment"># http://neosmart.net/wiki/display/EBCD/  </span></span><br><span class="line">  </span><br><span class="line">title Install Ubuntu   </span><br><span class="line">root (hd0,4)   </span><br><span class="line">kernel (hd0,4)/vmlinuz.efi <span class="attribute">boot</span>=casper iso-scan/<span class="attribute">filename</span>=/ubuntu-16.04.2-desktop-amd64.iso ro quiet splash <span class="attribute">locale</span>=zh_CN.UTF-8   </span><br><span class="line">initrd (hd0,4)/initrd.lz</span><br></pre></td></tr></table></figure></p>
 <p>然后，在EasyBCD中编辑引导菜单，可以看到NeoGrub引导加载器，勾选等待用户选择，保存。</p>
