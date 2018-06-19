@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://blog365.top/2018/06/15/Ubuntu16-04-4-%E5%AE%89%E8%A3%85OpenCV3-2/</loc>
+    <lastmod>2018-06-19T13:55:01.823Z</lastmod>
+    <data>
+        <display>
+        <title>Ubuntu16.04.4 安装OpenCV3.2.0</title>
+        <pubTime>2018-06-15T08:27:52.000Z</pubTime>
+        
+        <tag>-Ubuntu -OpenCV</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2018-06-19T13:54:32.034Z</lastmod>
     <data>
@@ -33,23 +50,6 @@
         <tag>学习笔记</tag>
          
         <tag>嵌入式</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog365.top/2018/06/15/Ubuntu16-04-4-%E5%AE%89%E8%A3%85OpenCV3-2/</loc>
-    <lastmod>2018-06-15T08:46:34.574Z</lastmod>
-    <data>
-        <display>
-        <title>Ubuntu16.04.4 安装OpenCV3.2.0</title>
-        <pubTime>2018-06-15T08:27:52.000Z</pubTime>
-        
-        <tag>-Ubuntu -OpenCV</tag>
          
          
            
