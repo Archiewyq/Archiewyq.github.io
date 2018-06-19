@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="1.各数据类型所占字节大小对于不同的处理器，所占空间大小取决于编译器的类型">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-19T13:53:51.860Z">
+<meta property="og:updated_time" content="2018-06-19T13:56:22.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌入式基础知识汇总">
 <meta name="twitter:description" content="1.各数据类型所占字节大小对于不同的处理器，所占空间大小取决于编译器的类型">
@@ -200,33 +200,23 @@ var _hmt = _hmt || [];
       
         <h3 id="1-各数据类型所占字节大小"><a href="#1-各数据类型所占字节大小" class="headerlink" title="1.各数据类型所占字节大小"></a>1.各数据类型所占字节大小</h3><p><em>对于不同的处理器，所占空间大小取决于编译器的类型</em><br><a id="more"></a></p>
 <blockquote>
-<blockquote>
 <p>16位编译器<br>char      : 1Byte<br>char*      : 2Byte        //也即指针变量<br>short int : 2Byte<br>int          : 2Byte<br>float      : 4Byte<br>double      : 8Byte<br>long      : 4Byte<br>long long : 8Byte</p>
 </blockquote>
-</blockquote>
-<blockquote>
 <blockquote>
 <p>32位编译器<br>char       : 1Byte<br>char*      : 4Byte<br>int       : 4Byte<br>short int : 2Byte<br>float       : 4Byte<br>double      : 8Byte<br>long       : 4Byte<br>long long : 8Byte</p>
 </blockquote>
-</blockquote>
-<blockquote>
 <blockquote>
 <p>64位编译器<br>char       : 1Byte<br>char*      : 8Byte<br>int          : 4Byte<br>short int : 2Byte<br>float      : 4Byte<br>double       : 8Byte<br>long       : 8Byte<br>long long : 8Byte</p>
 </blockquote>
-</blockquote>
 <h3 id="2-机器大小端问题"><a href="#2-机器大小端问题" class="headerlink" title="2.机器大小端问题"></a>2.机器大小端问题</h3><p>关于大小端：</p>
 <blockquote>
-<blockquote>
 <p>大端存储：高字节存低地址，即高位先存;(合乎阅读习惯)<br>   小端存储：低字节存低地址，即低位先存。</p>
-</blockquote>
 </blockquote>
 <p>例如：变量0x11223344,大小端存储如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">地址		大端	小端</span><br><span class="line"><span class="number">0x6ff710</span>	<span class="number">11</span>		<span class="number">44</span></span><br><span class="line"><span class="number">0x6ff711</span>	<span class="number">22</span>		<span class="number">33</span></span><br><span class="line"><span class="number">0x6ff712</span>	<span class="number">33</span>		<span class="number">22</span></span><br><span class="line"><span class="number">0x6ff713</span>	<span class="number">44</span>		<span class="number">11</span></span><br></pre></td></tr></table></figure></p>
 <p>判断机器大小端方法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line"><span class="comment">// 利用指针</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">0x11223344</span>;</span><br><span class="line">	<span class="keyword">char</span> *p=(<span class="keyword">char</span>*)&amp;a;	<span class="comment">//取变量a的低地址</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">0x11</span>==*p)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"大端\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"小端\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"><span class="comment">// 利用联合体</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">union</span> t&#123;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">char</span> c;</span><br><span class="line">	&#125;t1;</span><br><span class="line">	</span><br><span class="line">	t1.i=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">1</span>==t1.c)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"小端\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"大端\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-结构体"><a href="#3-结构体" class="headerlink" title="3.结构体"></a>3.结构体</h3><p>描述下面宏XXX的作用</p>
 <blockquote>
-<blockquote>
 <p>#define offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</p>
-</blockquote>
 </blockquote>
 <p>   #define XXX(ptr, type, member) ({ \<br>   const typeof( ((type <em>)0)-&gt;member ) </em><strong>mptr = (ptr); \<br>   (type <em>)( (char </em>)</strong>mptr - offsetof(type,member) );})</p>
 <p>假设存在结构体：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct s&#123;</span><br><span class="line">	type1 A<span class="comment">;</span></span><br><span class="line">	type2 <span class="keyword">B;</span></span><br><span class="line"><span class="keyword">	</span>type3 C<span class="comment">;</span></span><br><span class="line">&#125;<span class="built_in">s1</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>

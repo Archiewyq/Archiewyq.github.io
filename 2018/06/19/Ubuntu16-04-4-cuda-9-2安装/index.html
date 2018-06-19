@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装   工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-19T13:54:32.034Z">
+<meta property="og:updated_time" content="2018-06-19T13:56:03.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu16.04.4 cuda-9.2安装">
 <meta name="twitter:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装   工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
@@ -212,9 +212,7 @@ var _hmt = _hmt || [];
 <h3 id="1-3-进入引导"><a href="#1-3-进入引导" class="headerlink" title="1.3 进入引导"></a>1.3 进入引导</h3><p>配置完后重启，选择NeoGrub引导加载器，上述配置无误即可进入Ubuntu界面</p>
 <h3 id="1-4-开始安装"><a href="#1-4-开始安装" class="headerlink" title="1.4 开始安装"></a>1.4 开始安装</h3><p>在Ubuntu界面使用<code>ctrl+alt+T</code>打开终端，输入命令<code>sudo umount -l /isodevice</code>卸载分区，然后点击桌面的安装程序进行安装，依次进行如下设置：</p>
 <blockquote>
-<blockquote>
 <p>系统语言设为English(可选)<br>   勾选‘安装Ubuntu时下载更新’<br>   安装类型选择‘其他选项’<br>   系统分区：<br>      交换空间swap：逻辑分区、空间起始位置 16384MB(一般设为机器内存大小左右)<br>      /              ：逻辑分区、空间起始位置、用于Ext4 30720MB(存放安装程序)<br>      /home          : 逻辑分区、空间起始位置、用于Ext4 剩下空闲空间扣除250MB<br>      /boot          ：主分区、空间起始位置、用于Ext4 250MB<br>      注意最下面‘安装启动引导器的设备’选择刚才分配的/boot所在分区<br>   默认设置…</p>
-</blockquote>
 </blockquote>
 <h3 id="1-5-添加启动项"><a href="#1-5-添加启动项" class="headerlink" title="1.5 添加启动项"></a>1.5 添加启动项</h3><p>上述安装完成重启进入win7，打开EasyBCD，添加Ubuntu启动项，删除NeoGrub引导项<br>添加新条目-&gt;Linux/BSD-&gt;类型选’GRUB2’-&gt;驱动器选’Linux-2xx MiB’-&gt;添加条目<br>切换到编辑引导菜单，删除NeoGrub引导项。   </p>
 <h2 id="2-cuda-9-2安装"><a href="#2-cuda-9-2安装" class="headerlink" title="2 cuda-9.2安装"></a>2 cuda-9.2安装</h2><p>ubuntu 16.04默认安装了第三方开源的驱动程序nouveau，安装nvidia显卡驱动首先需要禁用nouveau，不然会碰到冲突的问题，导致无法安装nvidia显卡驱动。<br>编辑文件blacklist.conf<br>`sudo vim /etc/modprobe.d/blacklist.conf’<br>在文件最后部分插入以下两行内容<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau <span class="attribute">modeset</span>=0</span><br></pre></td></tr></table></figure></p>
