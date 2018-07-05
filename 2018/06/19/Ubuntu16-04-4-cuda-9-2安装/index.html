@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装 工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-19T13:57:29.258Z">
+<meta property="og:updated_time" content="2018-07-05T11:22:50.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu16.04.4 cuda-9.2安装">
 <meta name="twitter:description" content="系统：win7 64位显卡：NVIDIA GT740 1 Ubuntu16.04.4双系统安装 工具：   EasyBCD 2.3   ubuntu-16.04.4-desktop-amd64.iso">
@@ -45,6 +45,7 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 </head>
 
 <body>
@@ -203,6 +204,7 @@ var _hmt = _hmt || [];
 <p>工具：<br>   EasyBCD 2.3<br>   <a href="http://cdimage.ubuntu.com/netboot/16.04/?_ga=2.212435411.69853237.1529413894-897926102.1529413894" target="_blank" rel="noopener">ubuntu-16.04.4-desktop-amd64.iso</a></p>
 </blockquote>
 <a id="more"></a>
+<hr>
 <h3 id="1-1-准备磁盘空间"><a href="#1-1-准备磁盘空间" class="headerlink" title="1.1 准备磁盘空间"></a>1.1 准备磁盘空间</h3><p>在win7下<code>win+R</code>运行diskmgmt.msc打开磁盘管理，选择一个可用空间较大的磁盘右键压缩磁盘，得到一个空的分区（100G左右）</p>
 <h3 id="1-2-配置引导"><a href="#1-2-配置引导" class="headerlink" title="1.2 配置引导"></a>1.2 配置引导</h3><p>将ubuntu-16.04.2-desktop-amd64.iso中的initrd.lz、vmlinuz.efi 解压出来与iso一同放在C盘或D盘根目录（必须根目录）下。打开EasyBCD，添加新条目-&gt;NeoGrub-&gt;安装-&gt;配置，配置文件内容如下：<br>注意：上面的文件放在C盘根目录则为 hd0,0 ，D盘则为hd0,4<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NeoSmart NeoGrub Bootloader Configuration File  </span></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"><span class="comment"># This is the NeoGrub configuration file, and should be located at C:\NST\menu.lst  </span></span><br><span class="line"><span class="comment"># Please see the EasyBCD Documentation for information on how to create/modify entries:  </span></span><br><span class="line"><span class="comment"># http://neosmart.net/wiki/display/EBCD/  </span></span><br><span class="line">  </span><br><span class="line">title Install Ubuntu   </span><br><span class="line">root (hd0,4)   </span><br><span class="line">kernel (hd0,4)/vmlinuz.efi <span class="attribute">boot</span>=casper iso-scan/<span class="attribute">filename</span>=/ubuntu-16.04.2-desktop-amd64.iso ro quiet splash <span class="attribute">locale</span>=zh_CN.UTF-8   </span><br><span class="line">initrd (hd0,4)/initrd.lz</span><br></pre></td></tr></table></figure></p>
 <p>然后，在EasyBCD中编辑引导菜单，可以看到NeoGrub引导加载器，勾选等待用户选择，保存。</p>
@@ -300,6 +302,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/06/26/深度学习目标检测模型概述/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          深度学习目标检测模型概述
+        
+      </div>
+    </a>
   
   
     <a href="/2018/06/19/嵌入式基础知识汇总/" id="article-nav-older" class="article-nav-link-wrap">
@@ -459,11 +470,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,19 +490,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,6 +507,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分享</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,6 +526,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">线程</a>
               </li>
              
@@ -519,7 +538,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Fast R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
               </li>
             
             <div class="clearfix"></div>

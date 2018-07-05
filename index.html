@@ -44,6 +44,7 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 </head>
 
 <body>
@@ -170,6 +171,295 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CS231n用于视觉识别的卷积神经网络-学习笔记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/">CS231n用于视觉识别的卷积神经网络-学习笔记1</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/" class="archive-article-date">
+  	<time datetime="2018-07-05T01:24:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 4,291字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 16分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址：<a href="http://cs231n.github.io/classification/" target="_blank" rel="noopener">http://cs231n.github.io/classification/</a><br>翻译：<a href="http://blog.archiew.top" target="_blank" rel="noopener">Archiew</a>  　<strong>转载需注明出处</strong></p>
+<h2 id="图片分类问题-amp-数据驱动方法引入"><a href="#图片分类问题-amp-数据驱动方法引入" class="headerlink" title="图片分类问题&amp;数据驱动方法引入"></a>图片分类问题&amp;数据驱动方法引入</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入图片分类、数据驱动方法，数据流</a><br><a href="#nnc">最近邻分类器</a><br><a href="#knn">　K-最近邻分类器</a><br><a href="#val">验证集、交叉验证和超参调整</a><br><a href="#procon">最近邻优缺点</a><br><a href="#summary">总结</a></p>
+        
+          <a class="article-more-a" href="/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">视觉识别</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-嵌入式C语言面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/04/嵌入式C语言面试题/">嵌入式C语言面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/04/嵌入式C语言面试题/" class="archive-article-date">
+  	<time datetime="2018-07-04T12:44:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-04</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 614字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 2分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结一些嵌入式软件开发中C语言面试问题</p>
+        
+          <a class="article-more-a" href="/2018/07/04/嵌入式C语言面试题/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">嵌入式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/04/嵌入式C语言面试题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-深度学习目标检测模型概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/深度学习目标检测模型概述/">深度学习目标检测模型概述</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/深度学习目标检测模型概述/" class="archive-article-date">
+  	<time datetime="2018-06-26T01:04:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 315字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 1分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、R-CNN"><a href="#1、R-CNN" class="headerlink" title="1、R-CNN"></a>1、R-CNN</h2><p>R-CNN(Region-based Convolutional Neural Network)分三个步骤：</p>
+<ul>
+<li>利用’选择性搜索(Selective Search)’算法生成约2k个region proposal，以获取可能出现的目标；</li>
+<li>对每个region proposal运行CNN；</li>
+<li>上述得到的CNN进行如下操作：<br>  a.输入到支持向量机(SVM),以对上述区域进行分类<br>  b.输入到一个线性回归器，以收缩目标周围边界框(假如目标存在)<br>R-CNN模型图如下所示：<br><a href="">R-CNN</a></li>
+</ul>
+<h2 id="2、Fast-R-CNN"><a href="#2、Fast-R-CNN" class="headerlink" title="2、Fast R-CNN"></a>2、Fast R-CNN</h2><p>Fast R-CNN相较于R-CNN主要是在检测速度方面进行了提升，而提升手段如下：</p>
+<ul>
+<li>在推荐区域之前，先对图像进行特征提取，这样做的好处是使整个图像只使用一个CNN(之前需要对2k个推荐区域分别运行CNN)</li>
+<li>将R-CNN中的SVM替换为softmax，softmax直接输出类概率，而使用SVM需要训练多个SVM对每个目标类进行分类<br>相较R-CNN而言Fast R-CNN在速度上提升了许多，然而Fast R-CNN仍存在未解决的瓶颈问题：用于生成region proposal的选择搜索算法。</li>
+</ul>
+<h2 id="3、Faster-R-CNN"><a href="#3、Faster-R-CNN" class="headerlink" title="3、Faster R-CNN"></a>3、Faster R-CNN</h2><p>Faster R-CNN在Fast R-CNN的基础上通过引入region proposal网络(RPN)来代替选择搜索算法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目标检测</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">R-CNN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Fast R-CNN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Faster R-CNN</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/深度学习目标检测模型概述/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Ubuntu16-04-4-cuda-9-2安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -291,7 +581,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-各数据类型所占字节大小"><a href="#1-各数据类型所占字节大小" class="headerlink" title="1.各数据类型所占字节大小"></a>1.各数据类型所占字节大小</h3><p><em>对于不同的处理器，所占空间大小取决于编译器的类型</em><br>
+        <h3 id="1-各数据类型所占字节大小"><a href="#1-各数据类型所占字节大小" class="headerlink" title="1.各数据类型所占字节大小"></a>1.各数据类型所占字节大小</h3><p><em>对于不同的处理器，所占空间大小取决于编译器的类型</em></p>
         
           <a class="article-more-a" href="/2018/06/19/嵌入式基础知识汇总/#more">more >></a>
         
@@ -484,14 +774,9 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <p>类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。</p>
-<p>2.统计一个无符号整形数二进制形式中’1’的个数。<br>分析：最先想到的一种方法就是移位+计数，这种情况下最多需要循环次数取决于整形数的bit数。<br>一种较快的方法是依次移除该数二进制形式最右边的1(x&amp;=(x-1))，并计数，这种情况下，循环次数取决于’1’的个数。</p>
-<p>3.What will be the output of the following C code?<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> *p = arr;</span><br><span class="line">	*(p++) += <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p, *(p++));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>分析：本题唯一需要注意的是C中的printf参数是<strong>从右到左压栈</strong>的。</p>
-<p>4.关于编程中内存的常识</p>
-<blockquote>
-<p>栈(stack):存放局部变量、函数参数等，由编译器自动分配与释放<br>  堆(heap) :一般由程序员分配与释放，在c中用malloc申请，在c++中用new申请<br>  全局(静态区)(static):存放全局变量、静态变量。初始化的全局变量和静态变量在一块，未初始化的全局变量和静态变量在另一块，程序结束由系统释放<br>  常量区:存放常量，程序结束由系统释放<br>  代码区:存放代码</p>
-</blockquote>
-
+        
+          <a class="article-more-a" href="/2018/05/26/习题/#more">more >></a>
+        
       
 
       
@@ -574,7 +859,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="1、概念梳理"><a href="#1、概念梳理" class="headerlink" title="1、概念梳理"></a>1、概念梳理</h2><h3 id="1-1-线程"><a href="#1-1-线程" class="headerlink" title="1.1 线程"></a>1.1 线程</h3><h4 id="1-1-1-什么是线程"><a href="#1-1-1-什么是线程" class="headerlink" title="1.1.1 什么是线程"></a>1.1.1 什么是线程</h4><p><strong>线程</strong>是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。一个线程是一个execution context（执行上下文），即一个cpu执行时所需要的一串指令。</p>
-<h4 id="1-1-2-线程的工作方式"><a href="#1-1-2-线程的工作方式" class="headerlink" title="1.1.2 线程的工作方式"></a>1.1.2 线程的工作方式</h4><p>假设你正在读一本书，没有读完，你想休息一下，但是你想在回来时恢复到当时读的具体进度。有一个方法就是记下页数、行数与字数这三个数值，这些数值就是execution context。如果你的室友在你休息的时候，使用相同的方法读这本书。你和她只需要这三个数字记下来就可以在交替的时间共同阅读这本书了。<br>线程的工作方式与此类似。CPU会给你一个在同一时间能够做多个运算的幻觉，实际上它在每个运算上只花了极少的时间，本质上CPU同一时刻只干了一件事。它能这样做就是因为它有每个运算的execution context。就像你能够和你朋友共享同一本书一样，多任务也能共享同一块CPU。<br>
+<h4 id="1-1-2-线程的工作方式"><a href="#1-1-2-线程的工作方式" class="headerlink" title="1.1.2 线程的工作方式"></a>1.1.2 线程的工作方式</h4><p>假设你正在读一本书，没有读完，你想休息一下，但是你想在回来时恢复到当时读的具体进度。有一个方法就是记下页数、行数与字数这三个数值，这些数值就是execution context。如果你的室友在你休息的时候，使用相同的方法读这本书。你和她只需要这三个数字记下来就可以在交替的时间共同阅读这本书了。<br>线程的工作方式与此类似。CPU会给你一个在同一时间能够做多个运算的幻觉，实际上它在每个运算上只花了极少的时间，本质上CPU同一时刻只干了一件事。它能这样做就是因为它有每个运算的execution context。就像你能够和你朋友共享同一本书一样，多任务也能共享同一块CPU。</p>
         
           <a class="article-more-a" href="/2018/05/22/搞定Python多线程和多进程/#more">more >></a>
         
@@ -667,7 +952,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。<br>后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。<br>后缀表达式存在的目的在于<strong>便于计算机通过栈操作计算</strong><br>
+        <p>中缀表达式，运算符放两个操作数中间的，考虑运算顺序，通用记法。<br>后缀表达式(逆波兰)，指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。<br>后缀表达式存在的目的在于<strong>便于计算机通过栈操作计算</strong></p>
         
           <a class="article-more-a" href="/2018/05/21/中缀表达式Vs后缀表达式/#more">more >></a>
         
@@ -812,287 +1097,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/" class="archive-article-date">
-  	<time datetime="2018-05-15T03:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 1,355字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 5分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h2><p>同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。</p>
-<blockquote>
-<p>POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO<br>按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞IO呢？先来说说几种常见的IO模型吧。</p>
-</blockquote>
-        
-          <a class="article-more-a" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IO操作</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python反射机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/02/Python反射机制/">Python反射机制</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/02/Python反射机制/" class="archive-article-date">
-  	<time datetime="2018-05-02T12:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 2,615字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 10分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对编程语言比较熟悉的朋友，应该知道“反射”这个机制。Python作为一门动态语言，当然不会缺少这一重要功能。然而，在网络上却很少见到有详细或者深刻的剖析论文。下面结合一个web路由的实例来阐述Python的反射机制的使用场景和核心本质。</p>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"f1是这个函数的名字！"</span>)</span><br><span class="line">	</span><br><span class="line">s = <span class="string">"f1"</span></span><br><span class="line">print(<span class="string">"%s是个字符串"</span> % s)</span><br></pre></td></tr></table></figure>
-<p>在上面的代码中，我们必须区分两个概念，f1和“f1”。前者是函数f1的函数名，后者只是一个叫”f1“的字符串，两者是不同的事物。我们可以用f1()的方式调用函数f1，但我们不能用”f1”()的方式调用函数。说白了就是，<strong>不能通过字符串来调用名字看起来相同的函数！</strong><br>
-        
-          <a class="article-more-a" href="/2018/05/02/Python反射机制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">反射机制</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/02/Python反射机制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-制作rss电子书并推送给kindle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/22/制作rss电子书并推送给kindle/">制作RSS电子书并推送给kindle</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/22/制作rss电子书并推送给kindle/" class="archive-article-date">
-  	<time datetime="2018-04-22T03:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 2,250字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 10分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>简易信息聚合(Really Simple Syndication, RSS)是一种基于XML标准在互联网上被广泛采用的内容包装和投递协议。RSS允许用户以计算机可读的标准格式来获取（订阅）网站内容更新。相对于直接访问网站，使用Rss订阅能更快地<br>获取网站内容更新。RSS具有以下几个特点：</p>
-<ul>
-<li>来源多样的个性化“聚合”特性。</li>
-<li>信息发布的时效、低成本特性。</li>
-<li>无“垃圾”信息、便利的本地内容管理特性。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RSS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">kindle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1196,11 +1200,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,19 +1220,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1233,6 +1237,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分享</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1248,6 +1256,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">线程</a>
               </li>
              
@@ -1256,7 +1268,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Fast R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
               </li>
             
             <div class="clearfix"></div>

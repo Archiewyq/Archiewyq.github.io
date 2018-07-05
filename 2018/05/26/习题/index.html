@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew的个人博客">
 <meta property="og:description" content="c/c++ 找到单向链表中间的元素，如果有两个则取前面那个。分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。为什么要用”大体上”，因为需要考虑">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-27T12:21:32.493Z">
+<meta property="og:updated_time" content="2018-07-05T11:23:14.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="习题">
 <meta name="twitter:description" content="c/c++ 找到单向链表中间的元素，如果有两个则取前面那个。分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。为什么要用”大体上”，因为需要考虑">
@@ -45,6 +45,7 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 </head>
 
 <body>
@@ -205,6 +206,8 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <p>类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。</p>
+<a id="more"></a>
+<hr>
 <p>2.统计一个无符号整形数二进制形式中’1’的个数。<br>分析：最先想到的一种方法就是移位+计数，这种情况下最多需要循环次数取决于整形数的bit数。<br>一种较快的方法是依次移除该数二进制形式最右边的1(x&amp;=(x-1))，并计数，这种情况下，循环次数取决于’1’的个数。</p>
 <p>3.What will be the output of the following C code?<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> *p = arr;</span><br><span class="line">	*(p++) += <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p, *(p++));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>分析：本题唯一需要注意的是C中的printf参数是<strong>从右到左压栈</strong>的。</p>
@@ -462,11 +465,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -478,19 +485,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -499,6 +502,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分享</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,6 +521,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">线程</a>
               </li>
              
@@ -522,7 +533,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Fast R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
               </li>
             
             <div class="clearfix"></div>

@@ -4,67 +4,12 @@
 
     
   <url>
-    <loc>http://blog365.top/2018/06/15/Ubuntu16-04-4-%E5%AE%89%E8%A3%85OpenCV3-2/</loc>
-    <lastmod>2018-06-19T13:57:56.869Z</lastmod>
+    <loc>http://blog365.top/2018/05/21/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8FVs%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2018-07-05T11:23:31.074Z</lastmod>
     <data>
         <display>
-        <title>Ubuntu16.04.4 安装OpenCV3.2.0</title>
-        <pubTime>2018-06-15T08:27:52.000Z</pubTime>
-        
-        <tag>-Ubuntu -OpenCV</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2018-06-19T13:57:29.258Z</lastmod>
-    <data>
-        <display>
-        <title>Ubuntu16.04.4 cuda-9.2安装</title>
-        <pubTime>2018-06-19T13:08:41.000Z</pubTime>
-        
-        <tag>Ubuntu</tag>
-         
-        <tag>cuda</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog365.top/2018/06/19/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2018-06-19T13:56:22.344Z</lastmod>
-    <data>
-        <display>
-        <title>嵌入式基础知识汇总</title>
-        <pubTime>2018-06-19T01:04:51.000Z</pubTime>
-        
-        <tag>学习笔记</tag>
-         
-        <tag>嵌入式</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog365.top/2018/05/26/%E4%B9%A0%E9%A2%98/</loc>
-    <lastmod>2018-05-27T12:21:32.493Z</lastmod>
-    <data>
-        <display>
-        <title>习题</title>
-        <pubTime>2018-05-26T12:55:12.000Z</pubTime>
+        <title>中缀表达式Vs后缀表达式</title>
+        <pubTime>2018-05-21T13:32:03.000Z</pubTime>
         
         <tag>学习笔记</tag>
          
@@ -77,7 +22,7 @@
     
   <url>
     <loc>http://blog365.top/2018/05/22/%E6%90%9E%E5%AE%9APython%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B/</loc>
-    <lastmod>2018-05-23T01:25:33.365Z</lastmod>
+    <lastmod>2018-07-05T11:23:23.513Z</lastmod>
     <data>
         <display>
         <title>搞定Python多线程和多进程</title>
@@ -97,14 +42,132 @@
 
     
   <url>
-    <loc>http://blog365.top/2018/05/21/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8FVs%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
-    <lastmod>2018-05-21T14:13:49.136Z</lastmod>
+    <loc>http://blog365.top/2018/05/26/%E4%B9%A0%E9%A2%98/</loc>
+    <lastmod>2018-07-05T11:23:14.784Z</lastmod>
     <data>
         <display>
-        <title>中缀表达式Vs后缀表达式</title>
-        <pubTime>2018-05-21T13:32:03.000Z</pubTime>
+        <title>习题</title>
+        <pubTime>2018-05-26T12:55:12.000Z</pubTime>
         
         <tag>学习笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/06/19/Ubuntu16-04-4-cuda-9-2%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2018-07-05T11:22:50.523Z</lastmod>
+    <data>
+        <display>
+        <title>Ubuntu16.04.4 cuda-9.2安装</title>
+        <pubTime>2018-06-19T13:08:41.000Z</pubTime>
+        
+        <tag>Ubuntu</tag>
+         
+        <tag>cuda</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/06/19/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2018-07-05T11:22:43.448Z</lastmod>
+    <data>
+        <display>
+        <title>嵌入式基础知识汇总</title>
+        <pubTime>2018-06-19T01:04:51.000Z</pubTime>
+        
+        <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/06/15/Ubuntu16-04-4-%E5%AE%89%E8%A3%85OpenCV3-2/</loc>
+    <lastmod>2018-07-05T11:22:35.726Z</lastmod>
+    <data>
+        <display>
+        <title>Ubuntu16.04.4 安装OpenCV3.2.0</title>
+        <pubTime>2018-06-15T08:27:52.000Z</pubTime>
+        
+        <tag>-Ubuntu -OpenCV</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/07/04/%E5%B5%8C%E5%85%A5%E5%BC%8FC%E8%AF%AD%E8%A8%80%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2018-07-05T11:22:08.984Z</lastmod>
+    <data>
+        <display>
+        <title>嵌入式C语言面试题</title>
+        <pubTime>2018-07-04T12:44:30.000Z</pubTime>
+        
+        <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/07/05/CS231n%E7%94%A8%E4%BA%8E%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB%E7%9A%84%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</loc>
+    <lastmod>2018-07-05T09:55:18.675Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n用于视觉识别的卷积神经网络-学习笔记1</title>
+        <pubTime>2018-07-05T01:24:20.000Z</pubTime>
+        
+        <tag>视觉识别</tag>
+         
+        <tag>学习笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/06/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/</loc>
+    <lastmod>2018-06-26T02:04:26.410Z</lastmod>
+    <data>
+        <display>
+        <title>深度学习目标检测模型概述</title>
+        <pubTime>2018-06-26T01:04:46.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+        <tag>目标检测</tag>
+         
+        <tag>R-CNN</tag>
+         
+        <tag>Fast R-CNN</tag>
+         
+        <tag>Faster R-CNN</tag>
          
          
            
@@ -178,11 +241,11 @@
         <title>Python反射机制</title>
         <pubTime>2018-05-02T12:55:32.000Z</pubTime>
         
+        <tag>学习笔记</tag>
+         
         <tag>Python</tag>
          
         <tag>反射机制</tag>
-         
-        <tag>学习笔记</tag>
          
          
            
