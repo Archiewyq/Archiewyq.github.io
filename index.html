@@ -44,6 +44,7 @@ var _hmt = _hmt || [];
 </script>
 
 
+  
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 </head>
 
@@ -171,6 +172,104 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CS231n用于视觉识别的卷积神经网络-学习笔记2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/">CS231n用于视觉识别的卷积神经网络-学习笔记2</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/" class="archive-article-date">
+  	<time datetime="2018-07-06T00:59:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-06</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 2,303字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 8分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址：<a href="http://cs231n.github.io/linear-classify/" target="_blank" rel="noopener">http://cs231n.github.io/linear-classify/</a><br>翻译：<a href="http://blog.archiew.top" target="_blank" rel="noopener">Archiew</a>  　<strong>转载需注明出处</strong></p>
+<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入线性分类</a><br><a href="#score">线性得分函数</a><br><a href="#interpret">解释线性分类器</a><br><a href="#loss">损失函数</a><br><a href="#svm">　多类SVM</a><br><a href="#softmax">　Softmax分类器</a><br><a href="#svmvssoftmax">　SVM与Softmax</a><br><a href="#demo">线性分类器Web交互式演示</a><br><a href="#summary">总结</a></p>
+        
+          <a class="article-more-a" href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">视觉识别</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">卷积神经网络</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性分类</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CS231n用于视觉识别的卷积神经网络-学习笔记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -189,7 +288,7 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 4,291字 | 
+				  字数统计 4,295字 | 
 				 </span>
 				 <span id="word-count">
 				  阅读时长 16分钟
@@ -221,7 +320,15 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">卷积神经网络</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图像分类</a>
         		</li>
       		
 		</ul>
@@ -1008,95 +1115,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-深入剖析Generator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/16/深入剖析Generator/">深入剖析Generator</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/16/深入剖析Generator/" class="archive-article-date">
-  	<time datetime="2018-05-16T13:57:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-16</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 851字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 4分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Generator是如何工作的？"><a href="#Generator是如何工作的？" class="headerlink" title="Generator是如何工作的？"></a>Generator是如何工作的？</h2><p>在剖析Generator之前，不妨先来回顾一下Python中普通函数是如何工作的。正常情况下，当Python主函数调用一个子函数时，子函数从主函数那里获得cpu控制权直到子函数结束或触发异常，然后主函数重新获得cpu控制权，继续执行后续任务。<br>以上我们可以通过查看Python字节码来说明。首先我们创建如下两个函数<br>
-        
-          <a class="article-more-a" href="/2018/05/16/深入剖析Generator/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Generator</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/16/深入剖析Generator/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1200,11 +1218,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+                <a href="javascript:void(0)" class="js-tag color2">卷积神经网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1220,6 +1242,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
@@ -1232,7 +1262,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1252,11 +1282,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1265,6 +1291,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -4,6 +4,52 @@
 
     
   <url>
+    <loc>http://blog365.top/2018/07/06/CS231n%E7%94%A8%E4%BA%8E%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB%E7%9A%84%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</loc>
+    <lastmod>2018-07-06T09:07:01.212Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n用于视觉识别的卷积神经网络-学习笔记2</title>
+        <pubTime>2018-07-06T00:59:46.000Z</pubTime>
+        
+        <tag>视觉识别</tag>
+         
+        <tag>卷积神经网络</tag>
+         
+        <tag>线性分类</tag>
+         
+        <tag>学习笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog365.top/2018/07/05/CS231n%E7%94%A8%E4%BA%8E%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB%E7%9A%84%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</loc>
+    <lastmod>2018-07-06T01:46:09.267Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n用于视觉识别的卷积神经网络-学习笔记1</title>
+        <pubTime>2018-07-05T01:24:20.000Z</pubTime>
+        
+        <tag>视觉识别</tag>
+         
+        <tag>卷积神经网络</tag>
+         
+        <tag>学习笔记</tag>
+         
+        <tag>图像分类</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog365.top/2018/05/21/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8FVs%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2018-07-05T11:23:31.074Z</lastmod>
     <data>
@@ -124,25 +170,6 @@
         <tag>学习笔记</tag>
          
         <tag>嵌入式</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog365.top/2018/07/05/CS231n%E7%94%A8%E4%BA%8E%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB%E7%9A%84%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</loc>
-    <lastmod>2018-07-05T09:55:18.675Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n用于视觉识别的卷积神经网络-学习笔记1</title>
-        <pubTime>2018-07-05T01:24:20.000Z</pubTime>
-        
-        <tag>视觉识别</tag>
-         
-        <tag>学习笔记</tag>
          
          
            

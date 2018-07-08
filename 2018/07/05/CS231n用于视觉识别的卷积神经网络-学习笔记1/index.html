@@ -9,7 +9,7 @@
   <title>CS231n用于视觉识别的卷积神经网络-学习笔记1 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="原文地址：http://cs231n.github.io/classification/翻译：Archiew  　转载需注明出处 图片分类问题&amp;amp;数据驱动方法引入目录引入图片分类、数据驱动方法，数据流最近邻分类器　K-最近邻分类器验证集、交叉验证和超参调整最近邻优缺点总结">
-<meta name="keywords" content="视觉识别,学习笔记">
+<meta name="keywords" content="视觉识别,卷积神经网络,学习笔记,图像分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记1">
 <meta property="og:url" content="http://blog365.top/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/index.html">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://cs231n.github.io/assets/crossval.jpeg">
 <meta property="og:image" content="http://cs231n.github.io/assets/samenorm.png">
 <meta property="og:image" content="http://cs231n.github.io/assets/pixels_embed_cifar10_big.jpg">
-<meta property="og:updated_time" content="2018-07-05T09:55:18.675Z">
+<meta property="og:updated_time" content="2018-07-06T01:46:09.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记1">
 <meta name="twitter:description" content="原文地址：http://cs231n.github.io/classification/翻译：Archiew  　转载需注明出处 图片分类问题&amp;amp;数据驱动方法引入目录引入图片分类、数据驱动方法，数据流最近邻分类器　K-最近邻分类器验证集、交叉验证和超参调整最近邻优缺点总结">
@@ -56,6 +56,7 @@ var _hmt = _hmt || [];
 </script>
 
 
+  
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 </head>
 
@@ -199,7 +200,7 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 4,291字 | 
+				  字数统计 4,295字 | 
 				 </span>
 				 <span id="word-count">
 				  阅读时长 16分钟
@@ -237,7 +238,7 @@ var _hmt = _hmt || [];
 <li>Evalution评估：最后我们通过预测一组新的数据集分类来评估分类器的性能，直观上我们希望预测的标签与图片真实标签(称为<strong>真值</strong>)相匹配。</li>
 </ul>
 </blockquote>
-<h3 id="最近邻分类器"><a href="#最近邻分类器" class="headerlink" title="最近邻分类器"></a><span id="nnc">最近邻分类器</span></h3><p>我们将第一种分类方法成为‘最邻近分类器’(Nearest Neighbor Classifier)。这个分类器和卷积神经网络不相关，并且在实际中几乎用不到，但是它给了我们一个解决图片分类问题的基本思路。<br><strong>图片分类数据集：CIFAR-10</strong> 一个图片分类常用数据集：<a href="http://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener">CIFAR-10 dataset</a>。这个数据集包含了60,000个32x32像素的小图片，每个图片都有一个标签分类(共10个分类：airplane,automobile,bird,etc)，这60,000个图片被分为两部分：50,000个训练集和10,000个测试集。下图随机展示了数据集中的部分图片<br><img src="http://cs231n.github.io/assets/nn.jpg" alt="CIFAR-10 dataset"><br>左：CIFAR-10 dataset示例图片。右：第一列展示了一些测试图片，后边各列展示了根据像素差异显示训练集中的前10个最近邻居。<br>上图可以看出右边的预测分类仅有3/10的匹配率。<br>最简单的分类器模型就是对32x32x3数据逐像素点比较差异并求和，换句话说，给定两个图片我们用两个向量$$I_1,I_2$$表示，那么合理的差异比较选择是<strong>L1 distance</strong>$$d_1(I_1,I_2)=\sum_{p}||$$<br>下图是这个过程的可视化：<br><img src="http://cs231n.github.io/assets/nneg.jpeg" alt="L1 distance比较两个图片差异。如果结果为0说明两个图片一样，如果结果很大说明两图差异比较大"></p>
+<h3 id="最近邻分类器"><a href="#最近邻分类器" class="headerlink" title="最近邻分类器"></a><span id="nnc">最近邻分类器</span></h3><p>我们将第一种分类方法成为‘最邻近分类器’(Nearest Neighbor Classifier)。这个分类器和卷积神经网络不相关，并且在实际中几乎用不到，但是它给了我们一个解决图片分类问题的基本思路。<br><strong>图片分类数据集：CIFAR-10</strong> 一个图片分类常用数据集：<a href="http://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener">CIFAR-10 dataset</a>。这个数据集包含了60,000个32x32像素的小图片，每个图片都有一个标签分类(共10个分类：airplane,automobile,bird,etc)，这60,000个图片被分为两部分：50,000个训练集和10,000个测试集。下图随机展示了数据集中的部分图片<br><img src="http://cs231n.github.io/assets/nn.jpg" alt="CIFAR-10 dataset"><br>左：CIFAR-10 dataset示例图片。右：第一列展示了一些测试图片，后边各列展示了根据像素差异显示训练集中的前10个最近邻居。<br>上图可以看出右边的预测分类仅有3/10的匹配率。<br>最简单的分类器模型就是对32x32x3数据逐像素点比较差异并求和，换句话说，给定两个图片我们用两个向量\(I_1,I_2\)表示，那么合理的差异比较选择是<strong>L1 distance</strong>$$d_1(I_1,I_2)=\sum_{p}|I_1^p-I_2^p|$$<br>下图是这个过程的可视化：<br><img src="http://cs231n.github.io/assets/nneg.jpeg" alt="L1 distance比较两个图片差异。如果结果为0说明两个图片一样，如果结果很大说明两图差异比较大"></p>
 <p>下面会给出这一分类器的代码实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载数据集:training data/labels、test data/labels</span></span><br><span class="line">Xtr, Ytr, Xte, Yte = load_CIFAR10(<span class="string">'data/cifar10/'</span>)	</span><br><span class="line"><span class="comment">#将三维数据平铺成一维</span></span><br><span class="line">Xtr_rows = Xtr.reshape(Xtr.shape[<span class="number">0</span>], <span class="number">32</span> * <span class="number">32</span> * <span class="number">3</span>) <span class="comment">#Xtr_rows变为50000 x 3072</span></span><br><span class="line">Xte_rows = Xte.reshape(Xte.shape[<span class="number">0</span>], <span class="number">32</span> * <span class="number">32</span> * <span class="number">3</span>) <span class="comment">#Xte_rows变为10000 x 3072</span></span><br><span class="line"></span><br><span class="line">nn = NearestNeighbor() <span class="comment">#创建一个最近邻分类器</span></span><br><span class="line">nn.train(Xtr_rows, Ytr) <span class="comment">#在训练集(含标签)上训练分类器</span></span><br><span class="line">Yte_predict = nn.predict(Xte_rows) <span class="comment">#在测试集上预测标签</span></span><br><span class="line"><span class="comment">#打印预测分类准确度(取平均值)</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'accuracy: %f'</span> % ( np.mean(Yte_predict == Yte) )</span><br></pre></td></tr></table></figure></p>
 <p>准确度accuracy，经常作为一个评估标准来评价预测结果正确性。上面的代码中关键的是训练函数train(X,y)和预测函数predict(X)，最重要的是分类器本身的实现，下面的代码实现了一个具有L1 distane的简单的最近邻分类器<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NearestNeighbor</span><span class="params">(object)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">    <span class="string">""" X是NxD的训练集(其中每行代表一个数据样本). y是大小为N的一维数据 """</span></span><br><span class="line">    <span class="comment"># the nearest neighbor classifier simply remembers all the training data</span></span><br><span class="line">    self.Xtr = X</span><br><span class="line">    self.ytr = y</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">""" X是NxD的测试集(每行代表一个我们需要预测标签的样本数据) """</span></span><br><span class="line">    num_test = X.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 确保输入输出数据类型匹配</span></span><br><span class="line">    Ypred = np.zeros(num_test, dtype = self.ytr.dtype)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历所有测试集样本数据</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(num_test):</span><br><span class="line">      <span class="comment"># 根据L1 distance找出和第i个测试图像最近邻的训练图片</span></span><br><span class="line">      distances = np.sum(np.abs(self.Xtr - X[i,:]), axis = <span class="number">1</span>)</span><br><span class="line">      min_index = np.argmin(distances) <span class="comment"># 获取最小差异图像的索引值</span></span><br><span class="line">      Ypred[i] = self.ytr[min_index] <span class="comment"># 预测最近邻样本的标签</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Ypred</span><br></pre></td></tr></table></figure></p>
 <p>上述代码实现了在CIFAR-10上38.6%的准确度，相对于人类近94%或者最先进(state-of-the-art)的卷积神经网络近95%(<a href="http://www.kaggle.com/c/cifar-10/leaderboard" target="_blank" rel="noopener">最新排行</a>)的准确度来说，这个结果可谓悲观。<br><strong>距离的选择</strong> 除上述L1 distance之外，还有许多其他计算向量之间距离的方法，另一个常用的计算方法是‘L2 distance’，计算公式如下所示：<br>$$d_2(I_1-I_2)=\sqrt{\sum_p(I_1^p-I_2^p)^2}$$<br>换句话说，L1 distance计算的是像素差，而L2 distance计算的是像素差的平方和的开方，我们用一行代码来替换上述计算距离的代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">distances = np.sqrt(np.square(self.Xtr-X[i,:]), axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
@@ -288,7 +289,15 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">卷积神经网络</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图像分类</a>
         		</li>
       		
 		</ul>
@@ -357,6 +366,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CS231n用于视觉识别的卷积神经网络-学习笔记2
+        
+      </div>
+    </a>
   
   
     <a href="/2018/07/04/嵌入式C语言面试题/" id="article-nav-older" class="article-nav-link-wrap">
@@ -516,11 +534,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+                <a href="javascript:void(0)" class="js-tag color2">卷积神经网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,6 +558,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
@@ -548,7 +578,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,11 +598,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,6 +607,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">

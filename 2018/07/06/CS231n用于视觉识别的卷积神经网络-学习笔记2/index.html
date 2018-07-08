@@ -6,19 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog365.top">
-  <title>Tag: IO操作 | Archiew的个人博客</title>
+  <title>CS231n用于视觉识别的卷积神经网络-学习笔记2 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="archiew&apos;s blog | python">
-<meta name="keywords" content="archiew,blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
-<meta property="og:url" content="http://blog365.top/tags/IO操作/index.html">
+  <meta name="description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
+<meta name="keywords" content="视觉识别,卷积神经网络,线性分类,学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
+<meta property="og:url" content="http://blog365.top/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="archiew&apos;s blog | python">
+<meta property="og:description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cs231n.github.io/assets/imagemap.jpg">
+<meta property="og:image" content="http://cs231n.github.io/assets/pixelspace.jpeg">
+<meta property="og:image" content="http://cs231n.github.io/assets/templates.jpg">
+<meta property="og:image" content="http://cs231n.github.io/assets/wb.jpeg">
+<meta property="og:updated_time" content="2018-07-06T09:07:01.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
-<meta name="twitter:description" content="archiew&apos;s blog | python">
+<meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
+<meta name="twitter:description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
+<meta name="twitter:image" content="http://cs231n.github.io/assets/imagemap.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -170,60 +176,221 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-CS231n用于视觉识别的卷积神经网络-学习笔记2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/" class="archive-article-date">
-  	<time datetime="2018-05-15T03:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a>
+    <h1 class="article-title" itemprop="name">
+      CS231n用于视觉识别的卷积神经网络-学习笔记2
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/" class="archive-article-date">
+  	<time datetime="2018-07-06T00:59:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-06</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 2,303字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 8分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址：<a href="http://cs231n.github.io/linear-classify/" target="_blank" rel="noopener">http://cs231n.github.io/linear-classify/</a><br>翻译：<a href="http://blog.archiew.top" target="_blank" rel="noopener">Archiew</a>  　<strong>转载需注明出处</strong></p>
+<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入线性分类</a><br><a href="#score">线性得分函数</a><br><a href="#interpret">解释线性分类器</a><br><a href="#loss">损失函数</a><br><a href="#svm">　多类SVM</a><br><a href="#softmax">　Softmax分类器</a><br><a href="#svmvssoftmax">　SVM与Softmax</a><br><a href="#demo">线性分类器Web交互式演示</a><br><a href="#summary">总结</a></p>
+<a id="more"></a>
+<hr>
+<h3 id="线性分类-1"><a href="#线性分类-1" class="headerlink" title="线性分类"></a><span id="intro">线性分类</span></h3><p>上一讲中，我们介绍了图像分类的问题，即从一组固定的类别中为图像分配单个标签的任务。更重要的是，我们描述了<strong>k-最近邻（kNN）</strong>分类器，它通过将图像与训练集中的（带注释的）图像进行比较来标记图像。正如我们所看到的，kNN有许多缺点：</p>
+<blockquote>
+<ul>
+<li>分类器需要存储所有训练数据以供接下来与测试数据作比较。因为数据集大小很容易达到千兆字节，所以这会导致空间效率低下。</li>
+<li>对测试图像的分类很耗费资源因为它需要与训练集中的所有图像进行比较。</li>
+</ul>
+</blockquote>
+<p><strong>预览</strong> 接下来我们要开发出来一种更加高效的方法去进行图像分类，最终自然地扩展到整个神经网络和卷积神经网络。该方法涉及两个主要部分：将原始数据映射为分类得分的<strong>score function(得分函数)</strong>，量化预测分数和真值标签之间差异的<strong>lose function(损失函数)</strong>。我们将这个问题看作优化问题：最小化关于得分函数参数的损失函数。</p>
+<h3 id="线性得分函数"><a href="#线性得分函数" class="headerlink" title="线性得分函数"></a><span id="score">线性得分函数</span></h3><p>首先定义得分函数，该函数将图像像素值映射为每个分类的置信度分数。接下来通过一个具体例子来说明。假定图像训练集\(x_i\in{R^D}\)，与之对应的标签集为\(y_i\)，其中\(i=1…N\),\(y_i\in{1…K}\)。也就是说，我们有\(N\)个样本(每个样本维度\(D\))和\(K\)个独立标签分类。例如，对于CIFAR-10，我们的训练集有\(N=50,000\)个图片，每个图片有\(D=32x32x3=3072\)个像素，独立分类数\(K=10\)。我们现在定义原始像素映射到分类得分的得分函数：$$f:R^D→R^K$$<br><strong>线性分类器(Linear classifier)</strong> 在这里，我们从最简单的线性映射开始：$$f(x_i,W,b)=Wx_i+b$$在上述等式中，假定图片\(x_i\)已经被平铺成一个单一列向量[Dx1]。矩阵\(W\)(大小：[KxD])和向量\(b\)(大小：[Kx1])是函数的<strong>参数</strong>。在CIFAR-10中，\(x_i\)是第i个被平铺成[3072x1]的图片，\(W\)是[10x3072],\(b\)是[10x1]，也就是我们输入3072个像素值，并获得代表分类的分的10个数据输出。参数\(W\)被称作<strong>权重</strong>，\(b\)被称作<strong>偏差向量</strong>因为它影响输出得分但并不与真实数据\(x_i\)交互。<br>注意：</p>
+<blockquote>
+<ul>
+<li>单个矩阵相乘\(Wx_i\)有效地并行评估10个独立分类器，\(W\)中的每行都是一个分类器</li>
+<li>输入数据\((x_i,y_i)\)是给定的，我们控制参数\(W,b\)的设置。目标是计算全部训练集中图片分类得分并与真值分类标签相匹配。直观上我们希望正确分类能够得到比错误分类更高的分数</li>
+<li>这种方法的一个优势是训练集用来学习参数\(W,b\)，一旦学习完成，就可以完全抛弃训练集只保留学习到的参数。因为新的测试图片可以通过此函数进行简单的前向传递并且基于得分进行分类</li>
+<li>最后，注意到对测试图片的分类仅涉及到一次矩阵乘法和加法，这将比之前的比较测试图片与训练图片差异快得多。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>卷积神经网络将图像像素映射为上述提到的得分，但是映射\(f\)将会更复杂并且包含更多的参数</p>
+</blockquote>
+<h3 id="解释线性分类器"><a href="#解释线性分类器" class="headerlink" title="解释线性分类器"></a><span id="interpret">解释线性分类器</span></h3><p>注意到线性分类器计算图像3个通道所有像素值的加权和作为分类得分。根据我们设置的权重值的精度，映射函数能够反映出对图片某些位置某种颜色的倾向。例如，设想图像中有许多蓝色像素点(可能被看作是‘水’)可能被分类为‘船’。我们可能希望‘船’分类器在图片蓝色通道上有许多正权重值(蓝色的存在会增加船分类的得分)，而在红/蓝通道上有负权重值(红/蓝的存在会降低船分类的得分)。<br><img src="http://cs231n.github.io/assets/imagemap.jpg" alt="图像映射为分类得分的例子。为方便可视化展示，我们假定图像仅含4个黑白像素，并且给定了3个分类标签：猫(red),狗(green),船(blue)。注意：这里的颜色并不代表图像颜色通道，仅作区分不同类用。将图像像素平铺成一列，执行矩阵乘法加法得到每个分类的得分。注意：上图中给出的权重值是随机的，因此得分结果并不准确，实际上我们希望得分结果中猫分类得分应该是最高的。"></p>
+<p><strong>将图像类比为高维点</strong> 因为图片被平铺为高维列向量，因此我们可以将图片对应到高维空间内的一个点(eg.CIFAR-10中的每个图片都可对应为3072维空间中的一个点)。类似地，整个数据集就对应该空间中的一组(含标签)点集。<br>因为我们定义分类得分为图像像素加权和，所以每个分类得分是整个空间的线性函数。我们无法可视化3072维空间但是设想将其压缩为2维，然后尝试可视化分类器的操作过程。<br><img src="http://cs231n.github.io/assets/pixelspace.jpeg" alt="图像空间的可视化表示，每个图片都是对应空间的一个点。以汽车分类器(red)为例，红线上点表示对应于汽车分类器的得分为0的图像。红色箭头表示汽车分类器得分增加的方向，所以红线右侧的点有正值(呈线性增加)得分，左侧的点有负值(呈线性减小)得分。"></p>
+<p>\(W\)中的每行对应一个分类的分类器。这些数的几何解释是，当我们改变\(W\)的每一行，像素空间对应线将会旋转不同方向。另一方面偏差\( b\)允许我们的分类器翻转这条线？？？尤其要注意的是没有偏差的话，对输入\(x_i=0\)将会输出0分，无论权重值为多少，因此所有线将会穿过原点。（这段没太懂）</p>
+<p><strong>将线性分类器解释为模板匹配</strong> 权重\(W\)的另一种解释是每行对应一个分类模板(或者称作‘原型’)。对一个图片，每个分类的得分是通过比较每个模板和图片的内积(或点积)获得。用专业术语说，线性分类器在做模板匹配，而模板是在不断学习的。其实我们还是在做最近邻工作，只不过这里使用内积来代替L1或L2距离。<br><img src="http://cs231n.github.io/assets/templates.jpg" alt="学习CIFAR-10结束时的权重示例。注意：如我们所期望的那样，船模板包含了许多蓝色像素。因此对于一幅海洋中的船图片该模板做内积将会给出高分"></p>
+<p>除此之外，注意到上图中马的模板似乎包含了一个‘双头’马，这是因为数据集中包含了面向左侧和面向右侧两种含马的训练图片，线性分类器将这两个模型合并到一个模板图中。类似地，汽车模板似乎合并了多个模型(不同角度不同颜色)到一个模板中。最终的模板呈现红色，表明数据集中含有大量红色汽车图片。那么实际上这个线性分类器在正确识别不同颜色汽车方面还有所欠缺，随后我们在神经网络中会做这部分工作。神经网能够通过隐藏层中的中间神经元来检测特殊的汽车类型(eg.向左的绿色汽车，向前的蓝色汽车)，后层神经元可以将这些结合起来得到更精确的汽车分类得分。<br><strong>偏差技巧</strong> 为简化，这里有个小技巧，我们可以将参数\(W,b\)合为一个。常用方法是将两个参数集结合成一个单一矩阵，具体要通过扩展向量\(\x_i)的维度(增加一列)，多余出来的量默认用1来填充。这样，之前的得分函数就会变成下面这样单一矩阵乘法：$$f(x_i,W)=Wx_i$$还以CIFAR-10为例，\(x_i\)将由[3072x1]变为[3073x1]，\(W\)由[10x072]变为[10x3073]。\(W\)中多出来的列对应于偏差\(b_i\)。下面的图可能会便于理解：<br><img src="http://cs231n.github.io/assets/wb.jpeg" alt="偏差简化技巧示意图"></p>
+<p><strong>图片预处理</strong> 上面例子中我们使用图像原始像素([0…255])，在机器学习中，更为常见的是规范化我们的输入。尤其重要的是通过减去每个特征的均值来<strong>中心化数据</strong>。对于图像而言就是要计算训练图片的均值，然后用每个图像去减去它得到像素范围在[-127,127]的图像。更进一步的常用方法是将每个图像像素值缩放至[-1,1]。零均值中心可能更重要，但我们打算放到理解了梯度下降之后再来讲。</p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a><span id="loss">损失函数</span></h3><p>上面章节定义了从像素值到分类得分的映射函数，通过一系列权重\(W\)使其参数化。我们希望通过调整权重值来达到预测分类得分和训练数据分类标签结果一致。<br>上面对猫的图片分类中，由于我们提供了随意的权重值，导致猫的分类得分远小于其他两个分类得分。我们将用一个<strong>损失函数</strong>(或叫<strong>成本函数</strong>，<strong>目标</strong>)来衡量得分结果与图片分类真值的差异。直观来讲，好的分类结果对应低的损失值，与之对应，坏的分类结果对应高的损失值。</p>
+<h3 id="多类SVM损失"><a href="#多类SVM损失" class="headerlink" title="　多类SVM损失"></a><span id="#svm">　多类SVM损失</span></h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IO操作</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">视觉识别</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">卷积神经网络</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性分类</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog365.top/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CS231n用于视觉识别的卷积神经网络-学习笔记1</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+  
+	
+	
+  <!-- 来必力City版安装代码 -->
+<div id="gitment-ctn"">
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+</div>
+<!-- City版安装代码已完成 -->
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -252,9 +419,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
