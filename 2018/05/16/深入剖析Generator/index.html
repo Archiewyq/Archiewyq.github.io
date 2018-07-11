@@ -35,6 +35,19 @@
     }
   </style>
   
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-115393531-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
 
   
 <script>
@@ -48,8 +61,9 @@ var _hmt = _hmt || [];
 </script>
 
 
-  
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+  <meta name="google-site-verification" content="cA_PV5yKf9JSsR1mABJKsMk2i87wEpHvcnIj6n_sp44" />
+  <!-- mathjax -->
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
 <body>
@@ -209,10 +223,10 @@ var _hmt = _hmt || [];
 <p>foo函数首先加载bar到它的栈帧并调用(CALL_FUNCTION)它，然后把bar的返回值从栈中弹出，加载None到堆栈并返回。<br>有一点很重要：<strong>Python的栈帧实际上时分配在堆中的!</strong>Python解释器是用标准C语言实现的，它的栈帧是正常的栈帧(分配在栈空间)，而Python的栈帧是在堆中处理的，这就意味着Python中的栈帧在函数调用结束后依然可以存在，下面我们来看看这种现象：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import inspect</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; frame = None</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">	a = <span class="number">1</span></span><br><span class="line">	bar()</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">	global frame</span><br><span class="line">	frame = inspect.currentframe()</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; foo()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="comment"># The frame was executing the code for 'bar'.</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; frame.f_code.co_name</span><br><span class="line"><span class="string">'bar'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="comment"># Its back pointer refers to the frame for 'foo'.</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; caller_frame = frame.f_back</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; caller_frame.f_code.co_name</span><br><span class="line"><span class="string">'foo'</span></span><br></pre></td></tr></table></figure></p>
 <p><img src="http://aosabook.org/en/500L/crawler-images/function-calls.png" alt="函数调用"></p>
 <p>接下来看看Generator。下面是一个Generator函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">gen_fn</span><span class="params">()</span>:</span></span><br><span class="line">	result = <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">	print(<span class="string">'result of yield: &#123;&#125;'</span>.format(result))</span><br><span class="line">	result2 = <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">	print(<span class="string">'result of 2nd yield: &#123;&#125;'</span>.format(result2))</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'done'</span></span><br></pre></td></tr></table></figure></p>
-<p>Python规定：当一个函数中含有yield语句时，该函数会被当成是Generator函数，那么Python解释器是怎么实现这一点的呢？<br>实际上，当gen_fn函数编译为字节码时，遇到yield语句，解释器知道这是一个Generator函数，于是把对应的标志位(是的！Python是根据Generator标志位来表明该函数是一个Generator函数)。<br>可以看一下gen_fn函数对应的Generator标志位如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="comment"># The generator flag is bit position 5.</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; generator_bit = 1 &lt;&lt; 5</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; bool(gen_fn.__code__.co_flags &amp; generator_bit)</span></span><br><span class="line">True</span><br></pre></td></tr></table></figure></p>
+<p>Python规定：当一个函数中含有yield语句时，该函数会被当成是Generator函数，那么Python解释器是怎么实现这一点的呢？<br>实际上，当gen_fn函数编译为字节码时，遇到yield语句，解释器知道这是一个Generator函数，于是把对应的标志位(是的！Python是根据Generator标志位来表明该函数是一个Generator函数)。<br>可以看一下gen_fn函数对应的Generator标志位如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="comment"># The generator flag is bit position 5.</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; generator_bit = <span class="number">1</span> &lt;&lt; <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; bool(gen_fn.__code_<span class="number">_</span>.co_flags &amp; generator_bit)</span><br><span class="line">True</span><br></pre></td></tr></table></figure></p>
 <p>所有对gen_fn的调用都指向同一个代码空间，但是每一个调用都有自己的栈帧，这些栈帧并非真正意义上的栈，而是上述所讲Python中的栈，它们时分配在堆空间的。<br><img src="http://aosabook.org/en/500L/crawler-images/generator.png" alt="Generator"><br>上图可以看到在Generator的栈帧中包含一个’f_lasti’的指针，改指针用于指向最后执行指令的位置(字节码中)，初始化为-1<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen = gen_fn()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen.gi_frame.f_lasti</span><br><span class="line">-<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <p>第一次调用<code>send</code>，Generator到达第一个<code>yield</code>并且暂停，<code>send</code>返回值为1。此时’f_lasti’指向第一个<code>yield</code>在字节码中的位置2。<br>第二次调用<code>send</code>，Generator到达第二个<code>yield</code>并且暂停，<code>send</code>返回值为2。此时’f_lasti’指向第二个<code>yield</code>在字节码中的位置22。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen.send(None)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen.gi_frame.f_lasti</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen.send(None)</span><br><span class="line">result of <span class="symbol">yield:</span> None</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; gen.gi_frame.f_lasti</span><br><span class="line"><span class="number">22</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen.send(<span class="keyword">None</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen.gi_frame.f_lasti</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen.send(<span class="keyword">None</span>)</span><br><span class="line">result of <span class="keyword">yield</span>: <span class="keyword">None</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen.gi_frame.f_lasti</span><br><span class="line"><span class="number">22</span></span><br></pre></td></tr></table></figure>
 <p>可以看到，Generator函数可以随时随地被任何函数暂停，这是因为其栈帧并非真正意义上的栈空间：它是分配在堆空间的。</p>
 <p>译自：<em><a href="http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html" target="_blank" rel="noopener">a-web-crawler-with-asyncio-coroutines</a></em></p>
 
@@ -345,7 +359,7 @@ var _hmt = _hmt || [];
 	
 	
   <!-- 来必力City版安装代码 -->
-<div id="gitment-ctn"">
+<div class="duoshuo">
 <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
 	<script type="text/javascript">
    (function(d, s) {
@@ -477,11 +491,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,10 +508,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,14 +531,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RSS</a>
               </li>
              
@@ -533,7 +539,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
               </li>
              
               <li class="article-tag-list-item">
