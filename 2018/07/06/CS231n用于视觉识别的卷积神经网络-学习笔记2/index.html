@@ -21,7 +21,8 @@
 <meta property="og:image" content="http://cs231n.github.io/assets/templates.jpg">
 <meta property="og:image" content="http://cs231n.github.io/assets/wb.jpeg">
 <meta property="og:image" content="http://cs231n.github.io/assets/margin.jpg">
-<meta property="og:updated_time" content="2018-07-16T08:05:13.740Z">
+<meta property="og:image" content="http://cs231n.github.io/assets/svmvssoftmax.png">
+<meta property="og:updated_time" content="2018-07-16T11:28:09.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
 <meta name="twitter:description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
@@ -209,10 +210,10 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 4,595字 | 
+				  字数统计 5,588字 | 
 				 </span>
 				 <span id="word-count">
-				  阅读时长 18分钟
+				  阅读时长 21分钟
 				 </span>
 				</div>
 				
@@ -262,7 +263,11 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>我们需要做的就是提出一种找到满足最小损失的方法</p>
 </blockquote>
-<h4 id="实际考虑因素"><a href="#实际考虑因素" class="headerlink" title="实际考虑因素"></a>实际考虑因素</h4><p><strong>设置Δ</strong> 应该设为什么？需不需要进行交叉验证？实际上，超参量Δ在所有例子中可以被安全地设置为1.权重\(W\)的大小直接影响到最后的得分(和他们的差异)：因为我们缩小了\(W\)的值，得分之间的差异将会更低，另一方面我们放大了权重值，这会使得分之间的差异变大。因此，得分边界的确切值(e.g. Δ=1 or Δ=100)是没有意义的，因为权重可以随意缩放差异值。因此，唯一的权衡是允许权重值增长程度(通过正则化强度λ)。<br><strong>和二进制支持向量机的关系</strong> 二进制支持向量机下第i个样例的损失表示如下：$$L_i=Cmax(0,1-y_iw^Tx_i)+R(W)$$其中\(C\)是超参量，\(y_i \in {-1,1}\)</p>
+<h4 id="实际考虑因素"><a href="#实际考虑因素" class="headerlink" title="实际考虑因素"></a>实际考虑因素</h4><p><strong>设置Δ</strong> 应该设为什么？需不需要进行交叉验证？实际上，超参量Δ在所有例子中可以被安全地设置为1.权重\(W\)的大小直接影响到最后的得分(和他们的差异)：因为我们缩小了\(W\)的值，得分之间的差异将会更低，另一方面我们放大了权重值，这会使得分之间的差异变大。因此，得分边界的确切值(e.g. Δ=1 or Δ=100)是没有意义的，因为权重可以随意缩放差异值。因此，唯一的权衡是允许权重值增长程度(通过正则化强度λ)。<br><strong>和二进制支持向量机的关系</strong> 二进制支持向量机下第i个样例的损失表示如下：$$L_i=Cmax(0,1-y_iw^Tx_i)+R(W)$$其中\(C\)是超参量，\(y_i \in {-1,1}\)。可以把二进制支持向量机理解为我们之前提出的多类SVM的一种特例：如果只有两个分类，多类SVM就成了二进制SVM。上述公式中的\(C\)和我们之前公式中的\(λ\)控制着相同的权衡，并且是倒数关系\(C \propto \frac{1}{\lambda}\)。<br><strong>原始优化</strong> 如果你以前了解SVM知识，你可能听说过内核，双重，SMO算法等。在这个课程中（神经网络）我们将一直使用无约束原始形式的优化目标。这些目标中的许多在技术上是不可微分的(例如，max(x，y)函数，因为当x=y时它具有扭结)，但实际上这不是问题，并且通常使用子梯度。<br><strong>其他多类SVM公式化</strong> 值得注意的是，本节提出的多类SVM是多个多类SVM公式化中的一个。另一个常用的公式是<em>One-Vs-All</em>(OVA)SVM，它为每个分类单独训练二进制SVM。还有不太常用的<em>All-vs-All</em>(AVA)策略。我们的公式遵从<a href="https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es1999-461.pdf" target="_blank" rel="noopener">Weston and Watkins 1999 (pdf) </a>版本，这是一个比OVA更强大的版本(从某种意义上说，你可以构建多版本数据集，其中这个版本可以实现零数据损失，但OVA不能。如果感兴趣，请参阅论文)。最后是<em>结构化SVM</em>，它可以最大化正确分类得分与得分次高间的差距。理解这些公式之间的差异超出本课程范围。本节提出的版本是实际操作安全的，但最简单的OVA策略也可能同样有效</p>
+<h3 id="Softmax分类器"><a href="#Softmax分类器" class="headerlink" title="　Softmax分类器"></a><span id="softmax">　Softmax分类器</span></h3><p>SVM是两个常用的分类器之一，另一个是<strong>Softmax classifier</strong>。如果你之前听过二进制Logistic Regression分类器，Softmax分类器是它在多类上的推广。不同于SVM将输出\(f(x_i,W)\)作为每个分类的得分，Softmax分类器给出一个更直观的输出(标准化类概率)，和稍后将讲到的概率解释。在Softmax分类器中，函数映射\(f(x_i;W)=Wx_i\)不变，但我们现在将这些分类得分解释为每个分类的非标准化对数概率，并用具有以下形式的交叉熵损失替换hinge损失：$$L_i = -\log\left(\frac{e^{f_{y_i}}}{ \sum_j e^{f_j} }\right) \hspace{0.5in} \text{or equivalently} \hspace{0.5in} L_i = -f_{y_i} + \log\sum_j e^{f_j}$$用\(f_j\)表示分类得分向量\(f\)的第j个元素。像之前一样，数据集的全部损失是所有训练样例\(L_i\)的平均值，有一个正则化术语\(R(W)\)。函数\(f_j(z) = \frac{e^{z_j}}{\sum_k e^{z_k}}\)被称作<strong>softmax function</strong>:它将任意真值得分向量压缩到值为0到1之间且和为1的向量。如果是第一次接触，softmax函数中涉及到的全交叉熵损失看起来很可怕，实际上相对容易激励。<br><strong>信息论观点</strong> “真实”分布\(p\)和预测分布\(q\)之间的交叉熵定义为：$$H(p,q) = - \sum_x p(x) \log q(x)$$Softmax分类器最小化两者之间的交叉熵(\(q = e^{f_{y_i}}  / \sum_j e^{f_j}\))，which in this interpretation is the distribution where all probability mass is on the correct class (i.e. \(p=[0,…1,…,0]\)contains a single 1 at the\(y_i\)-th position.)。此外，因为交叉熵可以被写作\(H(p,q) = H(p) + D_{KL}(p||q)\)，Δ函数\(p\)的熵为0，等同于两个分布之间KL差异(一种距离测量)的最小化。换句话说，交叉熵客观上_希望_预测分布能够在正确答案上有全部的质量。<br><strong>概率解释</strong> 下式：$$P(y_i \mid x_i; W) = \frac{e^{f_{y_i}}}{\sum_j e^{f_j} }$$可以解释为给定图像\(x_i\)和参数化\(W\)的正确标签\(y_i\)分配的（标准化）概率？？？Softmax分类器将输出向量\(f\)中的得分解释为未标准化的对数概率。<br>。。。</p>
+<p><strong>实际问题：数字稳定性</strong> </p>
+<p><em>**命名</em> </p>
+<h3 id="SVM-vs-Softmax"><a href="#SVM-vs-Softmax" class="headerlink" title="　SVM vs. Softmax"></a><span id="svmvssoftmax">　SVM vs. Softmax</span></h3><p><img src="http://cs231n.github.io/assets/svmvssoftmax.png" alt="SVM和Softmax分类器比较"></p>
 
       
 
