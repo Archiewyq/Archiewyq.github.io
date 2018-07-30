@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://cs231n.github.io/assets/margin.jpg">
 <meta property="og:image" content="http://cs231n.github.io/assets/svmvssoftmax.png">
 <meta property="og:image" content="http://cs231n.github.io/assets/classifydemo.jpeg">
-<meta property="og:updated_time" content="2018-07-30T08:50:22.520Z">
+<meta property="og:updated_time" content="2018-07-30T08:53:00.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
 <meta name="twitter:description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
@@ -234,7 +234,7 @@ var _hmt = _hmt || [];
 </ul>
 </blockquote>
 <p><strong>预览</strong> 接下来我们要开发出来一种更加高效的方法去进行图像分类，最终自然地扩展到整个神经网络和卷积神经网络。该方法涉及两个主要部分：将原始数据映射为分类得分的<strong>score function(得分函数)</strong>，量化预测分数和真值标签之间差异的<strong>lose function(损失函数)</strong>。我们将这个问题看作优化问题：最小化关于得分函数参数的损失函数。</p>
-<h3 id="线性得分函数"><a href="#线性得分函数" class="headerlink" title="线性得分函数"></a><span id="score">线性得分函数</span></h3><p>首先定义得分函数，该函数将图像像素值映射为每个分类的置信度分数。接下来通过一个具体例子来说明。假定图像训练集\(x_i\in{R^D}\)，与之对应的标签集为\(y_i\)，其中\(i=1…N\),\(y_i\in{1…K}\)。也就是说，我们有\(N\)个样本(每个样本维度\(D\))和\(K\)个独立标签分类。例如，对于CIFAR-10，我们的训练集有\(N=50,000\)个图片，每个图片有\(D=32X32X3=3072\)个像素，独立分类数\(K=10\)。我们现在定义原始像素映射到分类得分的得分函数：$$f:R^D→R^K$$<br><strong>线性分类器(Linear classifier)</strong> 在这里，我们从最简单的线性映射开始：$$f(x_i,W,b)=Wx_i+b$$在上述等式中，假定图片\(x_i\)已经被平铺成一个单一列向量[Dx1]。矩阵\(W\)(大小：[KxD])和向量\(b\)(大小：[Kx1])是函数的<strong>参数</strong>。在CIFAR-10中，\(x_i\)是第i个被平铺成[3072x1]的图片，\(W\)是[10x3072],\(b\)是[10x1]，也就是我们输入3072个像素值，并获得代表分类的分的10个数据输出。参数\(W\)被称作<strong>权重</strong>，\(b\)被称作<strong>偏差向量</strong>因为它影响输出得分但并不与真实数据\(x_i\)交互。<br>注意：</p>
+<h3 id="线性得分函数"><a href="#线性得分函数" class="headerlink" title="线性得分函数"></a><span id="score">线性得分函数</span></h3><p>首先定义得分函数，该函数将图像像素值映射为每个分类的置信度分数。接下来通过一个具体例子来说明。假定图像训练集\(x_i\in{R^D}\)，与之对应的标签集为\(y_i\)，其中\(i=1…N\),\(y_i\in{1…K}\)。也就是说，我们有\(N\)个样本(每个样本维度\(D\))和\(K\)个独立标签分类。例如，对于CIFAR-10，我们的训练集有\(N=50,000\)个图片，每个图片有\(D=32X32X3=3072\)个像素，独立分类数\(K=10\)。我们现在定义原始像素映射到分类得分的得分函数：$$f:R^D→R^K$$<br><strong>线性分类器(Linear classifier)</strong> 在这里，我们从最简单的线性映射开始：$$f(x_i,W,b)=Wx_i+b$$在上述等式中，假定图片\(x_i\)已经被平铺成一个单一列向量[Dx1]。矩阵\(W\)(大小：[KxD])和向量\(b\)(大小：[Kx1])是函数的<strong>参数</strong>。在CIFAR-10中，\(x_i\)是第i个被平铺成[3072x1]的图片，\(W\)是[10x3072],\(b\)是[10x1]，也就是我们输入3072个像素值，并获得代表分类得分的10个数据输出。参数\(W\)被称作<strong>权重</strong>，\(b\)被称作<strong>偏差向量</strong>因为它影响输出得分但并不与真实数据\(x_i\)交互。<br>注意：</p>
 <blockquote>
 <ul>
 <li>单个矩阵相乘\(Wx_i\)有效地并行评估10个独立分类器，\(W\)中的每行都是一个分类器</li>
