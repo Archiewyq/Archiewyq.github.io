@@ -9,7 +9,7 @@
   <title>CS231n用于视觉识别的卷积神经网络-学习笔记1 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="原文地址：http://cs231n.github.io/classification/翻译：Archiew  　转载需注明出处 图片分类问题&amp;amp;数据驱动方法引入目录引入图片分类、数据驱动方法，数据流最近邻分类器　K-最近邻分类器验证集、交叉验证和超参调整最近邻优缺点总结">
-<meta name="keywords" content="视觉识别,卷积神经网络,图像分类,学习笔记">
+<meta name="keywords" content="视觉识别,卷积神经网络,学习笔记,图像分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记1">
 <meta property="og:url" content="http://blog.archiew.top/2018/07/05/CS231n用于视觉识别的卷积神经网络-学习笔记1/index.html">
@@ -225,7 +225,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文地址：<a href="http://cs231n.github.io/classification/" target="_blank" rel="noopener">http://cs231n.github.io/classification/</a><br>翻译：<a href="http://blog.archiew.top" target="_blank" rel="noopener">Archiew</a>  　<strong>转载需注明出处</strong></p>
+        <p>原文地址：<a href="http://cs231n.github.io/classification/" target="_blank" rel="noopener">http://cs231n.github.io/classification/</a><br>翻译：<a href="http://blog.archiew.top">Archiew</a>  　<strong>转载需注明出处</strong></p>
 <h2 id="图片分类问题-amp-数据驱动方法引入"><a href="#图片分类问题-amp-数据驱动方法引入" class="headerlink" title="图片分类问题&amp;数据驱动方法引入"></a>图片分类问题&amp;数据驱动方法引入</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入图片分类、数据驱动方法，数据流</a><br><a href="#nnc">最近邻分类器</a><br><a href="#knn">　K-最近邻分类器</a><br><a href="#val">验证集、交叉验证和超参调整</a><br><a href="#procon">最近邻优缺点</a><br><a href="#summary">总结</a></p>
 <a id="more"></a>
 <hr>
@@ -307,11 +307,11 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图像分类</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图像分类</a>
         		</li>
       		
 		</ul>
@@ -425,7 +425,7 @@ var _hmt = _hmt || [];
 	
   <!-- 来必力City版安装代码 -->
 <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
-	<script type="text/javascript">
+<script type="text/javascript">
    (function(d, s) {
        var j, e = d.getElementsByTagName(s)[0];
 
@@ -437,7 +437,7 @@ var _hmt = _hmt || [];
 
        e.parentNode.insertBefore(j, e);
    })(document, 'script');
-	</script>
+</script>
 <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
 </div>
 
@@ -555,7 +555,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,7 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,7 +575,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,11 +591,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -603,7 +603,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
+                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,11 +615,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
+                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,7 +627,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
               <li class="article-tag-list-item">
