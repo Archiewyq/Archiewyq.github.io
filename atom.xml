@@ -48,19 +48,13 @@
     <link href="http://blog.archiew.top/2018/07/08/2019%E5%A4%A7%E7%96%86%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8B%9B%E8%81%98/"/>
     <id>http://blog.archiew.top/2018/07/08/2019大疆嵌入式软件开发招聘/</id>
     <published>2018-07-08T13:10:23.000Z</published>
-    <updated>2018-07-31T09:02:02.414Z</updated>
+    <updated>2018-07-31T09:27:16.957Z</updated>
     
-    <content type="html"><![CDATA[<p>刚做完大疆的2019年嵌入式软开笔试题(B卷)，整体感觉，考察重点包括：</p><blockquote><ul><li>C语言基础：struct&amp;union存储方式、<strong>attribute</strong> ((packed))、链表操作(编程：双向链表删除最后n个节点、翻转单向链表)</li><li>内存管理：内存计算、mmp&amp;fread读取速度</li><li>嵌入式系统：实时系统和非实时系统的比较</li></ul></blockquote>]]></content>
+    <content type="html"><![CDATA[<p>刚做完大疆的2019年嵌入式软开笔试题(B卷)，作以下纪录：<br>题型：单选（2’<em>10=20’）、多选（3’</em>5=15’）、填空（4’<em>4=16’）、简答（6’</em>3=18’）、编程（ 11’+20’ = 31’）<br>时间：20180708   19:30 — 21:00（90分钟）</p><a id="more"></a><hr><h3 id="单选"><a href="#单选" class="headerlink" title="单选"></a>单选</h3><p>DDR特性<br>sizeof struct 和 sizeof union<br>sizeof <strong>attribute</strong>(packed)编译优化<br>sizeof二维数组<br>函数指针数组 int (<em>int a[10])(int)<br>const char </em>p和char * const p<br>cache<br>assert()在debug模式及release模式<br>中断context保存位置</p><h3 id="多选"><a href="#多选" class="headerlink" title="多选"></a>多选</h3><p>sizeof offsetof<br>实时嵌入式操作系统<br>关键区域保护措施(关中断？关抢占？上锁？)</p><h3 id="填空"><a href="#填空" class="headerlink" title="填空"></a>填空</h3><p>sizeof<br>memset<br>进程间通讯方式</p><h3 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h3><p>for(;;)函数调用次数<br>mmap和fread读文件的比较<br>实时/非实时操作系统概念、选用、优劣</p><h3 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h3><p>删除双向链表最后N个节点(考虑N&gt;节点总数)<br>单向链表倒置</p><p>20180728 下午3点    一面(电话面)<br>首先让做自我介绍，blabla~<br>就简历上所填项目自行选择一个做详细说明，根据项目内容问几个问题<br>对方选择另外感兴趣项目，就细节进行提问，问到了断电时内存写入处理，文件传输校验，CAN总线协议(如何保证传输不出错)…blabla~<br>就自己了解的一种嵌入式操作系统进行说明。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;刚做完大疆的2019年嵌入式软开笔试题(B卷)，整体感觉，考察重点包括：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;C语言基础：struct&amp;amp;union存储方式、&lt;strong&gt;attribute&lt;/strong&gt; ((packed))、链表操作(编程：双
-      
+      &lt;p&gt;刚做完大疆的2019年嵌入式软开笔试题(B卷)，作以下纪录：&lt;br&gt;题型：单选（2’&lt;em&gt;10=20’）、多选（3’&lt;/em&gt;5=15’）、填空（4’&lt;em&gt;4=16’）、简答（6’&lt;/em&gt;3=18’）、编程（ 11’+20’ = 31’）&lt;br&gt;时间：20180708   19:30 — 21:00（90分钟）&lt;/p&gt;
     
     </summary>
     
