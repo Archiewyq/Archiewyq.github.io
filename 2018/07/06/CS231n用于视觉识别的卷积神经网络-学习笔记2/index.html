@@ -9,7 +9,7 @@
   <title>CS231n用于视觉识别的卷积神经网络-学习笔记2 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
-<meta name="keywords" content="视觉识别,卷积神经网络,线性分类,学习笔记">
+<meta name="keywords" content="视觉识别,卷积神经网络,学习笔记,线性分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
 <meta property="og:url" content="http://blog.archiew.top/2018/07/06/CS231n用于视觉识别的卷积神经网络-学习笔记2/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://cs231n.github.io/assets/margin.jpg">
 <meta property="og:image" content="http://cs231n.github.io/assets/svmvssoftmax.png">
 <meta property="og:image" content="http://cs231n.github.io/assets/classifydemo.jpeg">
-<meta property="og:updated_time" content="2018-07-30T10:33:42.324Z">
+<meta property="og:updated_time" content="2018-07-31T03:19:19.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记2">
 <meta name="twitter:description" content="原文地址：http://cs231n.github.io/linear-classify/翻译：Archiew  　转载需注明出处 线性分类目录引入线性分类线性得分函数解释线性分类器损失函数　多类SVM　Softmax分类器　SVM与Softmax线性分类器Web交互式演示总结">
@@ -211,7 +211,7 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 7,267字 | 
+				  字数统计 7,280字 | 
 				 </span>
 				 <span id="word-count">
 				  阅读时长 28分钟
@@ -270,7 +270,7 @@ var _hmt = _hmt || [];
 <h3 id="SVM-vs-Softmax"><a href="#SVM-vs-Softmax" class="headerlink" title="　SVM vs. Softmax "></a><span id="svmvssoftmax">　SVM vs. Softmax </span></h3><p><img src="http://cs231n.github.io/assets/svmvssoftmax.png" alt="SVM和Softmax分类器比较"></p>
 <p><strong>Softmax分类器提供了每个分类的可能性</strong> 与计算所有类别的未校准且不易解释的SVM不同，Softmax分类器允许我们计算所有分类的“概率”。例如：给定一个图片，SVM分类器可能给出标签为“猫，狗，船”的得分[12.5,0.6,-23.0]。Softmax分类器则将计算这三个分类的概率为[0.9,0.09,0.01]。然而，我们将概率加引号是因为这些概率的峰值或者扩散程度如何将直接取决于正则化强度\(λ\)-您负责作为系统的输入。例如：假定三个分类的非标准化对数概率输出为[1,-2,0]。Softmax函数计算如下：<br>$$[1, -2, 0] \rightarrow [e^1, e^{-2}, e^0] = [2.71, 0.14, 1] \rightarrow [0.7, 0.04, 0.26]$$<br>这一步是做了指数化和归一化。如果正则强度\(λ\)太高，权重\(W\)将会做更多惩罚以此来获得更小的权重。例如，假定权重变为原来一半([0.5,-1,0])，Softmax计算如下：<br>$$[0.5, -1, 0] \rightarrow [e^{0.5}, e^{-1}, e^0] = [1.65, 0.37, 1] \rightarrow [0.55, 0.12, 0.33]$$<br>现在概率更加分散。此外，由于非常强的正则化强度λ，权重朝向微小数量的极限，输出概率几乎是均匀的。因此，由Softmax分类器计算的概率更好地被认为是置信度，其中类似于SVM，分数的排序是可解释的，但绝对数字（或它们的差异）在技术上不是。</p>
 <p><strong>实际上，SVM和Softmax通常具有可比性</strong> SVM和Softmax之间的性能差异通常很小，并且，不同的人对哪种分类器更好持有不同的观点。和Softmax分类器相比，SVM更local objective，这可以被当作是bug或者特性。考虑这样一个例子：分类得分为[10,-2,3]并且第一个分类是正确的分类。SVM(eg. \(Δ=1\))认为正确分类得分和其他分类得分差距已经超过边界值，因此计算的损失值为0。SVM不关心单个得分的细节：如果得分为[10,-100,-100]或者[10,9,9]，尽管边界值1是满足的，但是SVM是无关紧要的，因此损失值是0。然而对于Softmax分类器，情况是不一样的，得分[10,9,9]相比于[10,-100,-100]会积累更多的损失值。换句话说，Softmax分类器从不完全满意它产生的分数：正确的类总是有更高的概率，不正确的类总是更低的概率，并且损失总是会变得更好。然而SVM是一旦边际得到满足就会满意，并且它不会对超出次约束的精确得分进行微观管理。这可以直观地理解为一个特性：例如，一个汽车分类器可能将大部分“努力”用于将汽车从卡车上分离出来，不应受到青蛙分类(已经被分配非常低的得分并且可能聚集在数据云的完全不同的一侧)的影响</p>
-<h3 id="Interactive-web-demo"><a href="#Interactive-web-demo" class="headerlink" title="　Interactive web demo "></a><span id="demo">　Interactive web demo </span></h3><p><img src="http://cs231n.github.io/assets/classifydemo.jpeg" alt=""></p>
+<h3 id="Interactive-web-demo"><a href="#Interactive-web-demo" class="headerlink" title="　Interactive web demo "></a><span id="demo">　Interactive web demo </span></h3><p>演示地址：<a href="http://vision.stanford.edu/teaching/cs231n-demos/linear-classify/" target="_blank" rel="noopener">http://vision.stanford.edu/teaching/cs231n-demos/linear-classify/</a><br><img src="http://cs231n.github.io/assets/classifydemo.jpeg" alt=""></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title=" 总结 "></a><span id="summary"> 总结 </span></h3><p>总结：</p>
 <blockquote>
 <p>定义从图像像素到分类得分的<strong>得分函数</strong>(本节中是依赖于权重W和偏差b的线性函数)<br>  不同于kNN分类器，这种<strong>参数法</strong>的优势在于一旦我们学习到这些参数值，就可以抛弃训练数据。除此之外，对测试图片的预测会很快因为它只需要一次矩阵乘法而不是去和每个训练样本比较<br>  引入<strong>偏差技巧</strong>，允许我们将偏差向量合并到权重矩阵中<br>  定义<strong>损失函数</strong>(我们为线性分类器引入了两个通用的损失函数：<strong>SVM</strong>和<strong>Softmax</strong>)来衡量训练集中给定参数和真值标签之间的兼容性。我们还发现这种方式定义的损失函数是对训练数据做出良好的预测相当于损失很小。</p>
@@ -297,11 +297,11 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性分类</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性分类</a>
         		</li>
       		
 		</ul>
@@ -414,6 +414,7 @@ var _hmt = _hmt || [];
 	
 	
   <!-- 来必力City版安装代码 -->
+<div  class="article-info article-info-index">
 <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTkyNS8xMjQ2MQ==">
 <script type="text/javascript">
    (function(d, s) {
@@ -430,7 +431,7 @@ var _hmt = _hmt || [];
 </script>
 <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
 </div>
-
+</div>
 <!-- City版安装代码已完成 -->
   
 
@@ -545,7 +546,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,7 +554,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,11 +570,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,6 +579,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">cuda</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,19 +602,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">大疆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,7 +622,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">
