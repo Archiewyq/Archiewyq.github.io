@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://blog.archiew.top">
   <title>CS231n用于视觉识别的卷积神经网络-学习笔记3-优化：随机梯度下降 | Archiew的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:遵循渐变梯度计算　数值上的有限差异　微积分分析梯度下降总结">
-<meta name="keywords" content="视觉识别,卷积神经网络,学习笔记,随机梯度下降">
+  <meta name="description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:跟随梯度梯度计算　有限差分数值计算梯度　微积分分析梯度下降总结">
+<meta name="keywords" content="学习笔记,视觉识别,卷积神经网络,随机梯度下降">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记3-优化：随机梯度下降">
 <meta property="og:url" content="http://blog.archiew.top/2018/07/31/CS231n用于视觉识别的卷积神经网络-学习笔记3-优化：随机梯度下降/index.html">
 <meta property="og:site_name" content="Archiew的个人博客">
-<meta property="og:description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:遵循渐变梯度计算　数值上的有限差异　微积分分析梯度下降总结">
+<meta property="og:description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:跟随梯度梯度计算　有限差分数值计算梯度　微积分分析梯度下降总结">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://cs231n.github.io/assets/svm_one.jpg">
 <meta property="og:image" content="http://cs231n.github.io/assets/svmbowl.png">
-<meta property="og:updated_time" content="2018-07-31T11:06:02.609Z">
+<meta property="og:updated_time" content="2018-08-01T10:33:41.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n用于视觉识别的卷积神经网络-学习笔记3-优化：随机梯度下降">
-<meta name="twitter:description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:遵循渐变梯度计算　数值上的有限差异　微积分分析梯度下降总结">
+<meta name="twitter:description" content="原文地址：http://cs231n.github.io/optimization-1/翻译：Archiew  　转载需注明出处 线性分类目录引入可视化损失函数优化　策略 #1:随机搜索　策略 #2:随机局部搜索　策略 #3:跟随梯度梯度计算　有限差分数值计算梯度　微积分分析梯度下降总结">
 <meta name="twitter:image" content="http://cs231n.github.io/assets/svm_one.jpg">
   
   
@@ -206,10 +206,10 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 1,198字 | 
+				  字数统计 3,429字 | 
 				 </span>
 				 <span id="word-count">
-				  阅读时长 4分钟
+				  阅读时长 14分钟
 				 </span>
 				</div>
 				
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>原文地址：<a href="http://cs231n.github.io/optimization-1/" target="_blank" rel="noopener">http://cs231n.github.io/optimization-1/</a><br>翻译：<a href="http://blog.archiew.top">Archiew</a>  　<strong>转载需注明出处</strong></p>
-<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入</a><br><a href="#vis">可视化损失函数</a><br><a href="#optimization">优化</a><br><a href="#opt1">　策略 #1:随机搜索</a><br><a href="#opt2">　策略 #2:随机局部搜索</a><br><a href="#opt3">　策略 #3:遵循渐变</a><br><a href="#gradcompute">梯度计算</a><br><a href="#numerically">　数值上的有限差异</a><br><a href="#analysis">　微积分分析</a><br><a href="#gd">梯度下降</a><br><a href="#summary">总结</a></p>
+<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p><span id="title"><a href="#title">目录</a></span><br><a href="#intro">引入</a><br><a href="#vis">可视化损失函数</a><br><a href="#optimization">优化</a><br><a href="#opt1">　策略 #1:随机搜索</a><br><a href="#opt2">　策略 #2:随机局部搜索</a><br><a href="#opt3">　策略 #3:跟随梯度</a><br><a href="#gradcompute">梯度计算</a><br><a href="#numerically">　有限差分数值计算梯度</a><br><a href="#analysis">　微积分分析</a><br><a href="#gd">梯度下降</a><br><a href="#summary">总结</a></p>
 <a id="more"></a>
 <hr>
 <h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a><span id="intro">引入</span></h3><p>前两讲中我们介绍了图片分类问题的两个关键任务：</p>
@@ -230,7 +230,26 @@ var _hmt = _hmt || [];
 <p>上述损失函数的分段线性结构可以通过数学公式来解释。对单一样例，我们有：$$L_i = \sum_{j\neq y_i} \left[ \max(0, w_j^Tx_i - w_{y_i}^Tx_i + 1) \right]$$表达式明显地表明每个样例的损失数据是线性函数\(W\)的求和。此外，有时候\(W\)的每行(i.e. \(w_j\))在它前面都有一个正号(对应于一个例子的错误类)，有时候是负号(对应于该样例的正确类)。为使其更明确，考虑一个简单的包含三个一维点和三个分类的数据集。全SVM损失(未正则化)变成：<br>$$<br>L_0 =  \max(0, w_1^Tx_0 - w_0^Tx_0 + 1) + \max(0, w_2^Tx_0 - w_0^Tx_0 + 1) \\<br>L_1 =  \max(0, w_0^Tx_1 - w_1^Tx_1 + 1) + \max(0, w_2^Tx_1 - w_1^Tx_1 + 1) \\<br>L_2 =  \max(0, w_0^Tx_2 - w_2^Tx_2 + 1) + \max(0, w_1^Tx_2 - w_2^Tx_2 + 1) \\<br>L   =  (L_0 + L_1 + L_2)/3<br>$$<br>因为样例是一维的，数据\(x_i\)和权重\(w_j\)是数值。上述术语是\(w_0\)的线性函数，并且都被钳制在0。我们可以可视化如下：<br><img src="http://cs231n.github.io/assets/svmbowl.png" alt="数据损失的一维展示。x轴是单权值y轴是损失值。数据损失是多个项的总和，每个想都独立于特定权重或阈值为0的线性函数。完整的SVM数据损失是此形状的30,730-维版本"></p>
 <p>顺便说一句，你可能已经从它的碗状外观猜到了，SVM成本函数是<a href="http://en.wikipedia.org/wiki/Convex_function" target="_blank" rel="noopener">凸函数</a>的一个例子。有大量的文献致力于研究最小化这种类型的函数，您也可以参加斯坦福关于此话题的课程(<a href="http://stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">凸优化</a>)。一旦我们扩展得分函数\(f\)到神经网络，我们目标函数将会变为非凸的，并且上面的可视化不会呈现碗状特征，而是蜿蜒复杂的形状。</p>
 <p>不可微分的损失函数。作为技术说明，你还可以在损失函数中看到kinks(转折点，因为最大化操作)，因为kinks处梯度未定义，所以使得损失函数不可微分。然而，子梯度依旧存在并且通常用于取代它。本节将会交替使用术语<strong>子梯度</strong>和<strong>梯度</strong></p>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a><span id="optimization">优化</span></h3><p>重申一下，损失函数可以让我们量化任何特定权重集\(W\)的质量。优化的目标是找到最小化损失函数的\(W\)。我们现在要开发一种方法优化损失函数。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a><span id="optimization">优化</span></h3><p>重申一下，损失函数可以让我们量化任何特定权重集\(W\)的质量。优化的目标是找到最小化损失函数的\(W\)。我们现在要开发一种方法优化损失函数。对之前有经验的同学，本节课可能看起来很奇怪因为我们将使用的样例(SVM损失)是一个凸问题，但是请记住我们的目的是最终优化不能轻易使用凸优化文献中开发的任何工具的神经网络。</p>
+<h4 id="策略-1-一个很糟糕的解决方案-随机搜索"><a href="#策略-1-一个很糟糕的解决方案-随机搜索" class="headerlink" title="　策略 #1:一个很糟糕的解决方案:随机搜索"></a><span id="opt1">　策略 #1:一个很糟糕的解决方案:随机搜索</span></h4><p>由于检查给定参数集\(W\)的好坏是如此简单，因此可能想到的第一个(非常糟糕的)想法是简单地尝试许多不同的随机权重值并跟踪最佳效果，此过程看起来像下面这样：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume X_train is the data where each column is an example (e.g. 3073 x 50,000)</span></span><br><span class="line"><span class="comment"># assume Y_train are the labels (e.g. 1D array of 50,000)</span></span><br><span class="line"><span class="comment"># assume the function L evaluates the loss function</span></span><br><span class="line"></span><br><span class="line">bestloss = float(<span class="string">"inf"</span>) <span class="comment"># Python assigns the highest possible float value</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> xrange(<span class="number">1000</span>):</span><br><span class="line">  W = np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.0001</span> <span class="comment"># generate random parameters</span></span><br><span class="line">  loss = L(X_train, Y_train, W) <span class="comment"># get the loss over the entire training set</span></span><br><span class="line">  <span class="keyword">if</span> loss &lt; bestloss: <span class="comment"># keep track of the best solution</span></span><br><span class="line">    bestloss = loss</span><br><span class="line">    bestW = W</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'in attempt %d the loss was %f, best %f'</span> % (num, loss, bestloss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># prints:</span></span><br><span class="line"><span class="comment"># in attempt 0 the loss was 9.401632, best 9.401632</span></span><br><span class="line"><span class="comment"># in attempt 1 the loss was 8.959668, best 8.959668</span></span><br><span class="line"><span class="comment"># in attempt 2 the loss was 9.044034, best 8.959668</span></span><br><span class="line"><span class="comment"># in attempt 3 the loss was 9.278948, best 8.959668</span></span><br><span class="line"><span class="comment"># in attempt 4 the loss was 8.857370, best 8.857370</span></span><br><span class="line"><span class="comment"># in attempt 5 the loss was 8.943151, best 8.857370</span></span><br><span class="line"><span class="comment"># in attempt 6 the loss was 8.605604, best 8.605604</span></span><br><span class="line"><span class="comment"># ... (trunctated: continues for 1000 lines)</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码中，我们尝试了一些随机权重向量\(W\)，并且其中一些效果要优于其他的。我们可以通过这种搜索来找到最佳的权重\(W\)并且在测试集上尝试一下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Assume X_test is [3073 x 10000], Y_test [10000 x 1]</span></span><br><span class="line">scores = Wbest.dot(Xte_cols) <span class="comment"># 10 x 10000, the class scores for all test examples</span></span><br><span class="line"><span class="comment"># find the index with max score in each column (the predicted class)</span></span><br><span class="line">Yte_predict = np.argmax(scores, axis = <span class="number">0</span>)</span><br><span class="line"><span class="comment"># and calculate accuracy (fraction of predictions that are correct)</span></span><br><span class="line">np.mean(Yte_predict == Yte)</span><br><span class="line"><span class="comment"># returns 0.1555</span></span><br></pre></td></tr></table></figure></p>
+<p>利用最佳\(W\)，给出了大约15.5%的准确度。考虑到完全随机猜测有10%的准确度，对一个“脑死亡”随机搜索方法来讲，这不是最糟糕的！</p>
+<p><strong>核心理念：迭代求精</strong> 当然了，事实证明，我们可以做的更好核心理念是找到一组最佳的权重\(W\)是很困难的或者说是不可能的问题(特别是当\(W\)包含了整个复杂神经网络的权重)，但是将一组特定权重\(W\)精炼的更好的问题是不太困难的。换句话说，我们的方法是从一组随机\(W\)开始，然后迭代细化，使其每次都稍微好一点。</p>
+<blockquote>
+<p>我们的策略是从一组随机权重\(W\)开始，然后在整个过程中迭代细化来找到最小损失。</p>
+</blockquote>
+<p><strong>Blindfolded hiker analogy</strong> 一个形象的比喻就是，想象自己带着眼罩在小山上徒步并试图达到底部。在CIFAR-10的例子中，因为\(W\)是10x3073，所以“小山”是30730维的。“小山”上的每一点我们都实现了特定损失(地形高度)。</p>
+<h4 id="策略-2-随机局部搜索"><a href="#策略-2-随机局部搜索" class="headerlink" title="　策略 #2:随机局部搜索"></a><span id="opt2">　策略 #2:随机局部搜索</span></h4><p>第一种策略是沿一个随机方向扩展，具体讲，我们以一个随机\(W\)开始，产生随机扰动\(δW\)，如果扰动处损失更低，我们就更新一次。此过程编码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">W = np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.001</span> <span class="comment"># generate random starting W</span></span><br><span class="line">bestloss = float(<span class="string">"inf"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1000</span>):</span><br><span class="line">  step_size = <span class="number">0.0001</span></span><br><span class="line">  Wtry = W + np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * step_size</span><br><span class="line">  loss = L(Xtr_cols, Ytr, Wtry)</span><br><span class="line">  <span class="keyword">if</span> loss &lt; bestloss:</span><br><span class="line">    W = Wtry</span><br><span class="line">    bestloss = loss</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'iter %d loss is %f'</span> % (i, bestloss)</span><br></pre></td></tr></table></figure></p>
+<p>使用和之前相同数量(1000)的损失函数评估，该方法实现了测试集上21.4%的预测分类准确度。有所改善，单仍耗费大量资源。</p>
+<h4 id="策略-3-跟随梯度"><a href="#策略-3-跟随梯度" class="headerlink" title="　策略 #3:跟随梯度"></a><span id="opt3">　策略 #3:跟随梯度</span></h4><p>在先前讲解中，我们尝试在权重空间寻找一个方向来改善我们的权重向量(得到低损失值)。事实表明，我们没有必要随机搜索一个好的方向：我们可以计算出我们应该改变我们的权重向量的最佳方向，这在数学上保证是最陡下降的方向（至少在极限时为步长变为零）。该方向将与损失函数的<strong>梯度</strong>相关。在我们的徒步比喻中，这种方法大致相当于感知脚下山坡倾斜并沿着感觉最陡的方向走下去。<br>在一维函数中，斜率是函数在您感兴趣点处的瞬时变化率。梯度不是数值而是采用数值向量的函数的斜率的推广。除此之外，梯度是输入空间中每一维斜率矢量(通常称为<strong>导数</strong>)。关于其输入的一维函数导数表达式如下：<br>$$\frac{df(x)}{dx} = \lim_{h\ \to 0} \frac{f(x + h) - f(x)}{h}$$<br>当感兴趣的函数采用数值矢量而不是数值表示时，我们将导数称为<strong>偏导数</strong>，梯度只是每一维的偏导数的矢量。</p>
+<h3 id="梯度计算"><a href="#梯度计算" class="headerlink" title="梯度计算"></a><span id="gradcompute">梯度计算</span></h3><p>有两种方法来计算梯度：一种是缓慢近似但简单的<strong>数值梯度</strong>，另一种时快速精确但更容易出错的<strong>解析梯度</strong>。下面我们将分别介绍两者。</p>
+<h4 id="有限差分数值计算梯度"><a href="#有限差分数值计算梯度" class="headerlink" title="　有限差分数值计算梯度"></a><span id="numerically">　有限差分数值计算梯度</span></h4><p>上面的公式允许我们计算数值梯度。这是一个泛型函数，输入函数f，矢量x来评估梯度，并返回函数f在x处的梯度：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">eval_numerical_gradient</span><span class="params">(f, x)</span>:</span></span><br><span class="line">  <span class="string">""" </span></span><br><span class="line"><span class="string">  a naive implementation of numerical gradient of f at x </span></span><br><span class="line"><span class="string">  - f should be a function that takes a single argument</span></span><br><span class="line"><span class="string">  - x is the point (numpy array) to evaluate the gradient at</span></span><br><span class="line"><span class="string">  """</span> </span><br><span class="line"></span><br><span class="line">  fx = f(x) <span class="comment"># evaluate function value at original point</span></span><br><span class="line">  grad = np.zeros(x.shape)</span><br><span class="line">  h = <span class="number">0.00001</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># iterate over all indexes in x</span></span><br><span class="line">  it = np.nditer(x, flags=[<span class="string">'multi_index'</span>], op_flags=[<span class="string">'readwrite'</span>])</span><br><span class="line">  <span class="keyword">while</span> <span class="keyword">not</span> it.finished:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># evaluate function at x+h</span></span><br><span class="line">    ix = it.multi_index</span><br><span class="line">    old_value = x[ix]</span><br><span class="line">    x[ix] = old_value + h <span class="comment"># increment by h</span></span><br><span class="line">    fxh = f(x) <span class="comment"># evalute f(x + h)</span></span><br><span class="line">    x[ix] = old_value <span class="comment"># restore to previous value (very important!)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># compute the partial derivative</span></span><br><span class="line">    grad[ix] = (fxh - fx) / h <span class="comment"># the slope</span></span><br><span class="line">    it.iternext() <span class="comment"># step to next dimension</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure></p>
+<p>按照上面给出的梯度公式，上面代码逐个迭代所有维度，h沿着改为度进行微小改变并通过查看函数值改变多少来计算损失函数沿该维度的偏导数，最后变量grad记录了完整的梯度。</p>
+<p><strong>实际考虑</strong> 注意，在数学上，梯度定义为当h趋近于于0时的极限，但是实际操作中使用非常小的值(示例中是0.00001)就够了。理想地，我们希望使用不会导致数值问题的最小步长。此外在实际中，使用<strong>居中差异公式</strong>\([f(x+h)-f(x-h)]/2h\)计算梯度通常会更好。详情请见<a href="http://en.wikipedia.org/wiki/Numerical_differentiation" target="_blank" rel="noopener">wiki</a></p>
+<p>利用上述公式我们可以计算任何函数任意点处的梯度。接下来我们计算CIFAR-10中损失函数在权重空间随机点处的梯度：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># to use the generic code above we want a function that takes a single argument</span></span><br><span class="line"><span class="comment"># (the weights in our case) so we close over X_train and Y_train</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CIFAR10_loss_fun</span><span class="params">(W)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> L(X_train, Y_train, W)</span><br><span class="line"></span><br><span class="line">W = np.random.rand(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.001</span> <span class="comment"># random weight vector</span></span><br><span class="line">df = eval_numerical_gradient(CIFAR10_loss_fun, W) <span class="comment"># get the gradient</span></span><br></pre></td></tr></table></figure></p>
+<p>梯度表明了每一维损失函数的斜率，我们可以以此来更新:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">loss_original = CIFAR10_loss_fun(W) <span class="comment"># the original loss</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'original loss: %f'</span> % (loss_original, )</span><br><span class="line"></span><br><span class="line"><span class="comment"># lets see the effect of multiple step sizes</span></span><br><span class="line"><span class="keyword">for</span> step_size_log <span class="keyword">in</span> [<span class="number">-10</span>, <span class="number">-9</span>, <span class="number">-8</span>, <span class="number">-7</span>, <span class="number">-6</span>, <span class="number">-5</span>,<span class="number">-4</span>,<span class="number">-3</span>,<span class="number">-2</span>,<span class="number">-1</span>]:</span><br><span class="line">  step_size = <span class="number">10</span> ** step_size_log</span><br><span class="line">  W_new = W - step_size * df <span class="comment"># new position in the weight space</span></span><br><span class="line">  loss_new = CIFAR10_loss_fun(W_new)</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'for step size %f new loss: %f'</span> % (step_size, loss_new)</span><br><span class="line"></span><br><span class="line"><span class="comment"># prints:</span></span><br><span class="line"><span class="comment"># original loss: 2.200718</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-10 new loss: 2.200652</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-09 new loss: 2.200057</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-08 new loss: 2.194116</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-07 new loss: 2.135493</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-06 new loss: 1.647802</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-05 new loss: 2.844355</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-04 new loss: 25.558142</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-03 new loss: 254.086573</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-02 new loss: 2539.370888</span></span><br><span class="line"><span class="comment"># for step size 1.000000e-01 new loss: 25392.214036</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>以负梯度方向更新</strong> 上面的代码中注意到为了计算<code>W_new</code>，我们在梯度<code>df</code>的负方向上进行更新，因为我们希望损失函数减少而不是增加。</p>
+<p><strong>步长影响</strong> 梯度告诉我们函数最陡增长率的方向，但并没有告诉我们应该沿该方向走多远。我们将在后续课程中看到，步长(也叫<em>学习率</em>)的选择将成为训练神经网络超参设置中最重要(最头疼)的一部分。在我们的“遮眼下山”比喻中，我们感知脚下山坡向某个方向倾斜，但步长是不确定的。如果我们小心地移动</p>
 
       
 
@@ -244,15 +263,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">视觉识别</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">卷积神经网络</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -325,6 +344,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/08/03/CAN总线详解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CAN总线详解
+        
+      </div>
+    </a>
   
   
     <a href="/2018/07/08/2019大疆嵌入式软件开发招聘/" id="article-nav-older" class="article-nav-link-wrap">
@@ -484,6 +512,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">CAN总线</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
               </li>
              
@@ -492,27 +536,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,15 +552,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,23 +584,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,6 +609,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>
