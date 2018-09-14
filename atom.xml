@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.archiew.top/"/>
-  <updated>2018-08-03T02:44:52.208Z</updated>
+  <updated>2018-09-13T07:58:16.631Z</updated>
   <id>http://blog.archiew.top/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>μC/OS-II中的任务</title>
+    <link href="http://blog.archiew.top/2018/09/13/%CE%BCC-OS-II%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1/"/>
+    <id>http://blog.archiew.top/2018/09/13/μC-OS-II中的任务/</id>
+    <published>2018-09-13T06:55:04.000Z</published>
+    <updated>2018-09-13T07:58:16.631Z</updated>
+    
+    <content type="html"><![CDATA[<p>μC/OS-II<br>操作系统内核一项主要的工作就是对任务进行管理和调度。与之相关的内容主要包括以下几点：</p><blockquote><p>任务的基本概念，用户任务和系统任务；<br>  任务代码、任务控制块和任务堆栈；<br>  任务优先权及表示任务优先权的参数——优先级别；<br>  任务就绪表结构及其操作；<br>  任务切换及调度；<br>  任务的创建、删除、挂起、恢复和查询；<br>  μC/OS-II的初始化和启动。</p></blockquote><a id="more"></a><h2 id="任务的基本概念"><a href="#任务的基本概念" class="headerlink" title="任务的基本概念"></a>任务的基本概念</h2><p>从代码角度看，μC/OS-II的任务就是一个个函数，从任务的存储结构来看，μC/OS-II的任务又下图所示的三部分组成：任务程序代码(函数)、任务堆栈和任务控制块。<br><img src="http://pic.blog.archiew.top/image/μCOS-II的任务组成.png" alt="μC/OS-II的任务组成"><br><strong> * μC/OS-II中所有的任务都属于线程。</strong><br>μC/OS-II用任务控制块链表对任务进行管理，如图所示：<br><img src="http://pic.blog.archiew.top/image/任务链表.png" alt="任务链表"><br>μC/OS-II的任务分两种：系统任务和用户任务。用户任务是为了解决应用问题而编写的而系统任务是为应用程序提供某种服务或为系统本身服务的。目前在μC/OS-II中，最多可以含有64个任务(汉系统任务和用户任务)。<br>μC/OS-II是为单核CPU设计的，某一时刻只能有一个任务占用CPU处在运行状态，其他任务只能处在其他状态，μC/OS-II系统中的任务状态如下图所示<br><img src="http://pic.blog.archiew.top/image/μCOS-II系统中任务的五种状态.png" alt="μCOS-II系统中任务的五种状态"><br>各任务状态之间的切换如下图所示<br><img src="http://pic.blog.archiew.top/image/任务状态切换.png" alt="任务状态切换"><br>一个典型的用户任务代码结构：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyTask</span><span class="params">(<span class="keyword">void</span> *pdata)</span></span>&#123;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line"><span class="comment">//可以被中断的用户代码</span></span><br><span class="line">...</span><br><span class="line">OS_ENTER_CRITICAL();<span class="comment">//进入临界段(关中断)</span></span><br><span class="line"><span class="comment">//不可被中断的用户代码</span></span><br><span class="line">...</span><br><span class="line">OS_EXIT_CRITICAL();<span class="comment">//退出临界段(开中断)</span></span><br><span class="line"><span class="comment">//可以被中断的用户代码</span></span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>用户应用程序的一般结构可参见下述代码段：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyTask1</span><span class="params">(<span class="keyword">void</span> *pdata)</span></span>&#123;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyTask2</span><span class="params">(<span class="keyword">void</span> *pdata)</span></span>&#123;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyTask3</span><span class="params">(<span class="keyword">void</span> *pdata)</span></span>&#123;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">...</span><br><span class="line">OSInit();<span class="comment">//初始化μC/OS-II</span></span><br><span class="line">...</span><br><span class="line">OSTaskCreate(MyTask1, ...);<span class="comment">//创建用户任务1</span></span><br><span class="line">OSTaskCreate(MyTask2, ...);<span class="comment">//创建用户任务2</span></span><br><span class="line">OSTaskCreate(MyTask3, ...);<span class="comment">//创建用户任务3</span></span><br><span class="line">...</span><br><span class="line">OSStart();<span class="comment">//启动μC/OS-II</span></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>考虑到没有用户任务执行的时候CPU不能停下来，所以μC/OS-II中必须有系统任务。μC/OS-II预定义了两个系统任务：空闲任务和统计任务。其中空闲任务是每个应用程序必须使用的，而统计任务则可以根据情况选择是否需要。<br>空闲任务就是为了防止CPU某时刻没有用户任务可执行而处于空闲状态，μC/OS-II提供了一个名为<em>OSTaskIdle()</em>的系统任务，代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OSTaskIdle</span><span class="params">(<span class="keyword">void</span> *pdata)</span></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> OS_CRITICAL_METHOD == 3</span></span><br><span class="line">OS_CPU_SR cpu_sr;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">pdata=pdata;<span class="comment">//防止某些编译器报错</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">OS_ENTER_CRITICAL();<span class="comment">//关中断</span></span><br><span class="line">OSdleCtr++;</span><br><span class="line">OS_EXIT_CRITICAL();<span class="comment">//开中断</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;μC/OS-II&lt;br&gt;操作系统内核一项主要的工作就是对任务进行管理和调度。与之相关的内容主要包括以下几点：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;任务的基本概念，用户任务和系统任务；&lt;br&gt;  任务代码、任务控制块和任务堆栈；&lt;br&gt;  任务优先权及表示任务优先权的参数——优先级别；&lt;br&gt;  任务就绪表结构及其操作；&lt;br&gt;  任务切换及调度；&lt;br&gt;  任务的创建、删除、挂起、恢复和查询；&lt;br&gt;  μC/OS-II的初始化和启动。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>μC/OS-II中的数据结构</title>
+    <link href="http://blog.archiew.top/2018/09/13/%CE%BCC-OS-II%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>http://blog.archiew.top/2018/09/13/μC-OS-II中的数据结构/</id>
+    <published>2018-09-13T02:55:58.000Z</published>
+    <updated>2018-09-13T07:50:17.994Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、程序控制块-代码控制块"><a href="#1、程序控制块-代码控制块" class="headerlink" title="1、程序控制块(代码控制块)"></a>1、程序控制块(代码控制块)</h2><p>从代码上来看，程序控制块就是一个结构体，例如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tcb</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> *code_name;<span class="comment">//代码名称</span></span><br><span class="line"><span class="keyword">int</span> p;<span class="comment">//重要性级别</span></span><br><span class="line"><span class="keyword">int</span> v_name;<span class="comment">//版本号</span></span><br><span class="line"><span class="keyword">void</span> (*fun)(<span class="keyword">void</span>);<span class="comment">//指向管理代码的指针</span></span><br><span class="line">&#125;TCB;</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>上述实例只是最简单的关于程序控制块的说明，实际上操作系统中的程序控制块要远比例子复杂：一方面是需要记录的信息更多；另一方面它们的结构也更复杂。下图是一个稍微复杂的具有量机结构的程序控制块。<br><img src="http://pic.blog.archiew.top/image/%E5%85%B7%E6%9C%89%E4%B8%A4%E7%BA%A7%E6%8E%A7%E5%88%B6%E5%9D%97%E7%9A%84%E5%8F%AF%E7%AE%A1%E7%90%86%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.png" alt="具有两级控制块的可管理代码的结构"></p><h2 id="2、控制块的组织——链表"><a href="#2、控制块的组织——链表" class="headerlink" title="2、控制块的组织——链表"></a>2、控制块的组织——链表</h2><p>如果被管理的代码数量不大且其控制块又比较小的时候，通常会采用数组来作为程序控制块注册表。在操作系统中，需要被管理的代码数量通常比较大且其控制块又较大，可以通过链表来管理程序控制块，如下图所示<br><img src="http://pic.blog.archiew.top/image/用链表来组织的程序控制块.png" alt="用链表来组织的程序控制块"><br>值得注意的是，链表的查询是比较耗时的，因为必须从链表表头沿指针逐个查询，所以为了提高查询效率，系统常常为链表配一个数组，而这个数组的各个元素则存储了指向各个链表成员的指针，这样可以通过数组来实现链表元素的快速随机查询。<br>链表和数组相配合的结构如下图所示<br><img src="http://pic.blog.archiew.top/image/链表和数组的配合.png" alt="链表和数组的配合"></p><h2 id="3、位图"><a href="#3、位图" class="headerlink" title="3、位图"></a>3、位图</h2><p>操作系统中常常涉及到资源的使用情况记录，最简单的需要记录一个资源的占用(使用)状态(占用中or空闲)，记录的方式有很多，最简单的就是使用一种叫做<strong>位图</strong>的表格，这种表格就是将二进制数拆开使用，每一位二进制数代表一个资源的占用状态(eg. 0代表空闲 1代表占用中)。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、程序控制块-代码控制块&quot;&gt;&lt;a href=&quot;#1、程序控制块-代码控制块&quot; class=&quot;headerlink&quot; title=&quot;1、程序控制块(代码控制块)&quot;&gt;&lt;/a&gt;1、程序控制块(代码控制块)&lt;/h2&gt;&lt;p&gt;从代码上来看，程序控制块就是一个结构体，例如：&lt;br&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;tcb&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; *code_name;	&lt;span class=&quot;comment&quot;&gt;//代码名称&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; p;			&lt;span class=&quot;comment&quot;&gt;//重要性级别&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; v_name;		&lt;span class=&quot;comment&quot;&gt;//版本号&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; (*fun)(&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;);	&lt;span class=&quot;comment&quot;&gt;//指向管理代码的指针&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;TCB;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
+    
+  </entry>
   
   <entry>
     <title>CAN总线详解</title>
@@ -34,9 +85,9 @@
     
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-      <category term="CAN总线" scheme="http://blog.archiew.top/tags/CAN%E6%80%BB%E7%BA%BF/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="CAN总线" scheme="http://blog.archiew.top/tags/CAN%E6%80%BB%E7%BA%BF/"/>
     
   </entry>
   
@@ -85,9 +136,9 @@
     
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="大疆" scheme="http://blog.archiew.top/tags/%E5%A4%A7%E7%96%86/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -468,49 +519,6 @@
       <category term="Python" scheme="http://blog.archiew.top/tags/Python/"/>
     
       <category term="Linux" scheme="http://blog.archiew.top/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分享一个kindle电子书免费下载网站</title>
-    <link href="http://blog.archiew.top/2018/04/01/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AAkindle%E7%94%B5%E5%AD%90%E4%B9%A6%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%AB%99/"/>
-    <id>http://blog.archiew.top/2018/04/01/分享一个kindle电子书免费下载网站/</id>
-    <published>2018-04-01T14:57:34.000Z</published>
-    <updated>2018-04-08T06:26:12.572Z</updated>
-    
-    <content type="html"><![CDATA[<p>自从买了kindle之后，看的书的确多了起来，现在基本养成了每天睡前看半小时书的习惯，古人云：腹有诗书气自华。多读书毕竟是有好处的！Amazon电子书商店有好多书籍可供下载，包括一些免费的电子书还有定期推出的特价电子书。但是里面的书籍毕竟有限，特别是中文书。<br>为了解决找书不便的问题，本人建了一个图书搜索网站：<a href="http://kindle.archiew.top" target="_blank" rel="noopener">书舟网</a>，这是一个很简洁高效的电子书检索下载网站，界面如下：</p><a id="more"></a><hr><p><img src="http://upload-images.jianshu.io/upload_images/2321566-678d87ddf39a7747.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网站首页"><br>里面现有书籍四万余册，而且每天都有更新！<br>如果觉得好用，请点击页面分享按钮，分享给朋友们吧。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;自从买了kindle之后，看的书的确多了起来，现在基本养成了每天睡前看半小时书的习惯，古人云：腹有诗书气自华。多读书毕竟是有好处的！Amazon电子书商店有好多书籍可供下载，包括一些免费的电子书还有定期推出的特价电子书。但是里面的书籍毕竟有限，特别是中文书。&lt;br&gt;为了解决找书不便的问题，本人建了一个图书搜索网站：&lt;a href=&quot;http://kindle.archiew.top&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;书舟网&lt;/a&gt;，这是一个很简洁高效的电子书检索下载网站，界面如下：&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="分享" scheme="http://blog.archiew.top/tags/%E5%88%86%E4%BA%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Test</title>
-    <link href="http://blog.archiew.top/2018/04/01/Test/"/>
-    <id>http://blog.archiew.top/2018/04/01/Test/</id>
-    <published>2018-04-01T13:13:22.000Z</published>
-    <updated>2018-04-18T14:43:12.328Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Test123"><a href="#Test123" class="headerlink" title="Test123"></a>Test123</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28285910&auto=0&height=66"></iframe>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Test123&quot;&gt;&lt;a href=&quot;#Test123&quot; class=&quot;headerlink&quot; title=&quot;Test123&quot;&gt;&lt;/a&gt;Test123&lt;/h2&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; m
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="http://blog.archiew.top/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
