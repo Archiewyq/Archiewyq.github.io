@@ -196,6 +196,208 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-深度学习目标检测模型概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/深度学习目标检测模型概述/">深度学习目标检测模型概述</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/深度学习目标检测模型概述/" class="archive-article-date">
+  	<time datetime="2018-06-26T01:04:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 315字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 1分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、R-CNN"><a href="#1、R-CNN" class="headerlink" title="1、R-CNN"></a>1、R-CNN</h2><p>R-CNN(Region-based Convolutional Neural Network)分三个步骤：</p>
+<ul>
+<li>利用’选择性搜索(Selective Search)’算法生成约2k个region proposal，以获取可能出现的目标；</li>
+<li>对每个region proposal运行CNN；</li>
+<li>上述得到的CNN进行如下操作：<br>  a.输入到支持向量机(SVM),以对上述区域进行分类<br>  b.输入到一个线性回归器，以收缩目标周围边界框(假如目标存在)<br>R-CNN模型图如下所示：<br><a href="">R-CNN</a></li>
+</ul>
+<h2 id="2、Fast-R-CNN"><a href="#2、Fast-R-CNN" class="headerlink" title="2、Fast R-CNN"></a>2、Fast R-CNN</h2><p>Fast R-CNN相较于R-CNN主要是在检测速度方面进行了提升，而提升手段如下：</p>
+<ul>
+<li>在推荐区域之前，先对图像进行特征提取，这样做的好处是使整个图像只使用一个CNN(之前需要对2k个推荐区域分别运行CNN)</li>
+<li>将R-CNN中的SVM替换为softmax，softmax直接输出类概率，而使用SVM需要训练多个SVM对每个目标类进行分类<br>相较R-CNN而言Fast R-CNN在速度上提升了许多，然而Fast R-CNN仍存在未解决的瓶颈问题：用于生成region proposal的选择搜索算法。</li>
+</ul>
+<h2 id="3、Faster-R-CNN"><a href="#3、Faster-R-CNN" class="headerlink" title="3、Faster R-CNN"></a>3、Faster R-CNN</h2><p>Faster R-CNN在Fast R-CNN的基础上通过引入region proposal网络(RPN)来代替选择搜索算法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目标检测</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">R-CNN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Fast R-CNN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Faster R-CNN</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/深度学习目标检测模型概述/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Ubuntu16-04-4-cuda-9-2安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/">Ubuntu16.04.4 cuda-9.2安装</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/" class="archive-article-date">
+  	<time datetime="2018-06-19T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-19</time>
+</a>
+        
+				<div class="post-count">
+				 <span id="word-count">
+				  字数统计 792字 | 
+				 </span>
+				 <span id="word-count">
+				  阅读时长 3分钟
+				 </span>
+				</div>
+				
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>系统：win7 64位<br>显卡：NVIDIA GT740</p>
+<h2 id="1-Ubuntu16-04-4双系统安装"><a href="#1-Ubuntu16-04-4双系统安装" class="headerlink" title="1 Ubuntu16.04.4双系统安装"></a>1 Ubuntu16.04.4双系统安装</h2><blockquote>
+<p>工具：<br>   EasyBCD 2.3<br>   <a href="http://cdimage.ubuntu.com/netboot/16.04/?_ga=2.212435411.69853237.1529413894-897926102.1529413894" target="_blank" rel="noopener">ubuntu-16.04.4-desktop-amd64.iso</a></p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cuda</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/19/Ubuntu16-04-4-cuda-9-2安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-嵌入式基础知识汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -859,7 +1061,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>对编程语言比较熟悉的朋友，应该知道“反射”这个机制。Python作为一门动态语言，当然不会缺少这一重要功能。然而，在网络上却很少见到有详细或者深刻的剖析论文。下面结合一个web路由的实例来阐述Python的反射机制的使用场景和核心本质。</p>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"f1是这个函数的名字！"</span>)</span><br><span class="line">	</span><br><span class="line">s = <span class="string">"f1"</span></span><br><span class="line">print(<span class="string">"%s是个字符串"</span> % s)</span><br></pre></td></tr></table></figure>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def f1():</span><br><span class="line">    print(&quot;f1是这个函数的名字！&quot;)</span><br><span class="line">	</span><br><span class="line">s = &quot;f1&quot;</span><br><span class="line">print(&quot;%s是个字符串&quot; % s)</span><br></pre></td></tr></table></figure>
 <p>在上面的代码中，我们必须区分两个概念，f1和“f1”。前者是函数f1的函数名，后者只是一个叫”f1“的字符串，两者是不同的事物。我们可以用f1()的方式调用函数f1，但我们不能用”f1”()的方式调用函数。说白了就是，<strong>不能通过字符串来调用名字看起来相同的函数！</strong><br>
         
           <a class="article-more-a" href="/2018/05/02/Python反射机制/#more">more >></a>
@@ -924,194 +1126,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-制作rss电子书并推送给kindle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/22/制作rss电子书并推送给kindle/">制作RSS电子书并推送给kindle</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/22/制作rss电子书并推送给kindle/" class="archive-article-date">
-  	<time datetime="2018-04-22T03:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 2,250字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 10分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>简易信息聚合(Really Simple Syndication, RSS)是一种基于XML标准在互联网上被广泛采用的内容包装和投递协议。RSS允许用户以计算机可读的标准格式来获取（订阅）网站内容更新。相对于直接访问网站，使用Rss订阅能更快地<br>获取网站内容更新。RSS具有以下几个特点：</p>
-<ul>
-<li>来源多样的个性化“聚合”特性。</li>
-<li>信息发布的时效、低成本特性。</li>
-<li>无“垃圾”信息、便利的本地内容管理特性。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RSS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">kindle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/22/制作rss电子书并推送给kindle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux安装python3-与python2共存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/15/linux安装python3-与python2共存/">Linux安装Python3(与Python2共存)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/15/linux安装python3-与python2共存/" class="archive-article-date">
-  	<time datetime="2018-04-15T14:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-15</time>
-</a>
-        
-				<div class="post-count">
-				 <span id="word-count">
-				  字数统计 290字 | 
-				 </span>
-				 <span id="word-count">
-				  阅读时长 1分钟
-				 </span>
-				</div>
-				
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS默认安装的是Python2.7.x，对于需要Python3的场合，需要自行安装，这里给出在CentOS7.6上安装Python3的步骤。由于系统对默认的Python2.7.x有依赖，所以我们尽量不改变原有版本。</p>
-<p>环境：CentOS7.6，默认Python2.7.5</p>
-        
-          <a class="article-more-a" href="/2018/04/15/linux安装python3-与python2共存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/15/linux安装python3-与python2共存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1141,7 +1155,7 @@ var _hmt = _hmt || [];
   <script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
   
   <!-- 不蒜子 -->
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <span id="busuanzi_container_site_uv" style='display:none'>
 	本站总访问量<span id="busuanzi_value_site_uv"></span>次
   </span>
@@ -1245,6 +1259,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
@@ -1253,19 +1271,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1277,19 +1295,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1301,19 +1335,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1334,6 +1360,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

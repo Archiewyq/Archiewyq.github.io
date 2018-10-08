@@ -227,13 +227,13 @@ var _hmt = _hmt || [];
         <p>总结一些嵌入式软件开发中C语言面试问题</p>
 <a id="more"></a>
 <hr>
-<h3 id="1、预处理指令-define"><a href="#1、预处理指令-define" class="headerlink" title="1、预处理指令#define"></a>1、预处理指令#define</h3><p>有几点需要注意：首先是语法(无分号结束,字母大写,括号使用…)；其次明白预处理器会将表达式计算出来代入需要用的地方，所以尽量用表达式来清晰定义其作用而不是直接给出一常量值；还有就是要注意常量值可能的溢出问题(用UL后缀解决)<br>给出几个例子：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用#define声明一个常数来表示一年中有多少秒（忽略闰年）</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SEC_PER_YEAR	(60*60*24*365)UL</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//用#define声明一个返回两个参数较小值的宏</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN(X,Y)	(A)&gt;=(B)?(B):(A)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//考虑</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTR 	int *</span></span><br><span class="line">PTR a, b;	<span class="comment">//等价于int *a, b;</span></span><br><span class="line"><span class="keyword">int</span> *a, *b;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1、预处理指令-define"><a href="#1、预处理指令-define" class="headerlink" title="1、预处理指令#define"></a>1、预处理指令#define</h3><p>有几点需要注意：首先是语法(无分号结束,字母大写,括号使用…)；其次明白预处理器会将表达式计算出来代入需要用的地方，所以尽量用表达式来清晰定义其作用而不是直接给出一常量值；还有就是要注意常量值可能的溢出问题(用UL后缀解决)<br>给出几个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//用#define声明一个常数来表示一年中有多少秒（忽略闰年）</span><br><span class="line">#define SEC_PER_YEAR	(60*60*24*365)UL</span><br><span class="line"></span><br><span class="line">//用#define声明一个返回两个参数较小值的宏</span><br><span class="line">#define MIN(X,Y)	(A)&gt;=(B)?(B):(A)</span><br><span class="line"></span><br><span class="line">//考虑</span><br><span class="line">#define PTR 	int *</span><br><span class="line">PTR a, b;	//等价于int *a, b;</span><br><span class="line">int *a, *b;</span><br></pre></td></tr></table></figure></p>
 <h3 id="2、关键字static的作用"><a href="#2、关键字static的作用" class="headerlink" title="2、关键字static的作用"></a>2、关键字static的作用</h3><p>C语言中static主要有三个作用：<br>函数体内，被static修饰的变量在函数内保持值不变；<br>模块内(函数外)，被static修饰的变量成为一个本地全局变量，在模块内可被调用，模块外不可；<br>模块内，被static修饰的函数可被模块内函数调用。</p>
 <h3 id="3、关键字const的作用"><a href="#3、关键字const的作用" class="headerlink" title="3、关键字const的作用"></a>3、关键字const的作用</h3><p>const一般用来修饰那些‘只读’的变量，防止变量被修改<br>const int a;   //常整数<br>int const a;   //同上<br>int <em>const a;  //指向整数的常指针<br>const int </em>a;  //指向常整数的指针<br>int const *a cons;  //指向常整数的常指针</p>
 <h3 id="4、关键字volatile的作用"><a href="#4、关键字volatile的作用" class="headerlink" title="4、关键字volatile的作用"></a>4、关键字volatile的作用</h3><p>volatile用来修饰可能会被意想不到改变的变量，编译器会忽略对被volatile修饰的变量进行优化，每次取变量值都会去地址处取。（编译器优化的变量值会被‘缓存’到寄存器，这样不用每次都去变量地址处取值）<br>volatile典型应用在三个地方：<br>中断服务程序中<br>硬件寄存器<br>多线程应用中<br>eg. #define REG_N    <em>(volatile unsigned int </em>)0x80000000</p>
 <h3 id="5、中断服务函数ISR"><a href="#5、中断服务函数ISR" class="headerlink" title="5、中断服务函数ISR"></a>5、中断服务函数ISR</h3><p>有几点需要注意：<br>没有返回值<br>尽量避免浮点运算<br>尽量避免IO操作</p>
 <h3 id="6、强制类型转换"><a href="#6、强制类型转换" class="headerlink" title="6、强制类型转换"></a>6、强制类型转换</h3><ul>
-<li>无符号数operate有符号数=无符号数<br>eg. <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> a=<span class="number">6</span>;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">-20</span>;</span><br><span class="line">	(a+b&gt;<span class="number">6</span>)?<span class="built_in">puts</span>(<span class="string">"&gt;6"</span>):<span class="built_in">puts</span>(<span class="string">"&lt;=6"</span>)		<span class="comment">//a+b会强制转换为无符号数：-20转换为无符号数应该是一个很大的值，so...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>无符号数operate有符号数=无符号数<br>eg. <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void foo(void)&#123;</span><br><span class="line">	unsigned int a=6;</span><br><span class="line">	int b=-20;</span><br><span class="line">	(a+b&gt;6)?puts(&quot;&gt;6&quot;):puts(&quot;&lt;=6&quot;)		//a+b会强制转换为无符号数：-20转换为无符号数应该是一个很大的值，so...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -415,7 +415,7 @@ var _hmt = _hmt || [];
   <script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
   
   <!-- 不蒜子 -->
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <span id="busuanzi_container_site_uv" style='display:none'>
 	本站总访问量<span id="busuanzi_value_site_uv"></span>次
   </span>
@@ -519,6 +519,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
@@ -527,19 +531,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,19 +555,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,19 +595,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,6 +620,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

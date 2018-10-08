@@ -235,11 +235,11 @@ var _hmt = _hmt || [];
 <li>遇到其他运算符（加减乘除），不断与栈顶符号对比，若优先级不高于栈顶符号，则输出栈顶符号，否则入栈</li>
 <li>最后，将栈中操作符依次输出</li>
 </ul>
-<p>代码实现：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># 中缀转后缀</span><br><span class="line">s = <span class="built_in">input</span>()</span><br><span class="line">t = []</span><br><span class="line"><span class="keyword">res</span> = <span class="string">''</span></span><br><span class="line">operator = &#123;</span><br><span class="line">    <span class="string">'+'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'-'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'*'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'/'</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">last_isnum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i in <span class="variable">s:</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> i not in [<span class="string">'+'</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'/'</span>,<span class="string">'('</span>,<span class="string">')'</span>]: #数字直接输出</span><br><span class="line">        <span class="keyword">if</span> last_isnum:</span><br><span class="line">            <span class="keyword">res</span> += i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">res</span> += <span class="string">' '</span>+i</span><br><span class="line">        last_isnum = <span class="number">1</span></span><br><span class="line">    elif i == <span class="string">'('</span>:						   #处理左括号</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">        t.<span class="keyword">append</span>(i)</span><br><span class="line">    elif i == <span class="string">')'</span>:						   #处理右括号</span><br><span class="line">        temp = t.<span class="keyword">pop</span>()</span><br><span class="line">        <span class="keyword">while</span> temp <span class="keyword">is</span> not <span class="string">'('</span>:</span><br><span class="line">            <span class="keyword">if</span> last_isnum == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">res</span> += <span class="string">' '</span></span><br><span class="line">            <span class="keyword">res</span> += temp</span><br><span class="line">            temp = t.<span class="keyword">pop</span>()</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:								   #其他操作符处理</span><br><span class="line">        <span class="keyword">while</span> <span class="variable">t:</span></span><br><span class="line">            top = t.<span class="keyword">pop</span>()</span><br><span class="line">            <span class="keyword">if</span> top <span class="keyword">is</span> not <span class="string">'('</span> <span class="built_in">and</span> operator[i] &lt;= operator[top]:</span><br><span class="line">                <span class="keyword">if</span> last_isnum == <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">res</span> += <span class="string">' '</span></span><br><span class="line">                <span class="keyword">res</span> += top</span><br><span class="line">                pass</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                t.<span class="keyword">append</span>(top)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        t.<span class="keyword">append</span>(i)</span><br><span class="line">        last_isnum = <span class="number">0</span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">while</span> <span class="variable">t:</span></span><br><span class="line">    <span class="keyword">res</span> += <span class="string">' '</span>+t.<span class="keyword">pop</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>(<span class="keyword">res</span>.strip())</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="number">1</span>+(<span class="number">2</span>-<span class="number">3</span>)/<span class="number">4</span>-<span class="number">5</span>/<span class="number">67</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> - <span class="number">4</span> / + <span class="number">5</span> <span class="number">67</span> / -</span><br></pre></td></tr></table></figure></p>
+<p>代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># 中缀转后缀</span><br><span class="line">s = input()</span><br><span class="line">t = []</span><br><span class="line">res = &apos;&apos;</span><br><span class="line">operator = &#123;</span><br><span class="line">    &apos;+&apos;: 0,</span><br><span class="line">    &apos;-&apos;: 0,</span><br><span class="line">    &apos;*&apos;: 1,</span><br><span class="line">    &apos;/&apos;: 1,</span><br><span class="line">    &#125;</span><br><span class="line">last_isnum = 0</span><br><span class="line"></span><br><span class="line">for i in s:</span><br><span class="line">    </span><br><span class="line">    if i not in [&apos;+&apos;,&apos;-&apos;,&apos;*&apos;,&apos;/&apos;,&apos;(&apos;,&apos;)&apos;]: #数字直接输出</span><br><span class="line">        if last_isnum:</span><br><span class="line">            res += i</span><br><span class="line">        else:</span><br><span class="line">            res += &apos; &apos;+i</span><br><span class="line">        last_isnum = 1</span><br><span class="line">    elif i == &apos;(&apos;:						   #处理左括号</span><br><span class="line">        last_isnum = 0</span><br><span class="line">        t.append(i)</span><br><span class="line">    elif i == &apos;)&apos;:						   #处理右括号</span><br><span class="line">        temp = t.pop()</span><br><span class="line">        while temp is not &apos;(&apos;:</span><br><span class="line">            if last_isnum == 1:</span><br><span class="line">                res += &apos; &apos;</span><br><span class="line">            res += temp</span><br><span class="line">            temp = t.pop()</span><br><span class="line">        last_isnum = 0</span><br><span class="line">    else:								   #其他操作符处理</span><br><span class="line">        while t:</span><br><span class="line">            top = t.pop()</span><br><span class="line">            if top is not &apos;(&apos; and operator[i] &lt;= operator[top]:</span><br><span class="line">                if last_isnum == 1:</span><br><span class="line">                    res += &apos; &apos;</span><br><span class="line">                res += top</span><br><span class="line">                pass</span><br><span class="line">            else:</span><br><span class="line">                t.append(top)</span><br><span class="line">                break</span><br><span class="line">        t.append(i)</span><br><span class="line">        last_isnum = 0</span><br><span class="line">   </span><br><span class="line">while t:</span><br><span class="line">    res += &apos; &apos;+t.pop()</span><br><span class="line"></span><br><span class="line">print(res.strip())</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; 1+(2-3)/4-5/67</span><br><span class="line">1 2 3 - 4 / + 5 67 / -</span><br></pre></td></tr></table></figure></p>
 <h2 id="后缀表达式转中缀表达式"><a href="#后缀表达式转中缀表达式" class="headerlink" title="后缀表达式转中缀表达式"></a>后缀表达式转中缀表达式</h2><p>以表达式<code>1 2 3 - 4 / + 5 67 / -</code>为例<br>顺序读入表达式，遵循以下规则：</p>
 <ul>
 <li>遇到非运算符，直接入栈</li>
-<li>遇到运算符，从栈中弹出最上层两个元素，并与运算符组合，将结果入栈<br>代码实现：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 后缀转中缀</span><br><span class="line"><span class="keyword">res</span> = <span class="number">0</span></span><br><span class="line">s = <span class="built_in">input</span>()</span><br><span class="line">s = s.<span class="keyword">split</span>(<span class="string">' '</span>)</span><br><span class="line">t = []</span><br><span class="line"><span class="keyword">for</span> i in <span class="variable">s:</span></span><br><span class="line">    <span class="keyword">if</span> i not in [<span class="string">'+'</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'/'</span>]:</span><br><span class="line">        t.<span class="keyword">append</span>(i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        temp1 = t.<span class="keyword">pop</span>()</span><br><span class="line">        temp2 = t.<span class="keyword">pop</span>()</span><br><span class="line">        <span class="keyword">if</span> i == <span class="string">'+'</span>:</span><br><span class="line">            temp = <span class="string">'('</span>+temp2+<span class="string">'+'</span>+temp1+<span class="string">')'</span></span><br><span class="line">        elif i == <span class="string">'-'</span>:</span><br><span class="line">            temp = <span class="string">'('</span>+temp2+<span class="string">'-'</span>+temp1+<span class="string">')'</span></span><br><span class="line">        elif i == <span class="string">'*'</span>:</span><br><span class="line">            temp = temp2+<span class="string">'*'</span>+temp1</span><br><span class="line">        elif i == <span class="string">'/'</span>:</span><br><span class="line">            temp = temp2+<span class="string">'/'</span>+temp1</span><br><span class="line">        t.<span class="keyword">append</span>(temp)</span><br><span class="line">    <span class="keyword">print</span>(t)</span><br><span class="line"><span class="keyword">print</span>(t.<span class="keyword">pop</span>())</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> - <span class="number">4</span> / + <span class="number">5</span> <span class="number">67</span> / -</span><br><span class="line">((<span class="number">1</span>+(<span class="number">2</span>-<span class="number">3</span>)/<span class="number">4</span>)-<span class="number">5</span>/<span class="number">67</span>)</span><br></pre></td></tr></table></figure></li>
+<li>遇到运算符，从栈中弹出最上层两个元素，并与运算符组合，将结果入栈<br>代码实现：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 后缀转中缀</span><br><span class="line">res = 0</span><br><span class="line">s = input()</span><br><span class="line">s = s.split(&apos; &apos;)</span><br><span class="line">t = []</span><br><span class="line">for i in s:</span><br><span class="line">    if i not in [&apos;+&apos;,&apos;-&apos;,&apos;*&apos;,&apos;/&apos;]:</span><br><span class="line">        t.append(i)</span><br><span class="line">    else:</span><br><span class="line">        temp1 = t.pop()</span><br><span class="line">        temp2 = t.pop()</span><br><span class="line">        if i == &apos;+&apos;:</span><br><span class="line">            temp = &apos;(&apos;+temp2+&apos;+&apos;+temp1+&apos;)&apos;</span><br><span class="line">        elif i == &apos;-&apos;:</span><br><span class="line">            temp = &apos;(&apos;+temp2+&apos;-&apos;+temp1+&apos;)&apos;</span><br><span class="line">        elif i == &apos;*&apos;:</span><br><span class="line">            temp = temp2+&apos;*&apos;+temp1</span><br><span class="line">        elif i == &apos;/&apos;:</span><br><span class="line">            temp = temp2+&apos;/&apos;+temp1</span><br><span class="line">        t.append(temp)</span><br><span class="line">    print(t)</span><br><span class="line">print(t.pop())</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; 1 2 3 - 4 / + 5 67 / -</span><br><span class="line">((1+(2-3)/4)-5/67)</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -417,7 +417,7 @@ var _hmt = _hmt || [];
   <script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
   
   <!-- 不蒜子 -->
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <span id="busuanzi_container_site_uv" style='display:none'>
 	本站总访问量<span id="busuanzi_value_site_uv"></span>次
   </span>
@@ -521,6 +521,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
@@ -529,19 +533,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,19 +557,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,19 +597,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,6 +622,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

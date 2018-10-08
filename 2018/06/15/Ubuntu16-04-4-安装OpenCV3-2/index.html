@@ -239,11 +239,11 @@ var _hmt = _hmt || [];
 </ul>
 <a id="more"></a>
 <hr>
-<p>通过以下命令来安装上述依赖包：<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install build-essential</span><br><span class="line">sudo apt-<span class="built_in">get</span> install cmake git libgtk2<span class="number">.0</span>-<span class="built_in">dev</span> pkg-config libavcodec-<span class="built_in">dev</span> libavformat-<span class="built_in">dev</span> libswscale-<span class="built_in">dev</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install python-<span class="built_in">dev</span> python-numpy libtbb2 libtbb-<span class="built_in">dev</span> libjpeg-<span class="built_in">dev</span> libpng-<span class="built_in">dev</span> libtiff-<span class="built_in">dev</span> libjasper-<span class="built_in">dev</span> libdc1394<span class="number">-22</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="下载OpenCV源码"><a href="#下载OpenCV源码" class="headerlink" title="下载OpenCV源码"></a>下载OpenCV源码</h2><p>1.<a href="http://opencv.org/releases.html" target="_blank" rel="noopener">下载页</a>下载最新稳定版<br>2.从Git Repository获取：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/opencv/opencv.git</span><br><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/opencv/opencv_contrib.git</span><br></pre></td></tr></table></figure></p>
-<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><p>1.创建临时文件夹，用于存放Makefiles等<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br><span class="line"><span class="built_in">cd</span> build</span><br></pre></td></tr></table></figure></p>
-<p>2.配置并编译<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="meta">[&lt;some optional parameters&gt;]</span> &lt;path <span class="keyword">to</span> the OpenCV source directory&gt;</span><br></pre></td></tr></table></figure></p>
-<p>例如：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">    -<span class="ruby">D CMAKE_INSTALL_PREFIX=<span class="regexp">/usr/local</span> \</span></span><br><span class="line"><span class="ruby">    -D INSTALL_PYTHON_EXAMPLES=ON \</span></span><br><span class="line"><span class="ruby">    -D INSTALL_C_EXAMPLES=OFF \</span></span><br><span class="line"><span class="ruby">    -D OPENCV_EXTRA_MODULES_PATH=~<span class="regexp">/opencv_contrib-3.2.0/modules</span> \</span></span><br><span class="line"><span class="ruby">    -D PYTHON_EXCUTABLE=<span class="regexp">/usr/bin</span><span class="regexp">/python \</span></span></span><br><span class="line"><span class="ruby">    -D WITH_CUDA=ON \    <span class="comment"># 使用CUDA</span></span></span><br><span class="line"><span class="ruby">    -D WITH_CUBLAS=ON \</span></span><br><span class="line"><span class="ruby">    -D DCUDA_NVCC_FLAGS=<span class="string">"-D_FORCE_INLINES"</span> \</span></span><br><span class="line"><span class="ruby">    -D CUDA_ARCH_BIN=<span class="string">"9.2"</span> \    <span class="comment"># 使用的CUDA所对应的版本</span></span></span><br><span class="line"><span class="ruby">    -D CUDA_ARCH_PTX=<span class="string">""</span> \</span></span><br><span class="line"><span class="ruby">    -D CUDA_FAST_MATH=ON \    <span class="comment"># 计算速度更快但是相对不精确</span></span></span><br><span class="line"><span class="ruby">    -D WITH_TBB=ON \</span></span><br><span class="line"><span class="ruby">    -D WITH_V4L=ON \</span></span><br><span class="line"><span class="ruby">    -D WITH_QT=ON \    <span class="comment"># 如果qt未安装可以删去此行;若因为未正确安装qt导致的Qt5Gui报错，可将build内文件全部删除后重新cmake，具体可以参考[这里](http://stackoverflow.com/questions/17420739/opencv-2-4-5-and-qt5-error-s)</span></span></span><br><span class="line"><span class="ruby">    -D WITH_GTK=ON \</span></span><br><span class="line"><span class="ruby">    -D WITH_OPENGL=ON \</span></span><br><span class="line"><span class="ruby">    -D BUILD_EXAMPLES=ON ~<span class="regexp">/opencv</span></span></span><br></pre></td></tr></table></figure></p>
+<p>通过以下命令来安装上述依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br><span class="line">sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br></pre></td></tr></table></figure></p>
+<h2 id="下载OpenCV源码"><a href="#下载OpenCV源码" class="headerlink" title="下载OpenCV源码"></a>下载OpenCV源码</h2><p>1.<a href="http://opencv.org/releases.html" target="_blank" rel="noopener">下载页</a>下载最新稳定版<br>2.从Git Repository获取：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/opencv/opencv.git</span><br><span class="line">git clone https://github.com/opencv/opencv_contrib.git</span><br></pre></td></tr></table></figure></p>
+<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><p>1.创建临时文件夹，用于存放Makefiles等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/opencv</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure></p>
+<p>2.配置并编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake [&lt;some optional parameters&gt;] &lt;path to the OpenCV source directory&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">    -D CMAKE_INSTALL_PREFIX=/usr/local \</span><br><span class="line">    -D INSTALL_PYTHON_EXAMPLES=ON \</span><br><span class="line">    -D INSTALL_C_EXAMPLES=OFF \</span><br><span class="line">    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.2.0/modules \</span><br><span class="line">    -D PYTHON_EXCUTABLE=/usr/bin/python \</span><br><span class="line">    -D WITH_CUDA=ON \    # 使用CUDA</span><br><span class="line">    -D WITH_CUBLAS=ON \</span><br><span class="line">    -D DCUDA_NVCC_FLAGS=&quot;-D_FORCE_INLINES&quot; \</span><br><span class="line">    -D CUDA_ARCH_BIN=&quot;9.2&quot; \    # 使用的CUDA所对应的版本</span><br><span class="line">    -D CUDA_ARCH_PTX=&quot;&quot; \</span><br><span class="line">    -D CUDA_FAST_MATH=ON \    # 计算速度更快但是相对不精确</span><br><span class="line">    -D WITH_TBB=ON \</span><br><span class="line">    -D WITH_V4L=ON \</span><br><span class="line">    -D WITH_QT=ON \    # 如果qt未安装可以删去此行;若因为未正确安装qt导致的Qt5Gui报错，可将build内文件全部删除后重新cmake，具体可以参考[这里](http://stackoverflow.com/questions/17420739/opencv-2-4-5-and-qt5-error-s)</span><br><span class="line">    -D WITH_GTK=ON \</span><br><span class="line">    -D WITH_OPENGL=ON \</span><br><span class="line">    -D BUILD_EXAMPLES=ON ~/opencv</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -420,7 +420,7 @@ var _hmt = _hmt || [];
   <script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
   
   <!-- 不蒜子 -->
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <span id="busuanzi_container_site_uv" style='display:none'>
 	本站总访问量<span id="busuanzi_value_site_uv"></span>次
   </span>
@@ -524,6 +524,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
@@ -532,19 +536,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,19 +560,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">μC/OS-II</a>
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,19 +600,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IO操作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,6 +625,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>
