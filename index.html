@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://blog.archiew.top">
-  <title>Archiew的个人博客</title>
+  <title>Archiew&#39;s blog&#39;</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="archiew&apos;s blog | python">
 <meta name="keywords" content="archiew,blog,Archiew的个人博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Archiew的个人博客">
+<meta property="og:title" content="Archiew&#39;s blog&#39;">
 <meta property="og:url" content="http://blog.archiew.top/index.html">
-<meta property="og:site_name" content="Archiew的个人博客">
+<meta property="og:site_name" content="Archiew&#39;s blog&#39;">
 <meta property="og:description" content="archiew&apos;s blog | python">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archiew的个人博客">
+<meta name="twitter:title" content="Archiew&#39;s blog&#39;">
 <meta name="twitter:description" content="archiew&apos;s blog | python">
   
   
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
 		  <h1 class="header-author"><a href="/">archiew</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">Rome was not built in a day.</p>
+		<p class="header-subtitle">机械 &amp; 软件.</p>
 		
 
 		<nav class="header-menu">
@@ -151,7 +151,7 @@ var _hmt = _hmt || [];
 			  <h1 class="header-author js-header-author">archiew</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Rome was not built in a day.<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>机械 &amp; 软件.<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -307,10 +307,10 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 424字 | 
+				  字数统计 618字 | 
 				 </span>
 				 <span id="word-count">
-				  阅读时长 1分钟
+				  阅读时长 2分钟
 				 </span>
 				</div>
 				
@@ -318,7 +318,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1、系统调用和过程(函数)调用的区别</span><br><span class="line">调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。</span><br><span class="line">被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。</span><br><span class="line">提供方式：过程调用往往由编译系统提供，不同编译系统提供的过程可以不同；系统调用由操作系统提供，一旦操作系统设计好，系统调用的功能、数量种类便固定不变。</span><br><span class="line">调用实现：程序使用一般机器指令(跳转指令)来调用过程(函数)，是在用户态运行的；程序执行系统调用，是通过中断机构来实现，需要从用户态转变到核心态，在管理状态执行，因此，安全性好。</span><br><span class="line"></span><br><span class="line">2、系统调用控制程序的过程</span><br><span class="line">取系统调用号，校验合法性；根据系统调用号定位核心函数地址；根据通用寄存器内容，从用户栈取入口参数；核心函数执行，结果返回。</span><br><span class="line"></span><br><span class="line">3、用户态向内核态转换的情况</span><br><span class="line">一个是程序请求操作系统服务程序；二是程序运行时产生的中断调用。</span><br></pre></td></tr></table></figure>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1、系统调用和过程(函数)调用的区别</span><br><span class="line">调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。</span><br><span class="line">被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。</span><br><span class="line">提供方式：过程调用往往由编译系统提供，不同编译系统提供的过程可以不同；系统调用由操作系统提供，一旦操作系统设计好，系统调用的功能、数量种类便固定不变。</span><br><span class="line">调用实现：程序使用一般机器指令(跳转指令)来调用过程(函数)，是在用户态运行的；程序执行系统调用，是通过中断机构来实现，需要从用户态转变到核心态，在管理状态执行，因此，安全性好。</span><br><span class="line"></span><br><span class="line">2、系统调用控制程序的过程</span><br><span class="line">取系统调用号，校验合法性；根据系统调用号定位核心函数地址；根据通用寄存器内容，从用户栈取入口参数；核心函数执行，结果返回。</span><br><span class="line"></span><br><span class="line">3、用户态向内核态转换的情况</span><br><span class="line">一个是程序请求操作系统服务程序；二是程序运行时产生的中断调用。</span><br><span class="line"></span><br><span class="line">4、Linux的中断处理</span><br><span class="line">&gt; 快中断 &amp; 慢中断</span><br><span class="line">1)处理慢中断前需保存所有寄存器的内容，而快中断处理最初保存现场时，仅要保存那些被常规C 函数修改的寄存器；</span><br><span class="line">2)在慢中断处理时，通常不屏蔽其他中断信号，而快中断处理时会屏蔽所有其他中断；</span><br><span class="line">3)慢中断处理完毕后，通常不立即返回被中断的进程，而是进入调度程序重新进行调度，调度结果未必是被中断的进程运行(是抢先式调度)。而快中断处理完毕后，通常恢复现场返回被中断的进程继续执行(是非抢先式调度)。</span><br></pre></td></tr></table></figure>
 
       
 
@@ -525,11 +525,11 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">μC/OS-II</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">μC/OS-II</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -618,11 +618,11 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">μC/OS-II</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">μC/OS-II</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -711,11 +711,11 @@ var _hmt = _hmt || [];
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">CAN总线</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">CAN总线</a>
         		</li>
       		
 		</ul>
@@ -1251,27 +1251,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">CAN总线</a>
+                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">卷积神经网络</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1287,35 +1275,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cuda</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">嵌入式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1323,11 +1287,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RSS</a>
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">kindle</a>
+                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分享</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-Ubuntu -OpenCV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1335,23 +1307,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">工作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分享</a>
+                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1375,15 +1335,51 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Generator</a>
+                <a href="javascript:void(0)" class="js-tag color3">秋招</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">大疆</a>
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">CAN总线</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">反射机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">视觉识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">卷积神经网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">随机梯度下降</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">kindle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图像分类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1392,6 +1388,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性分类</a>
               </li>
             
             <div class="clearfix"></div>
