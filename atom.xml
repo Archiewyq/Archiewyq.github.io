@@ -45,16 +45,13 @@
     <link href="http://blog.archiew.top/2018/10/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/"/>
     <id>http://blog.archiew.top/2018/10/19/操作系统知识点汇总/</id>
     <published>2018-10-19T02:21:44.000Z</published>
-    <updated>2018-11-21T14:38:15.038Z</updated>
+    <updated>2018-11-22T14:12:39.429Z</updated>
     
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1、系统调用和过程(函数)调用的区别</span><br><span class="line">调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。</span><br><span class="line">被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。</span><br><span class="line">提供方式：过程调用往往由编译系统提供，不同编译系统提供的过程可以不同；系统调用由操作系统提供，一旦操作系统设计好，系统调用的功能、数量种类便固定不变。</span><br><span class="line">调用实现：程序使用一般机器指令(跳转指令)来调用过程(函数)，是在用户态运行的；程序执行系统调用，是通过中断机构来实现，需要从用户态转变到核心态，在管理状态执行，因此，安全性好。</span><br><span class="line"></span><br><span class="line">2、系统调用控制程序的过程</span><br><span class="line">取系统调用号，校验合法性；根据系统调用号定位核心函数地址；根据通用寄存器内容，从用户栈取入口参数；核心函数执行，结果返回。</span><br><span class="line"></span><br><span class="line">3、用户态向内核态转换的情况</span><br><span class="line">一个是程序请求操作系统服务程序；二是程序运行时产生的中断调用。</span><br><span class="line"></span><br><span class="line">4、Linux的中断处理</span><br><span class="line">&gt; 快中断 &amp; 慢中断</span><br><span class="line">1)处理慢中断前需保存所有寄存器的内容，而快中断处理最初保存现场时，仅要保存那些被常规C 函数修改的寄存器；</span><br><span class="line">2)在慢中断处理时，通常不屏蔽其他中断信号，而快中断处理时会屏蔽所有其他中断；</span><br><span class="line">3)慢中断处理完毕后，通常不立即返回被中断的进程，而是进入调度程序重新进行调度，调度结果未必是被中断的进程运行(是抢先式调度)。而快中断处理完毕后，通常恢复现场返回被中断的进程继续执行(是非抢先式调度)。</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>1、系统调用和过程(函数)调用的区别<br>调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。<br>被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。<br>提供方式：过程调用往往由编译系统提供，不同编译系统提供的过程可以不同；系统调用由操作系统提供，一旦操作系统设计好，系统调用的功能、数量种类便固定不变。<br>调用实现：程序使用一般机器指令(跳转指令)来调用过程(函数)，是在用户态运行的；程序执行系统调用，是通过中断机构来实现，需要从用户态转变到核心态，在管理状态执行，因此，安全性好。<br><a id="more"></a></p><p>2、系统调用控制程序的过程<br>取系统调用号，校验合法性；根据系统调用号定位核心函数地址；根据通用寄存器内容，从用户栈取入口参数；核心函数执行，结果返回。</p><p>3、用户态向内核态转换的情况<br>一个是程序请求操作系统服务程序；二是程序运行时产生的中断调用。</p><p>4、Linux的中断处理</p><blockquote><p>快中断 &amp; 慢中断<br>1)处理慢中断前需保存所有寄存器的内容，而快中断处理最初保存现场时，仅要保存那些被常规C 函数修改的寄存器；<br>2)在慢中断处理时，通常不屏蔽其他中断信号，而快中断处理时会屏蔽所有其他中断；<br>3)慢中断处理完毕后，通常不立即返回被中断的进程，而是进入调度程序重新进行调度，调度结果未必是被中断的进程运行(是抢先式调度)。而快中断处理完毕后，通常恢复现场返回被中断的进程继续执行(是非抢先式调度)。<br>底半处理<br>这种一部分工作由核心代码在关中断状态下处理，另外一部分工作由中断服务程序在开中断状态下来处理的方式称为底半处理(bottom half handling)，Linux 用底半处理机制来实现中断事件的快速处理。</p></blockquote><p>5、进程上下文<br>操作系统中把进程物理实体和支持进程运行的环境合称为进程上下文（process context）。在操作系统中，进程上下文包括三个组成部分：</p><blockquote><p>用户级上下文（user -level context）：由用户进程的程序块、用户数据块（含共享数据块）和用户堆栈组成的进程地址空间。<br>系统级上下文（system -level context）：包括进程的标识信息、现场信息和控制信息，进程环境块，以及系统堆栈等组成的进程地址空间。<br>寄存器上下文（register context）：由程序状态字寄存器、各类控制寄存器、地址寄存器、通用寄存器、用户栈指针等组成。<br><img src="http://pic.blog.archiew.top/image/用户进程在虚拟内存中的组.png" alt="用户进程在虚拟内存中的组"></p></blockquote>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
-      
+      &lt;p&gt;1、系统调用和过程(函数)调用的区别&lt;br&gt;调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。&lt;br&gt;被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。&lt;br&gt;提供方式：过程调用往往由编译系统提供，不同编译系统提供的过程可以不同；系统调用由操作系统提供，一旦操作系统设计好，系统调用的功能、数量种类便固定不变。&lt;br&gt;调用实现：程序使用一般机器指令(跳转指令)来调用过程(函数)，是在用户态运行的；程序执行系统调用，是通过中断机构来实现，需要从用户态转变到核心态，在管理状态执行，因此，安全性好。&lt;br&gt;
     
     </summary>
     
@@ -112,9 +109,9 @@
     
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
     
   </entry>
   
@@ -136,9 +133,9 @@
     
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
     
   </entry>
   
@@ -211,9 +208,9 @@
     
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="大疆" scheme="http://blog.archiew.top/tags/%E5%A4%A7%E7%96%86/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
