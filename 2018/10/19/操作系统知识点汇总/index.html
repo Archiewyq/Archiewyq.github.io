@@ -17,7 +17,8 @@
 <meta property="og:description" content="1、系统调用和过程(函数)调用的区别调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。提供方式：过程调用往往由编译系统提供，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pic.blog.archiew.top/image/用户进程在虚拟内存中的组.png">
-<meta property="og:updated_time" content="2018-11-22T14:12:39.429Z">
+<meta property="og:image" content="http://pic.blog.archiew.top/image/操作系统的队列管理和状.png">
+<meta property="og:updated_time" content="2018-11-22T14:55:04.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统知识点汇总">
 <meta name="twitter:description" content="1、系统调用和过程(函数)调用的区别调用形式：过程（函数）使用一般调用指令，其转向地址是固定不变的，包含在跳转语句中；但系统调用中不包含处理程序入口，而仅仅提供功能号，按功能号调用。被调用代码位置不同：过程调用是一种静态调用，调用者和调用代码在同一程序内，经过连接编辑后作为目标代码一部分。系统调用是一种动态调用，系统调用的处理代码在调用程序之外(操作系统中)。提供方式：过程调用往往由编译系统提供，">
@@ -215,10 +216,10 @@ var _hmt = _hmt || [];
         
 				<div class="post-count">
 				 <span id="word-count">
-				  字数统计 872字 | 
+				  字数统计 1,214字 | 
 				 </span>
 				 <span id="word-count">
-				  阅读时长 3分钟
+				  阅读时长 4分钟
 				 </span>
 				</div>
 				
@@ -237,6 +238,8 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>用户级上下文（user -level context）：由用户进程的程序块、用户数据块（含共享数据块）和用户堆栈组成的进程地址空间。<br>系统级上下文（system -level context）：包括进程的标识信息、现场信息和控制信息，进程环境块，以及系统堆栈等组成的进程地址空间。<br>寄存器上下文（register context）：由程序状态字寄存器、各类控制寄存器、地址寄存器、通用寄存器、用户栈指针等组成。<br><img src="http://pic.blog.archiew.top/image/用户进程在虚拟内存中的组.png" alt="用户进程在虚拟内存中的组"></p>
 </blockquote>
+<p>6、进程队列及其管理<br><img src="http://pic.blog.archiew.top/image/操作系统的队列管理和状.png" alt="操作系统的队列管理和状"></p>
+<p>7、进程切换与模式切换<br><em>中断是激活操作系统的唯一方法。</em><br>内核在四种情况下允许发生上下文切换：<br>(1) 当进程进入等待态时；<br>(2) 当进程完成其系统调用返回用户态但不是最有资格获得CPU 时；<br>(3) 当内核完成中断处理，进程返回用户态但不是最有资格获得CPU 时；<br>(4) 当进程执行结束时。<br>用户态到核心态或者核心态到用户态的转变是CPU 模式的改变，而不是进程上下文切换。<br>当中断发生的时候，暂时中断正在执行的用户进程，把进程从用户状态切换到内核状态，去执行操作系统例行程序以获得服务，这就是一次模式切换，注意，此时仍在该进程的上下文中执行，仅仅模式变了。内核在被中断了的进程的上下文中对这个中断事件作处理，即使该中断事件可能不是此进程引起的。<br>模式切换的步骤如下：<br>􀁺 保存被中断进程的处理器现场信息。<br>􀁺 根据中断号置程序计数器。<br>􀁺 把用户状态切换到内核状态，以便执行中断处理程序。</p>
 
       
 
@@ -692,7 +695,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">个人博客</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">机械工程专业，嵌入式方向，业余coder</div>
   	  	
     	</section>
     
