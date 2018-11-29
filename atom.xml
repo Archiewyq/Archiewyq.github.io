@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.archiew.top/"/>
-  <updated>2018-11-05T08:23:34.252Z</updated>
+  <updated>2018-11-29T14:21:41.879Z</updated>
   <id>http://blog.archiew.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AES加密算法详解</title>
+    <link href="http://blog.archiew.top/2018/11/29/AES%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://blog.archiew.top/2018/11/29/AES加密算法详解/</id>
+    <published>2018-11-29T12:34:57.000Z</published>
+    <updated>2018-11-29T14:21:41.879Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于AES加密的讲解这里不再叙述，详细内容可参见《密码编码学与网络安全——原理与实践(第六版)》第5章节。这里从代码实现的角度给出AES加密算法的讲解。<br><a id="more"></a><br>首先，给出AES加密算法的总体结构<br><img src="http://pic.blog.archiew.top/image/AES加密过程.PNG" alt="AES加密过程"><br>AES加密分为两部分：迭代变换和密钥扩展。迭代变换具体来讲是下面这样一个过程：<br><img src="http://pic.blog.archiew.top/image/AES加密-迭代变换.PNG" alt="AES加密-迭代变换"></p><blockquote><p>轮密钥加(AddRoundKey)：明文状态字节与对应轮密钥的异或(Xor)操作；<br>  字节代换(Subsitute Bytes)：明文状态字节的非线性变换，实际上就是所谓的S盒映射；<br>  行移位(ShiftRows)：明文状态字节的简单置换；<br>  列混淆(MixColumns)：一个矩阵乘积(定义在有限域GF(2^8)上的矩阵运算)。</p></blockquote><p>上述步骤中要实现构造S盒，S盒的构造过程如下图：<br><img src="http://pic.blog.archiew.top/image/S盒构造过程.PNG" alt="S盒构造过程"><br>注意到上图中需要在GF(2^8)内求逆以及矩阵运算，包括迭代变换过程中的运算操作，并非简单的实数集上的算术运算，实际上涉及到数论和有限域的一些概念，关于这部分知识还是推荐参考《密码编码学与网络安全——原理与实践(第六版)一书。这里仅从运用的角度进行一些简单讲解，下文所提到的运算操作，在不指明的情况下都默认为在有限域GF(2^8)上的运算。<br>有限域可以理解为有限个元素的集合，包含加减乘除运算，并且运算必须满足以下条件：</p><blockquote><p>1、封闭性：若任意两元素a·b∈GF(q)，则有a+b∈GF(q) a·b∈GF(q);<br>  2、结合性：若任意a、b、c∈GF(q)，则有(a+b)+c=a+(b+c)，(a·b)c=a(b·c);<br>  3、交换律：若任意a、b∈GF(q)，则有a+b=b+a，a·b=b·a;<br>  4、加法单位元：GF(q)中存在一个元素0，使得对于GF(q)中的任意元素a+0=0+a=a;<br>  5、加法逆元：对于GF(q)中的任意元素a，GF(q)中一定存在元素-a，使得a+(-a)=(-a)+a=0。</p></blockquote><p>AES算法中涉及到的有限域GF(2^8)是一种特殊的有限域，在该有限域内加减运算等效于模2加法运算(或者说等效于异或运算)，乘法运算等效于多项式(将元素对应的二进制作为多项式对应项的系数)乘法运算，具体原因及讲解参见推荐书籍，这里只说结论。<br>GF(2^8)上的两个元素a,b的乘法运算定义如下：<br>假设，元素a、b对应的多项式分别为$f(x)=\sum_{i=0}^7{a_ix^i}$和$g(x)=\sum_{i=0}^7{b_ix^i}$，则有限域GF(2^8)上定义的乘法运算为$h(x)=f(x)<em>g(x)$(注意在合并同类项时的加减法是有限域GF(2^8)内的运算，即模2加)，结果对应的二进制位是多项式h(x)的各项系数。注意到多项式f(x)和g(x)相乘有可能结果次数会超过7次，对于这种情况，需要将结果模除一个8次既约多项式(既约多项式：不可进行因式分解的多项式，这样的8次既约多项式总共有30多个，AES算法只取其中一个$m(x)=x^8+x^4+x^3+x+1$)以使得结果次数不超过7<!-- ，模除的概念后面会讲到 -->。这样的定义对于计算机实现显然无从下手，所以有另外的计算机实现的方式。<br>只考虑乘法x</em>f(x)，则有$x<em>f(x)=\sum_{i=0}^7{a_ix^{i+1}}$，由上述定义规则，$$x</em>f(x)=(a_7x^8+a_6x^7+a_5x^6+a_4x^5+a_3x^4+a_2x^3+a_1x^2+a_0x) mod m(x)$$，那么就有：<br>$$x<em>f(x) = \begin{cases} (a_6a_5a_4a_3a_2a_1a_00), &amp; \text{$a_7=0$} \ (a_6a_5a_4a_3a_2a_1a_00)\oplus(00011011), &amp; \text{$a_7=0$} \end{cases}$$<br>这样对于其他乘法运算，我们可以组合的来处理，比如：$f(x)=x^6+x^4+x^2+x+1,g(x)=x^7+x+1,m(x)=x^8+x^4+x^3+x+1$，计算如下：<br>$$f(x)</em>g(x)=f(x)<em>x^7\oplus f(x)</em>x\oplus f(x)$$，对于像$x^7*f(x)$，可以通过迭代地乘x来实现。GF(2^8)上的乘法运算规则如上，具体不再多述，下面给出GF(s^8)上乘法运算的代码实现：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//file: gf_math.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> byte;<span class="comment">//GF(2^8)内的元素都是8位的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//计算f(x)*x^n</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> byte <span class="title">multi_x_n</span><span class="params">(<span class="keyword">const</span> byte a, <span class="keyword">const</span> byte n)</span></span>&#123;</span><br><span class="line">byte temp=x,nn=n;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(--nn)&#123;</span><br><span class="line"><span class="keyword">if</span>(temp&amp;<span class="number">0x80</span>)</span><br><span class="line">temp = (temp&lt;&lt;<span class="number">1</span>)^<span class="number">0x1B</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">temp = temp&lt;&lt;<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//计算f(x)*g(x)</span></span><br><span class="line"><span class="function">byte <span class="title">multi</span><span class="params">(<span class="keyword">const</span> byte a, <span class="keyword">const</span> byte b)</span></span>&#123;</span><br><span class="line">byte s=<span class="number">0</span>,i=<span class="number">0</span>;</span><br><span class="line">byte temp=b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(temp)&#123;</span><br><span class="line">i++;</span><br><span class="line"><span class="keyword">if</span>(temp&amp;<span class="number">0x01</span>)</span><br><span class="line">s ^= multi_x_n(a, i);</span><br><span class="line">temp &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><!-- GF(2^8)上的两个元素a,b的模除运算定义如下：![有限域模除运算](http://pic.blog.archiew.top/image/有限域模除运算.PNG)上述计算过程和实数集上的多项式除法相差不大，注意这里的加减运算还是模2加(异或运算)，下面的代码给出了GF(2^8)上的模除实现：```c//file: gf_math.c#include<stdio.h>typedef unsigned char byte;    //GF(2^8)内的元素都是8位的//计算x对应的二进制最高位1的位置static byte indexof_top1(const int x){    byte i=0;    int temp=x;    if(0==x)        return 0;    while(temp>>=1)        i++;    return i;}//a mod b = byte div(const int a, const byte b, int *r){    byte len=indexof_top1(a)-indexof_top1(b);    int temp_a=a;    byte temp_b=b;    if(a<b){        *r = temp_a;        return 0;    }    temp_a = temp_a^(temp_b<<len);    return (1<<len) | div(temp_a, temp_b, r);}``` -->]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;关于AES加密的讲解这里不再叙述，详细内容可参见《密码编码学与网络安全——原理与实践(第六版)》第5章节。这里从代码实现的角度给出AES加密算法的讲解。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="AES加密" scheme="http://blog.archiew.top/tags/AES%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Django实现简单模糊搜索</title>
@@ -490,29 +512,6 @@
       <category term="Python" scheme="http://blog.archiew.top/tags/Python/"/>
     
       <category term="Generator" scheme="http://blog.archiew.top/tags/Generator/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</title>
-    <link href="http://blog.archiew.top/2018/05/15/%E5%90%8C%E6%AD%A5IO%E3%80%81%E5%BC%82%E6%AD%A5IO%E3%80%81%E9%98%BB%E5%A1%9EIO%E3%80%81%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/"/>
-    <id>http://blog.archiew.top/2018/05/15/同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别/</id>
-    <published>2018-05-15T03:22:48.000Z</published>
-    <updated>2018-05-16T14:32:14.930Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h2><p>同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。</p><blockquote><p>POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO<br>按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞IO呢？先来说说几种常见的IO模型吧。</p></blockquote><a id="more"></a><h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p>这里统一使用Linux下的系统调用recv作为例子，它用于从套接字上接收一个消息，因为是一个系统调用，所以调用时会从用户进程空间切换到内核空间运行一段时间再切换回来。默认情况下recv会等到网络数据到达并且复制到用户进程空间或者发生错误时返回，而第4个参数flags可以让它马上返回。</p><h3 id="阻塞IO模型"><a href="#阻塞IO模型" class="headerlink" title="阻塞IO模型"></a>阻塞IO模型</h3><p>使用recv的默认参数一直等数据直到拷贝到用户空间，这段时间内进程始终阻塞。A同学用杯子装水，打开水龙头装满水然后离开。这一过程就可以看成是使用了阻塞IO模型，因为如果水龙头没有水，他也要等到有水并装满杯子才能离开去做别的事情。很显然，这种IO模型是同步的。<br><img src="http://image.euphie.net/2017-09-24-23-18-01.png" alt="阻塞式I/O模型"></p><h3 id="非阻塞IO模型"><a href="#非阻塞IO模型" class="headerlink" title="非阻塞IO模型"></a>非阻塞IO模型</h3><p>改变flags，让recv不管有没有获取到数据都返回，如果没有数据那么一段时间后再调用recv看看，如此循环。B同学也用杯子装水，打开水龙头后发现没有水，它离开了，过一会他又拿着杯子来看看……在中间离开的这些时间里，B同学离开了装水现场(回到用户进程空间)，可以做他自己的事情。这就是非阻塞IO模型。但是它只有是检查无数据的时候是非阻塞的，在数据到达的时候依然要等待复制数据到用户空间(等着水将水杯装满)，因此它还是同步IO。<br><img src="http://image.euphie.net/2017-09-24-23-19-53.png" alt="非阻塞式I/O模型"></p><h3 id="IO复用模型"><a href="#IO复用模型" class="headerlink" title="IO复用模型"></a>IO复用模型</h3><p>这里在调用recv前先调用select或者poll，这2个系统调用都可以在内核准备好数据(网络数据到达内核)时告知用户进程，这个时候再调用recv一定是有数据的。因此这一过程中它是阻塞于select或poll，而没有阻塞于recv，有人将非阻塞IO定义成在读写操作时没有阻塞于系统调用的IO操作(不包括数据从内核复制到用户空间时的阻塞，因为这相对于网络IO来说确实很短暂)，如果按这样理解，这种IO模型也能称之为非阻塞IO模型，但是按POSIX来看，它也是同步IO，那么也和楼上一样称之为同步非阻塞IO吧。<br>这种IO模型比较特别，分个段。因为它能同时监听多个文件描述符(fd)。这个时候C同学来装水，发现有一排水龙头，舍管阿姨告诉他这些水龙头都还没有水，等有水了告诉他。于是等啊等(select调用中)，过了一会阿姨告诉他有水了，但不知道是哪个水龙头有水，自己看吧。于是C同学一个个打开，往杯子里装水(recv)。这里再顺便说说鼎鼎大名的epoll(高性能的代名词啊)，epoll也属于IO复用模型，主要区别在于舍管阿姨会告诉C同学哪几个水龙头有水了，不需要一个个打开看(当然还有其它区别)。<br><img src="http://image.euphie.net/2017-09-24-23-21-54.png" alt="I/O复用模型"></p><h3 id="信号驱动IO模型"><a href="#信号驱动IO模型" class="headerlink" title="信号驱动IO模型"></a>信号驱动IO模型</h3><p>通过调用sigaction注册信号函数，等内核数据准备好的时候系统中断当前程序，执行信号函数(在这里面调用recv)。D同学让舍管阿姨等有水的时候通知他(注册信号函数)，没多久D同学得知有水了，跑去装水。是不是很像异步IO？很遗憾，它还是同步IO(省不了装水的时间啊)。<br><img src="http://image.euphie.net/2017-09-24-23-22-38.png" alt="信号驱动I/O模型"></p><h3 id="异步IO模型"><a href="#异步IO模型" class="headerlink" title="异步IO模型"></a>异步IO模型</h3><p>调用aio_read，让内核等数据准备好，并且复制到用户进程空间后执行事先指定好的函数。E同学让舍管阿姨将杯子装满水后通知他。整个过程E同学都可以做别的事情(没有recv)，这才是真正的异步IO。<br><img src="http://image.euphie.net/2017-09-24-23-23-36.png" alt="异步I/O模型"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>IO分两阶段：</p><blockquote><p>1.数据准备阶段<br>  2.内核空间复制回用户进程缓冲区阶段</p></blockquote><p>一般来讲：阻塞IO模型、非阻塞IO模型、IO复用模型(select/poll/epoll)、信号驱动IO模型都属于同步IO，因为阶段2是阻塞的(尽管时间很短)。只有异步IO模型是符合POSIX异步IO操作含义的，不管在阶段1还是阶段2都可以干别的事。</p><h4 id="ps：以上图片均截自UNIX网络编程卷1。"><a href="#ps：以上图片均截自UNIX网络编程卷1。" class="headerlink" title="ps：以上图片均截自UNIX网络编程卷1。"></a>ps：以上图片均截自UNIX网络编程卷1。</h4><p>—转载自：<a href="http://www.cnblogs.com/euphie/p/6376508.html" target="_blank" rel="noopener">同步IO、异步IO、阻塞IO、非阻塞IO之间的联系与区别</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;POSIX&quot;&gt;&lt;a href=&quot;#POSIX&quot; class=&quot;headerlink&quot; title=&quot;POSIX&quot;&gt;&lt;/a&gt;POSIX&lt;/h2&gt;&lt;p&gt;同步IO、异步IO、阻塞IO、非阻塞IO，这几个词常见于各种各样的与网络相关的文章之中，往往不同上下文中它们的意思是不一样的，以致于我在很长一段时间对此感到困惑，所以想写一篇文章整理一下。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;POSIX(可移植操作系统接口)把同步IO操作定义为导致进程阻塞直到IO完成的操作，反之则是异步IO&lt;br&gt;按POSIX的描述似乎把同步和阻塞划等号，异步和非阻塞划等号，但是为什么有的人说同步IO不等于阻塞IO呢？先来说说几种常见的IO模型吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="IO操作" scheme="http://blog.archiew.top/tags/IO%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   
