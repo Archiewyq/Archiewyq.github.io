@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Archiew&#39;s blog&#39;</title>
+  <title>Archiew&#39;s blog</title>
   <icon>https://www.gravatar.com/avatar/51d9bfd6e3a8e42ee493acb38f2ec057</icon>
-  <subtitle>机械 &amp; 软件.</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.archiew.top/"/>
