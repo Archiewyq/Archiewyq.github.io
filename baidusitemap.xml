@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://blog.archiew.top/2018/12/29/%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%80%E5%8F%91%E4%B8%AD%E6%9C%8D%E5%8A%A1%E5%99%A8token%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-29T09:42:36.278Z</lastmod>
+    <data>
+        <display>
+        <title>关于微信公众号开发中的token验证问题</title>
+        <pubTime>2018-12-29T09:30:02.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>微信公众号开发</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.archiew.top/2018/12/16/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%AD%8C%E6%9B%B2%E8%AF%84%E8%AE%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</loc>
     <lastmod>2018-12-21T01:47:34.360Z</lastmod>
     <data>
@@ -11,9 +30,9 @@
         <title>网易云音乐歌曲评论可视化分析</title>
         <pubTime>2018-12-16T13:18:33.000Z</pubTime>
         
-        <tag>学习笔记</tag>
-         
         <tag>Python</tag>
+         
+        <tag>学习笔记</tag>
          
         <tag>爬虫</tag>
          
@@ -480,9 +499,9 @@
         <title>Python反射机制</title>
         <pubTime>2018-05-02T12:55:32.000Z</pubTime>
         
-        <tag>学习笔记</tag>
-         
         <tag>Python</tag>
+         
+        <tag>学习笔记</tag>
          
         <tag>反射机制</tag>
          
