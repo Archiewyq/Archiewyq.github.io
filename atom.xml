@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.archiew.top/"/>
-  <updated>2019-01-06T11:33:04.367Z</updated>
+  <updated>2019-01-06T11:36:23.764Z</updated>
   <id>http://blog.archiew.top/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://blog.archiew.top/2019/01/06/12306%E6%8A%A2%E7%A5%A8%E7%A8%8B%E5%BA%8F/"/>
     <id>http://blog.archiew.top/2019/01/06/12306抢票程序/</id>
     <published>2019-01-06T11:18:51.000Z</published>
-    <updated>2019-01-06T11:33:04.367Z</updated>
+    <updated>2019-01-06T11:36:23.764Z</updated>
     
-    <content type="html"><![CDATA[<p>前几天在一个公众号(Python知识圈)上看到有人用Python做了一个12306的抢票软件，比较感兴趣，就在他的基础上做了一点改进。<br><a id="more"></a><br>大体思路是这样的：利用自动化工具splinter结合chromedriver，自动检测页面元素并操作，登录验证码部分涉及到验证码的识别，为了简单起见，这部分需要人为输入验证码。<br>为了实现抢票，定义了一个抢票类<code>Buy_Tickets</code>，类成员变量存储用户抢票信息，类包含几个方法：</p><blockquote><p><code>start_buy</code>:实现买票功能<br><code>login</code>:实现用户登录<br>‘check_ticket’:实现余票检测<br><code>book_ticket</code>:实现订票<br><code>sendMail</code>:实现邮件通知</p></blockquote><p>支持用户登录，支持设定车次、乘车乘客(多个)、车票类型、乘车日期、车站、接收邮箱和刷票频率。</p>]]></content>
+    <content type="html"><![CDATA[<p>前几天在一个公众号(Python知识圈)上看到有人用Python做了一个12306的抢票软件，比较感兴趣，就在他的基础上做了一点改进。<br><a id="more"></a><br>大体思路是这样的：利用自动化工具splinter结合chromedriver，自动检测页面元素并操作，登录验证码部分涉及到验证码的识别，为了简单起见，这部分需要人为输入验证码。<br>为了实现抢票，定义了一个抢票类<code>Buy_Tickets</code>，类成员变量存储用户抢票信息，类包含几个方法：</p><blockquote><p><code>start_buy</code>:实现买票功能<br><code>login</code>:实现用户登录<br><code>check_ticket</code>:实现余票检测<br><code>book_ticket</code>:实现订票<br><code>sendMail</code>:实现邮件通知</p></blockquote><p>支持用户登录，支持设定车次、乘车乘客(多个)、车票类型、乘车日期、车站、接收邮箱和刷票频率。</p><p><a href="https://github.com/Archiewyq/12306" target="_blank" rel="noopener">源码</a><br><a href="http://kindle.archiew.top/book/2kPQNM/" target="_blank" rel="noopener">可执行文件</a></p>]]></content>
     
     <summary type="html">
     
