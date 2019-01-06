@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://blog.archiew.top/2019/01/06/12306%E6%8A%A2%E7%A5%A8%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2019-01-06T11:33:04.367Z</lastmod>
+    <data>
+        <display>
+        <title>12306抢票程序</title>
+        <pubTime>2019-01-06T11:18:51.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>学习笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.archiew.top/2018/12/29/%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%80%E5%8F%91%E4%B8%AD%E6%9C%8D%E5%8A%A1%E5%99%A8token%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2018-12-29T09:42:36.278Z</lastmod>
     <data>
@@ -135,9 +154,9 @@
         <title>μC/OS-II中的任务</title>
         <pubTime>2018-09-13T06:55:04.000Z</pubTime>
         
-        <tag>嵌入式</tag>
-         
         <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
          
         <tag>μC/OS-II</tag>
          
@@ -156,9 +175,9 @@
         <title>μC/OS-II中的数据结构</title>
         <pubTime>2018-09-13T02:55:58.000Z</pubTime>
         
-        <tag>嵌入式</tag>
-         
         <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
          
         <tag>μC/OS-II</tag>
          
@@ -177,11 +196,11 @@
         <title>2019大疆嵌入式软件开发招聘</title>
         <pubTime>2018-07-08T13:10:23.000Z</pubTime>
         
+        <tag>学习笔记</tag>
+         
         <tag>嵌入式</tag>
          
         <tag>大疆</tag>
-         
-        <tag>学习笔记</tag>
          
          
            
@@ -198,9 +217,9 @@
         <title>CAN总线详解</title>
         <pubTime>2018-08-03T01:34:29.000Z</pubTime>
         
-        <tag>嵌入式</tag>
-         
         <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
          
         <tag>CAN总线</tag>
          
@@ -362,9 +381,9 @@
         <title>嵌入式基础知识汇总</title>
         <pubTime>2018-06-19T01:04:51.000Z</pubTime>
         
-        <tag>嵌入式</tag>
-         
         <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
          
          
            
@@ -398,9 +417,9 @@
         <title>嵌入式C语言面试题</title>
         <pubTime>2018-07-04T12:44:30.000Z</pubTime>
         
-        <tag>嵌入式</tag>
-         
         <tag>学习笔记</tag>
+         
+        <tag>嵌入式</tag>
          
          
            
