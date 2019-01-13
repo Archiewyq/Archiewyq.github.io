@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Archiew&#39;s blog">
 <meta property="og:description" content="由于自制的电子书网站需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-13T13:35:05.066Z">
+<meta property="og:updated_time" content="2019-01-13T13:38:12.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django整合Celery实现异步任务">
 <meta name="twitter:description" content="由于自制的电子书网站需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。">
@@ -227,7 +227,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于自制的<a href="http://kindle.archiew.top" target="_blank" rel="noopener">电子书网站</a>需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。<br><a id="more"></a><br><a href="http://docs.celeryproject.org/en/master/index.html" target="_blank" rel="noopener">Celery</a>是一个强大的分布式任务队列，它可以让任务的执行完全脱离主程序，甚至可以被分配到其他的主机上运行，一般被用来实现异步任务(asyn task)和定时任务(crontab)，它的架构组成如下图：<br><a href="http://pic.blog.archiew.top/image/Celery架构示意图.png" target="_blank" rel="noopener">Celery架构示意图</a><br>一个完整的Celery任务包含以下4个模块：</p>
+        <p>由于自制的<a href="http://kindle.archiew.top" target="_blank" rel="noopener">电子书网站</a>需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。<br><a id="more"></a><br><a href="http://docs.celeryproject.org/en/master/index.html" target="_blank" rel="noopener">Celery</a>是一个强大的分布式任务队列，它可以让任务的执行完全脱离主程序，甚至可以被分配到其他的主机上运行，一般被用来实现异步任务(asyn task)和定时任务(crontab)，它的架构组成如下图：<br><a href="http://pic.blog.archiew.top/image/Celery%E6%9E%B6%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE.png" target="_blank" rel="noopener">Celery架构示意图</a><br>一个完整的Celery任务包含以下4个模块：</p>
 <blockquote>
 <p>Task:任务模块，包含异步任务(Async Task)和定时任务(Celery Beat)；<br> Broker:消息中间件，实际上是个任务调度队列，接收任务模块发过来的消息(即任务)，将其存入队列，Celery本身不提供队列服务，需要借助第三方实现，官方推荐使用RabbitMQ和Redis，实际上Mysql、MongoDB等也是可以的；<br> Worker:任务执行模块，负责实时监控消息队列，获取队列中的任务并执行；<br> Backend:任务执行结果存储模块，用以存储任务的执行结果，以供查询。同消息中间件一样，可以使用RabbitMQ和Redis等。</p>
 </blockquote>
