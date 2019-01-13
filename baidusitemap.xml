@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://blog.archiew.top/2019/01/13/Django%E6%95%B4%E5%90%88Celery%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/</loc>
-    <lastmod>2019-01-13T13:38:12.166Z</lastmod>
+    <lastmod>2019-01-13T13:39:58.070Z</lastmod>
     <data>
         <display>
         <title>Django整合Celery实现异步任务</title>
