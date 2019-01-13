@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.archiew.top/"/>
-  <updated>2019-01-06T11:36:23.764Z</updated>
+  <updated>2019-01-13T13:17:28.651Z</updated>
   <id>http://blog.archiew.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django整合Celery实现异步任务</title>
+    <link href="http://blog.archiew.top/2019/01/13/Django%E6%95%B4%E5%90%88Celery%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/"/>
+    <id>http://blog.archiew.top/2019/01/13/Django整合Celery实现异步任务/</id>
+    <published>2019-01-13T10:14:16.000Z</published>
+    <updated>2019-01-13T13:17:28.651Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于自制的<a href="http://kindle.archiew.top" target="_blank" rel="noopener">电子书网站</a>需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。<br><a id="more"></a><br><a href="http://docs.celeryproject.org/en/master/index.html" target="_blank" rel="noopener">Celery</a>是一个强大的分布式任务队列，它可以让任务的执行完全脱离主程序，甚至可以被分配到其他的主机上运行，一般被用来实现异步任务(asyn task)和定时任务(crontab)，它的架构组成如下图：<br><a href="http://pic.blog.archiew.top/image/Celery架构示意图.pngy" target="_blank" rel="noopener">Celery架构示意图</a><br>一个完整的Celery任务包含以下4个模块：</p><blockquote><p>Task:任务模块，包含异步任务(Async Task)和定时任务(Celery Beat)；<br> Broker:消息中间件，实际上是个任务调度队列，接收任务模块发过来的消息(即任务)，将其存入队列，Celery本身不提供队列服务，需要借助第三方实现，官方推荐使用RabbitMQ和Redis，实际上Mysql、MongoDB等也是可以的；<br> Worker:任务执行模块，负责实时监控消息队列，获取队列中的任务并执行；<br> Backend:任务执行结果存储模块，用以存储任务的执行结果，以供查询。同消息中间件一样，可以使用RabbitMQ和Redis等。</p></blockquote><p><strong>本次使用的是Celery的异步任务功能，所以下面着重是异步任务的使用说明。</strong></p><p>一个Celery任务的执行步骤为：</p><blockquote><p>创建一个Celery实例——&gt;启动一个异步任务(通常在业务逻辑层触发)——&gt;任务被发往消息中间件并被调度——&gt;任务执行模块获取任务并执行它——&gt;执行结果被存储。</p></blockquote><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><blockquote><p>CentOS Linux release 7.5.1804 (Core)<br> Django1.11<br> Python3.6<br> Celery3.1.26<br> Django-celery3.2.2<br> RabbitMQ3.3.5(在这里Broker和Backend都使用的是RabbitMQ)</p></blockquote><h2 id="配置Celery环境"><a href="#配置Celery环境" class="headerlink" title="配置Celery环境"></a>配置Celery环境</h2><p>修改Django项目的<code>settings.py</code>文件：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> djcelery</span><br><span class="line"></span><br><span class="line">djcelery.setup_loader() <span class="comment">#加载配置</span></span><br><span class="line">BROKER_URL = <span class="string">'amqp://guest@localhost//'</span>             <span class="comment"># RabbitMQ的配置，如使用的是其他，请做相应配置，下同</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'amqp://guest@localhost//'</span></span><br><span class="line">CELERY_TIMEZONE=<span class="string">'Asia/Shanghai'</span> <span class="comment">#时区设置不对会影响定时任务的执行</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS - (</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">'djcelery'</span>, <span class="comment">#增加djcelery应用</span></span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p><h2 id="创建celery-py文件并修改init-py"><a href="#创建celery-py文件并修改init-py" class="headerlink" title="创建celery.py文件并修改init.py"></a>创建celery.py文件并修改<strong>init</strong>.py</h2><p>在<code>settings.py</code>文件同目录下(也即Django项目文件目录下)创建<code>celery.py</code>文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import  <span class="comment"># 注意必须放在文件最前面</span></span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"><span class="keyword">import</span> kindle.settings</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the default Django settings module for the 'celery' program.</span></span><br><span class="line">os.environ.setdefault(<span class="string">'DJANGO_SETTINGS_MODULE'</span>, <span class="string">'xxx.settings'</span>) <span class="comment"># xxx为Django(注意不是app)项目</span></span><br><span class="line"></span><br><span class="line">app = Celery(<span class="string">'xxx'</span>) <span class="comment"># xxx同上</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Using a string here means the worker doesn't have to serialize</span></span><br><span class="line"><span class="comment"># the configuration object to child processes.</span></span><br><span class="line"><span class="comment"># - namespace='CELERY' means all celery-related configuration keys</span></span><br><span class="line"><span class="comment">#   should have a `CELERY_` prefix.</span></span><br><span class="line">app.config_from_object(<span class="string">'django.conf:settings'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load task modules from all registered Django app configs.</span></span><br><span class="line">app.autodiscover_tasks(<span class="keyword">lambda</span>: xxx.settings.INSTALLED_APPS) <span class="comment"># xxx同上，这句意思是遍历Django项目下所有app下的tasks(也就是说，对于有多个app的Django项目，每个app可以创建自己的tasks)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task(bind=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">debug_task</span><span class="params">(self)</span>:</span></span><br><span class="line">    print(<span class="string">'Request: &#123;0!r&#125;'</span>.format(self.request))</span><br></pre></td></tr></table></figure></p><p>修改同一目录下的<code>__init__.py</code>文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import, unicode_literals</span><br><span class="line"><span class="keyword">from</span> .celery <span class="keyword">import</span> app <span class="keyword">as</span> celery_app</span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">__all__ = (<span class="string">'celery_app'</span>,)</span><br></pre></td></tr></table></figure></p><h2 id="创建tasks-py"><a href="#创建tasks-py" class="headerlink" title="创建tasks.py"></a>创建tasks.py</h2><p>在需要tasks的app目录下创建<code>tasks.py</code>文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> task, platforms</span><br><span class="line"></span><br><span class="line">platforms.C_FORCE_ROOT = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># 编写自己的task</span></span><br><span class="line">    <span class="keyword">return</span> ...</span><br></pre></td></tr></table></figure></p><h2 id="同步数据库"><a href="#同步数据库" class="headerlink" title="同步数据库"></a>同步数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure><h2 id="启动celery-worker进程"><a href="#启动celery-worker进程" class="headerlink" title="启动celery worker进程"></a>启动celery worker进程</h2><p>注意首先还要启动RabbitMQ-server和Django项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py celery worker -c 6 -l debug</span><br></pre></td></tr></table></figure></p><p>启动后通过终端Terminal就可以看到celery的执行效果了。但是一旦断开terminal连接，celery也随之断开，这在实际使用中是不行的，所以还要解决celery后台运行的问题。</p><h2 id="Celery后台运行"><a href="#Celery后台运行" class="headerlink" title="Celery后台运行"></a>Celery后台运行</h2><p>有关Celery后台运行的说明，官方有介绍：<a href="http://docs.celeryproject.org/en/latest/userguide/daemonizing.html" target="_blank" rel="noopener">Daemonization</a>，有多种方法可以实现Celery的后台运行，在这里只使用其中一种方法：<a href="http://docs.celeryproject.org/en/latest/userguide/daemonizing.html#id5" target="_blank" rel="noopener">Generic init-scripts</a><br>首先，创建<code>/etc/init.d/celeryd</code>文件，并写入以下内容：<a href="https://github.com/celery/celery/blob/3.1/extra/generic-init.d/celeryd" target="_blank" rel="noopener">https://github.com/celery/celery/blob/3.1/extra/generic-init.d/celeryd</a><br>然后，创建配置文件<code>/etc/default/celeryd</code>，并写入以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># Names of nodes to start</span><br><span class="line">#   most people will only start one node:</span><br><span class="line">CELERYD_NODES=&quot;worker&quot;</span><br><span class="line">#   but you can also start multiple and configure settings</span><br><span class="line">#   for each in CELERYD_OPTS</span><br><span class="line">#CELERYD_NODES=&quot;worker1 worker2 worker3&quot;</span><br><span class="line">#   alternatively, you can specify the number of nodes to start:</span><br><span class="line">#CELERYD_NODES=10</span><br><span class="line"># Absolute or relative path to the &apos;celery&apos; command:</span><br><span class="line">CELERY_BIN=&quot;xxx/env/bin/celery&quot;         # 需要修改为celery的安装bin路径</span><br><span class="line">#CELERY_BIN=&quot;/virtualenvs/def/bin/celery&quot;</span><br><span class="line"># App instance to use</span><br><span class="line"># comment out this line if you don&apos;t use an app</span><br><span class="line"># CELERY_APP=&quot;celery_tasks.main&quot;  # ====================celery 项目的相对路径</span><br><span class="line"># or fully qualified:</span><br><span class="line">CELERY_APP=&quot;xxx&quot;                        # 修改为Django项目名</span><br><span class="line"># Where to chdir at start.</span><br><span class="line">CELERYD_CHDIR=&quot;xxx&quot;                     # 修改为Django项目路径</span><br><span class="line"># Extra command-line arguments to the worker</span><br><span class="line">CELERYD_OPTS=&quot;--time-limit=300 --concurrency=8&quot;</span><br><span class="line"># Configure node-specific settings by appending node name to arguments:</span><br><span class="line">#CELERYD_OPTS=&quot;--time-limit=300 -c 8 -c:worker2 4 -c:worker3 2 -Ofair:worker1&quot;</span><br><span class="line"># Set logging level to DEBUG</span><br><span class="line">#CELERYD_LOG_LEVEL=&quot;DEBUG&quot;</span><br><span class="line"># %n will be replaced with the first part of the nodename.</span><br><span class="line">CELERYD_LOG_FILE=&quot;/home/Projects/launch_file/scripts/celery_worker.log&quot;</span><br><span class="line">CELERYD_PID_FILE=&quot;/home/Projects/launch_file/scripts/%n.pid&quot;</span><br><span class="line"># Workers should run as an unprivileged user.</span><br><span class="line">#   You need to create this user manually (or you can choose</span><br><span class="line">#   a user/group combination that already exists (e.g., nobody).</span><br><span class="line">CELERYD_USER=&quot;root&quot;</span><br><span class="line">CELERYD_GROUP=&quot;root&quot;</span><br><span class="line"># If enabled pid and log directories will be created if missing,</span><br><span class="line"># and owned by the userid/group configured.</span><br><span class="line">CELERY_CREATE_DIRS=1</span><br></pre></td></tr></table></figure></p><p>然后就可以通过<code>/etc/init.d/celeryd {start|stop|restart|status}</code>命令来实现Celery的启动、停止、重启和状态查询了，这里启动后就可以后台运行了。</p><ul><li>为了避免开机时需要手动启动，可以将启动命令添加为开机执行。</li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/yeyingcai/article/details/78647553" target="_blank" rel="noopener">django+django-celery+celery的整合</a><br><a href="http://docs.celeryproject.org/en/latest/userguide/daemonizing.html" target="_blank" rel="noopener">Celery 4.2.0 documentation</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于自制的&lt;a href=&quot;http://kindle.archiew.top&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;电子书网站&lt;/a&gt;需要新增电子书推送的功能，推送的意思实际上就是发送电子书附件到用户指定的邮箱，推送的过程需要消耗一定的时间，同时考虑到自己的服务器上不存储电子书，需要首先将电子书缓存到本地服务器再执行推送，所以服务器端不能直接同步执行此任务。查了一点资料了解到可以通过Celer来实现此项功能，而网上关于Django和Celery整合的讲解并不清楚，所以在这里做一详细的使用说明记录。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://blog.archiew.top/tags/Python/"/>
+    
+      <category term="Django" scheme="http://blog.archiew.top/tags/Django/"/>
+    
+      <category term="Celery" scheme="http://blog.archiew.top/tags/Celery/"/>
+    
+      <category term="异步任务" scheme="http://blog.archiew.top/tags/%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>12306抢票程序</title>
@@ -32,9 +58,9 @@
     </summary>
     
     
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="Python" scheme="http://blog.archiew.top/tags/Python/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -84,9 +110,9 @@
     </summary>
     
     
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="Python" scheme="http://blog.archiew.top/tags/Python/"/>
+    
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
       <category term="爬虫" scheme="http://blog.archiew.top/tags/%E7%88%AC%E8%99%AB/"/>
     
@@ -207,9 +233,9 @@
     </summary>
     
     
-      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
       <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
     
@@ -231,9 +257,9 @@
     </summary>
     
     
-      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
       <category term="μC/OS-II" scheme="http://blog.archiew.top/tags/%CE%BCC-OS-II/"/>
     
@@ -255,9 +281,9 @@
     </summary>
     
     
-      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
       <category term="CAN总线" scheme="http://blog.archiew.top/tags/CAN%E6%80%BB%E7%BA%BF/"/>
     
@@ -306,11 +332,11 @@
     </summary>
     
     
+      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
       <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
       <category term="大疆" scheme="http://blog.archiew.top/tags/%E5%A4%A7%E7%96%86/"/>
-    
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -384,9 +410,9 @@
     </summary>
     
     
-      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
   </entry>
   
@@ -462,9 +488,9 @@
     </summary>
     
     
-      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
       <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="嵌入式" scheme="http://blog.archiew.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
   </entry>
   
@@ -497,32 +523,6 @@
     
     
       <category term="-Ubuntu -OpenCV" scheme="http://blog.archiew.top/tags/Ubuntu-OpenCV/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>习题</title>
-    <link href="http://blog.archiew.top/2018/05/26/%E4%B9%A0%E9%A2%98/"/>
-    <id>http://blog.archiew.top/2018/05/26/习题/</id>
-    <published>2018-05-26T12:55:12.000Z</published>
-    <updated>2018-07-05T11:23:14.784Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="c-c"><a href="#c-c" class="headerlink" title="c/c++"></a>c/c++</h2><ol><li>找到单向链表中间的元素，如果有两个则取前面那个。<br>分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。<br>本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。<br>为什么要用”大体上”，因为需要考虑几个特殊情况：<blockquote><p>链表长度小于3，此时快指针移动2个节点出问题<br>链表长度为奇数，快指针恰好能够移动到尾节点，此时慢节点就是中间节点<br>链表长度为偶数，快节点无法移动到尾节点(只能移动到尾节点前一节点)，此时慢节点位于链表中间节点之一，且为前面那个</p></blockquote></li></ol><p>类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。</p><a id="more"></a><hr><p>2.统计一个无符号整形数二进制形式中’1’的个数。<br>分析：最先想到的一种方法就是移位+计数，这种情况下最多需要循环次数取决于整形数的bit数。<br>一种较快的方法是依次移除该数二进制形式最右边的1(x&amp;=(x-1))，并计数，这种情况下，循环次数取决于’1’的个数。</p><p>3.What will be the output of the following C code?<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> *p = arr;</span><br><span class="line">*(p++) += <span class="number">1</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>, *p, *(p++));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>分析：本题唯一需要注意的是C中的printf参数是<strong>从右到左压栈</strong>的。</p><p>4.关于编程中内存的常识</p><blockquote><p>栈(stack):存放局部变量、函数参数等，由编译器自动分配与释放<br>  堆(heap) :一般由程序员分配与释放，在c中用malloc申请，在c++中用new申请<br>  全局(静态区)(static):存放全局变量、静态变量。初始化的全局变量和静态变量在一块，未初始化的全局变量和静态变量在另一块，程序结束由系统释放<br>  常量区:存放常量，程序结束由系统释放<br>  代码区:存放代码</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;c-c&quot;&gt;&lt;a href=&quot;#c-c&quot; class=&quot;headerlink&quot; title=&quot;c/c++&quot;&gt;&lt;/a&gt;c/c++&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;找到单向链表中间的元素，如果有两个则取前面那个。&lt;br&gt;分析：类似于”烧绳子”问题：有一节粗细均匀的绳子，完全烧完需要10min，请设法用烧绳子的方法来计时7.5min。关键在于”速度”的控制。&lt;br&gt;本题也可借用该思想：设置快、慢指针，从头节点开始，快指针一次移动2个节点，慢指针按正常方式一次移动1个节点，大体上当快指针移动到链表尽头时，慢指针恰好位于链表中间节点。&lt;br&gt;为什么要用”大体上”，因为需要考虑几个特殊情况：&lt;blockquote&gt;
-&lt;p&gt;链表长度小于3，此时快指针移动2个节点出问题&lt;br&gt;链表长度为奇数，快指针恰好能够移动到尾节点，此时慢节点就是中间节点&lt;br&gt;链表长度为偶数，快节点无法移动到尾节点(只能移动到尾节点前一节点)，此时慢节点位于链表中间节点之一，且为前面那个&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;类似地，还可以倒序找出任何位置节点，比如要找倒数第k个节点，此时只需要让快节点在一开始领先于慢节点k个节点即可，只不过这种情况下，快慢指针移动速度是一样的：都是每次移动1个字节。同样地，也需要单独考虑几种特殊情况，例如链表长度小于k。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="学习笔记" scheme="http://blog.archiew.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
